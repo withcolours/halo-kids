@@ -75,40 +75,26 @@ a.card:active, button.card:active { transform:scale(.98); }
   </button>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
 <script>
-// Firebase 설정
-const firebaseConfig = {
-  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
-  authDomain: "halo-kids.firebaseapp.com",
-  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
-  projectId: "halo-kids",
-  storageBucket: "halo-kids.firebasestorage.app",
-  messagingSenderId: "148528901393",
-  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
-
 // 페이지 로드 시 로그인 상태 검증
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
+  console.log('Checking login status...');
+  if (!localStorage.getItem('currentUser')) {
+    console.log('Not logged in, redirecting to login.html');
+    window.location.href = 'login.html';
+    return;
+  }
+
   // 테마 복원
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 
-  // 로그인 상태 확인
-  if (!localStorage.getItem('currentUser')) {
-    window.location.href = 'login.html';
-    return;
+  // Feather Icons 렌더링
+  if (window.feather) {
+    feather.replace();
   }
-
-  feather.replace();
   updateThemeIcon();
 });
 
@@ -134,18 +120,51 @@ function updateThemeIcon() {
   const icon = document.querySelector('.theme-toggle svg');
   if (icon) {
     icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
-    feather.replace();
+    if (window.feather) {
+      feather.replace();
+    }
   }
 }
 
 // 로그아웃
 async function handleLogout() {
   try {
-    const uid = localStorage.getItem('currentUser');
+    // 간단히 localStorage 삭제하고 login.html로 이동
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
+  } catch (error) {
+    alert('로그아웃 실패했습니다');
+  }
+}
+</script>
 
-    // 활동 로그
-    if (uid) {
-      await db.ref(`userActivity/${uid}`).push({
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
+<script>
+// Firebase 초기화 (SDK 로드 후)
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// 로그아웃 함수 업데이트 (Firebase 사용)
+async function handleLogoutWithFirebase() {
+  try {
+    const userId = localStorage.getItem('currentUser');
+
+    if (userId) {
+      await db.ref(`userActivity/${userId}`).push({
         action: 'logout',
         timestamp: firebase.database.ServerValue.TIMESTAMP
       });
@@ -156,7 +175,11 @@ async function handleLogout() {
     localStorage.removeItem('username');
     window.location.href = 'login.html';
   } catch (error) {
-    alert('로그아웃 실패했습니다');
+    console.error('Logout error:', error);
+    // Firebase 오류라도 로컬 스토리지 삭제하고 이동
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
   }
 }
 </script>
