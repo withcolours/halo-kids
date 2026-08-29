@@ -49,9 +49,9 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:32px; margin:0; fl
     <svg class="item-icon" data-feather="sun" width="20" height="20"></svg>
     <div class="item-text">
       <div class="item-label">어두운 테마</div>
-      <div class="item-sub" id="themeDesc">밝음</div>
+      <div class="item-sub" id="themeDesc">지금은 밝은 테마 · 모든 화면에 바로 적용돼요</div>
     </div>
-    <button class="item-toggle" id="themeToggle" onclick="event.stopPropagation()"></button>
+    <button class="item-toggle" id="themeToggle" onclick="event.stopPropagation(); toggleTheme()"></button>
   </div>
 
   <div class="item" onclick="togglePwForm()">
@@ -114,7 +114,7 @@ window.addEventListener('load', () => {
 
   if (isDark) {
     document.getElementById('themeToggle').classList.add('on');
-    document.getElementById('themeDesc').textContent = '어둠';
+    document.getElementById('themeDesc').textContent = '지금은 어두운 테마 · 모든 화면에 바로 적용돼요';
   }
 
   feather.replace();
@@ -131,7 +131,7 @@ function toggleTheme() {
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
   toggle.classList.toggle('on', next === 'dark');
-  desc.textContent = next === 'dark' ? '어둠' : '밝음';
+  desc.textContent = next === 'dark' ? '지금은 어두운 테마 · 모든 화면에 바로 적용돼요' : '지금은 밝은 테마 · 모든 화면에 바로 적용돼요';
 }
 
 async function handleLogout() {
