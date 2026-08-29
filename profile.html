@@ -53,7 +53,7 @@ input:focus, select:focus { outline:none; border-color:var(--acc); }
 
   <div class="form-group">
     <label>생년</label>
-    <input type="text" id="birthYear" placeholder="2017" inputmode="numeric" pattern="[0-9]*" maxlength="4">
+    <select id="birthYear"><option value="">선택하세요</option></select>
   </div>
 
   <div class="form-group">
@@ -117,26 +117,24 @@ window.addEventListener('load', async () => {
   feather.replace();
 });
 
-// 생년: 숫자만 4자리, 완성되면 나이 자동 계산
-document.getElementById('birthYear').addEventListener('input', (e) => {
-  e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
-  const ageEl = document.getElementById('age');
-  if (e.target.value.length === 4) {
-    ageEl.value = new Date().getFullYear() - parseInt(e.target.value);
-  } else {
-    ageEl.value = '';
+// 생년 연도 목록 (올해 ~ 30년 전) + 선택 시 나이 자동 계산
+(() => {
+  const sel = document.getElementById('birthYear');
+  const thisYear = new Date().getFullYear();
+  for (let y = thisYear; y >= thisYear - 30; y--) {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y + '년';
+    sel.appendChild(o);
   }
-});
+  sel.addEventListener('change', () => {
+    document.getElementById('age').value = sel.value ? (thisYear - parseInt(sel.value)) : '';
+  });
+})();
 
 async function saveProfile() {
   const userId = localStorage.getItem('currentUser');
   const nickname = document.getElementById('nickname').value;
-  const byRaw = document.getElementById('birthYear').value;
-  const birthYear = byRaw ? parseInt(byRaw) : null;
-  if (byRaw && (byRaw.length !== 4 || birthYear < 1990 || birthYear > new Date().getFullYear())) {
-    document.getElementById('message').textContent = '생년은 4자리 연도로 입력하세요 (예: 2017)';
-    return;
-  }
+  const birthYear = parseInt(document.getElementById('birthYear').value) || null;
 
   await db.ref(`users/${userId}`).update({
     nickname: nickname,
