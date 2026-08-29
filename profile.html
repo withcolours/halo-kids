@@ -93,11 +93,11 @@ window.addEventListener('load', async () => {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 
-  const userId = localStorage.getItem('currentUser');
-  if (!userId) {
-    window.location.href = 'login.html';
-    return;
-  }
+  if (!localStorage.getItem('currentUser')) { window.location.href = 'login.html'; return; }
+  firebase.auth().onAuthStateChanged(async (fbUser) => {
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  const userId = fbUser.uid;
+  localStorage.setItem('currentUser', userId);
 
   const username = localStorage.getItem('username');
   document.getElementById('username').value = username;
@@ -116,6 +116,7 @@ window.addEventListener('load', async () => {
   }
 
   feather.replace();
+  });
 });
 
 // 생년 연도 목록 (올해 ~ 30년 전) + 선택 시 나이 자동 계산

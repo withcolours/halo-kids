@@ -145,9 +145,9 @@ const auth = firebase.auth();
 const db = firebase.database();
 
 // 아바타 글자 + 계정 정보 + 관리자 메뉴
-(async () => {
-  const uid = localStorage.getItem('currentUser');
-  if (!uid) return;
+firebase.auth().onAuthStateChanged(async (fbUser) => {
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  const uid = fbUser.uid;
   const username = localStorage.getItem('username') || '';
   document.getElementById('menuBtn').textContent = (username[0] || '?').toUpperCase();
   document.getElementById('ddUsername').textContent = username;
@@ -162,7 +162,7 @@ const db = firebase.database();
       if (window.feather) feather.replace();
     }
   }
-})();
+});
 
 // 로그아웃 (활동 로그 남기고 종료)
 async function handleLogout() {

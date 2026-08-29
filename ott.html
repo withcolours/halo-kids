@@ -671,9 +671,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-window.addEventListener('load', async () => {
-  const userId = localStorage.getItem('currentUser');
-  if (!userId) { window.location.href = 'login.html'; return; }
+window.addEventListener('load', () => {
+  if (!localStorage.getItem('currentUser')) { window.location.href = 'login.html'; return; }
+  firebase.auth().onAuthStateChanged(async (fbUser) => {
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  const userId = fbUser.uid;
 
   const snapshot = await db.ref(`userReadings/${userId}`).once('value');
   const readings = snapshot.val() || {};
@@ -695,6 +697,7 @@ window.addEventListener('load', async () => {
     });
   });
   if (window.__apply) window.__apply();
+  });
 });
 </script>
 

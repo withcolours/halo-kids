@@ -69,10 +69,12 @@ const db = firebase.database();
 const ACTION_KO = { login: '로그인', logout: '로그아웃', signup: '가입', read_book: '책 읽음', watch_ott: '영상 봤음', update_profile: '프로필 수정' };
 const fmt = ts => ts ? new Date(ts).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
 
-window.addEventListener('load', async () => {
-  const userId = localStorage.getItem('currentUser');
-  if (!userId) { window.location.href = 'login.html'; return; }
+window.addEventListener('load', () => {
+  if (!localStorage.getItem('currentUser')) { window.location.href = 'login.html'; return; }
   feather.replace();
+  firebase.auth().onAuthStateChanged(async (fbUser) => {
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  const userId = fbUser.uid;
 
   // 관리자 권한 확인
   const me = (await db.ref(`users/${userId}`).once('value')).val();
@@ -114,6 +116,7 @@ window.addEventListener('load', async () => {
   document.getElementById('actBody').innerHTML = actRows.join('');
   document.getElementById('actLoading').style.display = 'none';
   document.getElementById('actTable').style.display = '';
+  });
 });
 </script>
 </body>
