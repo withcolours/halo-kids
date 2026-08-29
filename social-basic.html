@@ -31,7 +31,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(26px,4vw,40p
 #q { flex:1 1 180px; max-width:280px; font-size:14px; padding:8px 12px; border:1.5px solid var(--line); border-radius:99px; background:var(--card); color:var(--ink); }
 .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(var(--cardw,300px),1fr)); gap:12px; }
 .card { display:flex; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
-.card img { width:76px; height:auto; max-height:108px; object-fit:contain; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,.22); align-self:flex-start; }
+.card img { width:var(--coverw,76px); height:auto; max-height:var(--coverh,108px); object-fit:contain; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,.22); align-self:flex-start; }
 .ct { flex:1; min-width:0; }
 .row1 { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
 .num { font-family:'Jua',sans-serif; font-size:22px; line-height:1; font-variant-numeric:tabular-nums; }
@@ -64,6 +64,8 @@ tr:nth-child(even) td { background:var(--alt); }
 <div style="display:flex; gap:12px; align-items:center; margin-bottom:16px;">
   <button onclick="history.back()" style="width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:20px; flex:0 0 40px;">&larr;</button>
   <h1 style="margin:0; flex:1;">📚 사회 뒤집기 기본편 책 메뉴판</h1>
+  <span id="sizeLabel" style="font-size:12px; color:var(--sub); opacity:0; transition:opacity .3s;"></span>
+  <button id="sizeBtn" style="width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 40px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
   <a href="index.html" title="처음으로" style="width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; display:flex; align-items:center; justify-content:center; color:var(--ink); text-decoration:none; flex:0 0 40px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
 </div>
 <p class="sub">성우 · 초등 사회 학습만화 40권 (표지 이미지는 추후 보완)</p>
@@ -74,7 +76,7 @@ tr:nth-child(even) td { background:var(--alt); }
 <button class="tab" data-t="nums">🔢 분야별 번호표</button>
 </div>
 <div class="pane on" id="menu">
-<div class="tools"><input id="q" type="search" placeholder="책 제목 검색…"><button class="rfb" data-rf="read">✓ 읽은 책만</button><button class="rfb" data-rf="unread">안 읽은 책만</button><span style="margin-left:auto; display:inline-flex; gap:4px;"><button class="szb" data-w="240">작게</button><button class="szb" data-w="300">보통</button><button class="szb" data-w="380">크게</button></span><button class='fb' data-f='사회' style='--cc:#5B7CC4'>🏙️ 사회</button></div>
+<div class="tools"><input id="q" type="search" placeholder="책 제목 검색…"><button class="rfb" data-rf="read">✓ 읽은 책만</button><button class="rfb" data-rf="unread">안 읽은 책만</button><button class='fb' data-f='사회' style='--cc:#5B7CC4'>🏙️ 사회</button></div>
 <div class="grid" id="mg"><div class="card" data-cat="사회" data-no="1">
 <img src="data:image/jpeg;base64,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" alt="지도와 우리 고장 표지" loading="lazy">
 <div class="ct">
@@ -489,6 +491,9 @@ window.__apply = apply;
 (function(){
   var w = localStorage.getItem('cardw') || '300';
   document.documentElement.style.setProperty('--cardw', w + 'px');
+  var cover = {'240':[60,86],'300':[76,108],'380':[132,188]};
+  function setCover(){ var cv = cover[w]; document.documentElement.style.setProperty('--coverw', cv[0]+'px'); document.documentElement.style.setProperty('--coverh', cv[1]+'px'); }
+  setCover();
   document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.szb').forEach(function(b){
       b.classList.toggle('on', b.dataset.w === w);
@@ -543,6 +548,31 @@ window.addEventListener('load', () => {
     if (window.__apply) window.__apply();
   });
 });
+</script>
+<script>
+(function(){
+  var sizes = ['240','300','380'], names = {'240':'작게','300':'보통','380':'크게'};
+  var w = localStorage.getItem('cardw') || '300';
+  if (sizes.indexOf(w) < 0) w = '300';
+  document.documentElement.style.setProperty('--cardw', w + 'px');
+  var cover = {'240':[60,86],'300':[76,108],'380':[132,188]};
+  function setCover(){ var cv = cover[w]; document.documentElement.style.setProperty('--coverw', cv[0]+'px'); document.documentElement.style.setProperty('--coverh', cv[1]+'px'); }
+  setCover();
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('sizeBtn');
+    if (!btn) return;
+    btn.title = '카드 크기: ' + names[w];
+    btn.onclick = function(){
+      w = sizes[(sizes.indexOf(w) + 1) % sizes.length];
+      localStorage.setItem('cardw', w);
+      document.documentElement.style.setProperty('--cardw', w + 'px');
+      setCover();
+      btn.title = '카드 크기: ' + names[w];
+      var lb = document.getElementById('sizeLabel');
+      if (lb) { lb.textContent = names[w]; lb.style.opacity = 1; clearTimeout(lb._t); lb._t = setTimeout(function(){ lb.style.opacity = 0; }, 1200); }
+    };
+  });
+})();
 </script>
 </body>
 </html>
