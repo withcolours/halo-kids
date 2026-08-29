@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>우리집 메뉴판</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="우리집 메뉴판">
+<link rel="apple-touch-icon" href="icon-home.png">
+<meta name="theme-color" content="#FFFDF6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap">
+<style>
+:root { --bg:#FFFDF6; --card:#FFFFFF; --ink:#2A2725; --sub:#8A8378; --line:#E4DCCB; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; } }
+:root[data-theme="dark"] { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:32px 20px 60px; display:flex; flex-direction:column; align-items:center; }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(30px,6vw,44px); margin:16px 0 6px; }
+.sub { color:var(--sub); font-size:15px; margin-bottom:28px; }
+.menu { display:grid; gap:16px; width:100%; max-width:560px; }
+a.card { display:flex; align-items:center; gap:16px; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:18px 20px; text-decoration:none; color:var(--ink); transition:transform .12s; }
+a.card:active { transform:scale(.98); }
+.emo { font-size:40px; }
+.t { font-family:'Jua',sans-serif; font-size:22px; }
+.d { color:var(--sub); font-size:13.5px; margin-top:2px; }
+.tag { margin-left:auto; font-size:12px; font-weight:700; color:#fff; border-radius:99px; padding:4px 10px; white-space:nowrap; }
+</style>
+</head>
+<body>
+<h1>📖 우리집 메뉴판</h1>
+<p class="sub">오늘은 뭘 읽을까, 뭘 볼까? 골라 보세요!</p>
+<div class="menu">
+<a class="card" href="at-series.html"><span class="emo">📚</span><span><span class="t">앗! 시리즈 책 메뉴판</span><br><span class="d">150권 표지 보고 고르기 · 검색 · 분야별</span></span><span class="tag" style="background:#E0742C">책</span></a>
+<a class="card" href="ott.html"><span class="emo">🎬</span><span><span class="t">영어 애니 메뉴판</span><br><span class="d">넷플릭스·디즈니·티빙·쿠팡 59선</span></span><span class="tag" style="background:#3B6FE0">영상</span></a>
+<a class="card" href="ott-list.html"><span class="emo">📋</span><span><span class="t">영어 애니 전체 목록</span><br><span class="d">107편 · 나이/AR/원서 필터 (부모용)</span></span><span class="tag" style="background:#8A8378">목록</span></a>
+</div>
+</body>
+</html>
