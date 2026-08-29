@@ -432,6 +432,17 @@ function setLoading(isLoading) {
     btn.disabled = isLoading;
   });
 }
+// Enter 키로 제출
+['loginUsername', 'loginPassword'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+});
+['signupUsername', 'signupPassword', 'signupPasswordConfirm'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleSignup();
+  });
+});
 </script>
 </body>
 </html>
