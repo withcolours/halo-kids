@@ -190,12 +190,12 @@ button {
   <div class="form-section active" id="loginForm">
     <div class="form-group">
       <label>계정</label>
-      <input type="text" id="loginUsername" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
+      <input type="text" id="loginUsername" maxlength="20" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
       <div class="error-msg" id="loginUsernameError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호</label>
-      <input type="password" autocapitalize="none" autocorrect="off" id="loginPassword" placeholder="최소 5자리">
+      <input type="password" autocapitalize="none" autocorrect="off" id="loginPassword" maxlength="30" placeholder="최소 5자리">
       <div class="error-msg" id="loginPasswordError"></div>
     </div>
     <div class="error-msg" id="loginError"></div>
@@ -209,17 +209,17 @@ button {
   <div class="form-section" id="signupForm">
     <div class="form-group">
       <label>계정</label>
-      <input type="text" id="signupUsername" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
+      <input type="text" id="signupUsername" maxlength="20" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
       <div class="error-msg" id="signupUsernameError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호</label>
-      <input type="password" autocapitalize="none" autocorrect="off" id="signupPassword" placeholder="최소 5자리">
+      <input type="password" autocapitalize="none" autocorrect="off" id="signupPassword" maxlength="30" placeholder="최소 5자리">
       <div class="error-msg" id="signupPasswordError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호 확인</label>
-      <input type="password" autocapitalize="none" autocorrect="off" id="signupPasswordConfirm" placeholder="다시 입력하세요">
+      <input type="password" autocapitalize="none" autocorrect="off" id="signupPasswordConfirm" maxlength="30" placeholder="다시 입력하세요">
       <div class="error-msg" id="signupPasswordConfirmError"></div>
     </div>
     <div class="error-msg" id="signupError"></div>
@@ -289,6 +289,7 @@ function validateUsername(username) {
   if (!username) return '계정을 입력하세요';
   if (!pattern.test(username)) return '영문, 숫자, _, -, .만 가능합니다';
   if (username.length < 3) return '최소 3자리 이상이어야 합니다';
+  if (username.length > 20) return '최대 20자까지 가능합니다';
   return '';
 }
 
