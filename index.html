@@ -10,30 +10,155 @@
 <link rel="apple-touch-icon" href="icon-home.png">
 <meta name="theme-color" content="#FFFDF6">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap">
+<script src="https://unpkg.com/feather-icons"></script>
 <style>
-:root { --bg:#FFFDF6; --card:#FFFFFF; --ink:#2A2725; --sub:#8A8378; --line:#E4DCCB; }
+:root { --bg:#FFFDF6; --card:#FFFFFF; --ink:#2A2725; --sub:#8A8378; --line:#E4DCCB; --acc:#E0742C; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; } }
 :root[data-theme="dark"] { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; }
 * { box-sizing:border-box; }
-body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:32px 20px 60px; display:flex; flex-direction:column; align-items:center; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center; }
+.header { position:relative; width:100%; max-width:560px; margin-bottom:24px; }
 h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(30px,6vw,44px); margin:16px 0 6px; }
-.sub { color:var(--sub); font-size:15px; margin-bottom:28px; }
+.sub { color:var(--sub); font-size:15px; margin-bottom:20px; }
+.theme-toggle { position:absolute; top:16px; right:0; width:40px; height:40px; background:var(--card); border:1.5px solid var(--line); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); transition:transform .12s; }
+.theme-toggle:active { transform:scale(.95); }
 .menu { display:grid; gap:16px; width:100%; max-width:560px; }
-a.card { display:flex; align-items:center; gap:16px; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:18px 20px; text-decoration:none; color:var(--ink); transition:transform .12s; }
-a.card:active { transform:scale(.98); }
-.emo { font-size:40px; }
-.t { font-family:'Jua',sans-serif; font-size:22px; }
+a.card, button.card { display:flex; align-items:center; gap:16px; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:18px 20px; text-decoration:none; color:var(--ink); transition:transform .12s; cursor:pointer; font-family:inherit; }
+a.card:active, button.card:active { transform:scale(.98); }
+.icon { width:40px; height:40px; display:flex; align-items:center; justify-content:center; }
+.icon svg { width:32px; height:32px; color:var(--acc); stroke-width:2; }
+.t { font-family:'Jua',sans-serif; font-size:22px; margin:0; }
 .d { color:var(--sub); font-size:13.5px; margin-top:2px; }
 .tag { margin-left:auto; font-size:12px; font-weight:700; color:#fff; border-radius:99px; padding:4px 10px; white-space:nowrap; }
+.logout-btn { background:var(--card); color:var(--ink); border:1.5px solid var(--line); width:100%; }
+.logout-btn:active { background:var(--line); }
 </style>
 </head>
 <body>
-<h1>📖 우리집 메뉴판</h1>
-<p class="sub">오늘은 뭘 읽을까, 뭘 볼까? 골라 보세요!</p>
-<div class="menu">
-<a class="card" href="at-series.html"><span class="emo">📚</span><span><span class="t">앗! 시리즈 책 메뉴판</span><br><span class="d">150권 표지 보고 고르기 · 검색 · 분야별</span></span><span class="tag" style="background:#E0742C">책</span></a>
-<a class="card" href="ott.html"><span class="emo">🎬</span><span><span class="t">영어 애니 메뉴판</span><br><span class="d">넷플릭스·디즈니·티빙·쿠팡 59선</span></span><span class="tag" style="background:#3B6FE0">영상</span></a>
-<a class="card" href="ott-list.html"><span class="emo">📋</span><span><span class="t">영어 애니 전체 목록</span><br><span class="d">107편 · 나이/AR/원서 필터 (부모용)</span></span><span class="tag" style="background:#8A8378">목록</span></a>
+<div class="header">
+  <h1>우리집 메뉴판</h1>
+  <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">
+    <svg data-feather="sun" width="20" height="20"></svg>
+  </button>
 </div>
+
+<p class="sub">오늘은 뭘 읽을까, 뭘 볼까? 골라 보세요!</p>
+
+<div class="menu">
+  <a class="card" href="category.html?type=books">
+    <div class="icon"><svg data-feather="book" width="32" height="32"></svg></div>
+    <span><span class="t">책</span><br><span class="d">앗! 시리즈 등 전집 고르기</span></span>
+    <span class="tag" style="background:#E0742C">책</span>
+  </a>
+
+  <a class="card" href="category.html?type=ott">
+    <div class="icon"><svg data-feather="play-circle" width="32" height="32"></svg></div>
+    <span><span class="t">영상</span><br><span class="d">영어 애니메이션 추천</span></span>
+    <span class="tag" style="background:#3B6FE0">영상</span>
+  </a>
+
+  <a class="card" href="profile.html">
+    <div class="icon"><svg data-feather="user" width="32" height="32"></svg></div>
+    <span><span class="t">프로필</span><br><span class="d">닉네임, 나이 설정</span></span>
+    <span class="tag" style="background:#8B5CD6">정보</span>
+  </a>
+
+  <a class="card" href="settings.html">
+    <div class="icon"><svg data-feather="settings" width="32" height="32"></svg></div>
+    <span><span class="t">설정</span><br><span class="d">테마, 알림 등</span></span>
+    <span class="tag" style="background:#7CA815">설정</span>
+  </a>
+
+  <button class="card logout-btn" onclick="handleLogout()">
+    <div class="icon"><svg data-feather="log-out" width="32" height="32"></svg></div>
+    <span><span class="t">로그아웃</span><br><span class="d">계정에서 나가기</span></span>
+  </button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
+<script>
+// Firebase 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// 페이지 로드 시 로그인 상태 검증
+window.addEventListener('load', () => {
+  // 테마 복원
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  // 로그인 상태 확인
+  if (!localStorage.getItem('currentUser')) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  feather.replace();
+  updateThemeIcon();
+});
+
+// 테마 토글
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+
+  updateThemeIcon();
+}
+
+// 테마 아이콘 업데이트
+function updateThemeIcon() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const icon = document.querySelector('.theme-toggle svg');
+  if (icon) {
+    icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
+    feather.replace();
+  }
+}
+
+// 로그아웃
+async function handleLogout() {
+  try {
+    const uid = localStorage.getItem('currentUser');
+
+    // 활동 로그
+    if (uid) {
+      await db.ref(`userActivity/${uid}`).push({
+        action: 'logout',
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
+    await auth.signOut();
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
+  } catch (error) {
+    alert('로그아웃 실패했습니다');
+  }
+}
+</script>
 </body>
 </html>
