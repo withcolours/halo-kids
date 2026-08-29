@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>설정</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon-home.png">
+<meta name="theme-color" content="#FFFDF6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+:root { --bg:#FFFDF6; --card:#FFFFFF; --ink:#2A2725; --sub:#8A8378; --line:#E4DCCB; --acc:#E0742C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; } }
+:root[data-theme="dark"] { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center; }
+.header { width:100%; max-width:560px; margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.back-btn { width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); }
+.back-btn:active { transform:scale(.95); }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:32px; margin:0; flex:1; }
+.menu { background:var(--card); border:2px solid var(--line); border-radius:20px; width:100%; max-width:560px; overflow:hidden; }
+.item { padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; cursor:pointer; transition:background .12s; }
+.item:last-child { border-bottom:none; }
+.item:active { background:var(--line); }
+.item-icon { width:24px; height:24px; flex-shrink:0; color:var(--acc); }
+.item-text { flex:1; }
+.item-label { font-weight:700; font-size:15px; }
+.item-sub { font-size:13px; color:var(--sub); margin-top:2px; }
+.item-toggle { width:48px; height:28px; border-radius:14px; background:var(--line); position:relative; cursor:pointer; border:none; padding:0; }
+.item-toggle.on { background:var(--acc); }
+.item-toggle::after { content:''; position:absolute; width:24px; height:24px; border-radius:12px; background:white; top:2px; left:2px; transition:left .2s; }
+.item-toggle.on::after { left:22px; }
+.logout-item { background:#D6453D20; color:var(--acc); }
+.logout-item:active { background:#D6453D40; }
+</style>
+</head>
+<body>
+<div class="header">
+  <button class="back-btn" onclick="goBack()"><svg data-feather="chevron-left" width="20" height="20"></svg></button>
+  <h1>설정</h1>
+</div>
+
+<div class="menu">
+  <div class="item" onclick="toggleTheme()">
+    <svg class="item-icon" data-feather="sun" width="20" height="20"></svg>
+    <div class="item-text">
+      <div class="item-label">어두운 테마</div>
+      <div class="item-sub" id="themeDesc">밝음</div>
+    </div>
+    <button class="item-toggle" id="themeToggle" onclick="event.stopPropagation()"></button>
+  </div>
+
+  <div class="item logout-item" onclick="handleLogout()">
+    <svg class="item-icon" data-feather="log-out" width="20" height="20"></svg>
+    <div class="item-text">
+      <div class="item-label">로그아웃</div>
+      <div class="item-sub">계정에서 나가기</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+window.addEventListener('load', () => {
+  const userId = localStorage.getItem('currentUser');
+  if (!userId) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // 테마 복원
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = savedTheme === 'dark';
+
+  if (isDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeToggle').classList.add('on');
+    document.getElementById('themeDesc').textContent = '어둠';
+  }
+
+  feather.replace();
+});
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const toggle = document.getElementById('themeToggle');
+  const desc = document.getElementById('themeDesc');
+
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    toggle.classList.remove('on');
+    localStorage.setItem('theme', 'light');
+    desc.textContent = '밝음';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    toggle.classList.add('on');
+    localStorage.setItem('theme', 'dark');
+    desc.textContent = '어둠';
+  }
+}
+
+async function handleLogout() {
+  try {
+    const userId = localStorage.getItem('currentUser');
+
+    // 활동 로그
+    if (userId) {
+      await db.ref(`userActivity/${userId}`).push({
+        action: 'logout',
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
+    await auth.signOut();
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
+  } catch (error) {
+    alert('로그아웃 실패했습니다');
+  }
+}
+
+function goBack() {
+  history.back();
+}
+</script>
+</body>
+</html>

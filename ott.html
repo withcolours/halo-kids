@@ -51,7 +51,10 @@ tr:nth-child(even) td { background:var(--alt); }
 .note { font-size:13px; color:var(--sub); margin:10px 0 16px; }
 @media (prefers-reduced-motion: no-preference) { .card { transition:transform .12s; } .card:hover { transform:translateY(-2px); } }
 </style>
-<h1>🎬 9세 영어학습 OTT 애니메이션 메뉴판</h1>
+<div style="display:flex; gap:12px; align-items:center; margin-bottom:16px;">
+  <button onclick="history.back()" style="width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:20px;">&larr;</button>
+  <h1 style="margin:0; flex:1;">🎬 9세 영어학습 OTT 애니메이션 메뉴판</h1>
+</div>
 <p class="sub">AR 2.2~2.4 수준 · 플랫폼별 엄선 59선 · 포스터를 보고 오늘 볼 영상을 골라 보세요! (각 줄은 영어 학습 포인트)</p>
 <div class="tabs">
 <button class="tab on" data-t="menu">📖 메뉴판</button>
@@ -632,5 +635,63 @@ document.querySelectorAll('.fb').forEach(b => b.onclick = () => {
   apply();
 });
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+window.addEventListener('load', async () => {
+  const userId = localStorage.getItem('currentUser');
+  if (!userId) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // 읽은 영상 로드
+  const snapshot = await db.ref(`userReadings/${userId}`).once('value');
+  const readings = snapshot.val() || {};
+  
+  // 체크박스 복원
+  document.querySelectorAll('[data-ott-id]').forEach(el => {
+    const ottId = el.getAttribute('data-ott-id');
+    if (readings[ottId]) {
+      el.classList.add('watched');
+    }
+  });
+
+  // 클릭 이벤트
+  document.querySelectorAll('[data-ott-id]').forEach(el => {
+    el.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const ottId = el.getAttribute('data-ott-id');
+      el.classList.toggle('watched');
+      
+      if (el.classList.contains('watched')) {
+        await db.ref(`userReadings/${userId}/${ottId}`).set(firebase.database.ServerValue.TIMESTAMP);
+        await db.ref(`userActivity/${userId}`).push({
+          action: 'watch_ott',
+          detail: {ottId: ottId},
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
+      } else {
+        await db.ref(`userReadings/${userId}/${ottId}`).remove();
+      }
+    });
+  });
+});
+</script>
+
 </body>
 </html>

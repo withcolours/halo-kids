@@ -43,7 +43,10 @@ tr:nth-child(even) td { background:var(--alt); }
 a { color:#3B6FE0; }
 .legend { font-size:12.5px; color:var(--sub); margin:10px 0 16px; line-height:1.7; }
 </style>
-<h1>🎬 OTT 영어 애니메이션 통합 목록 <span style="font-size:60%">(검토용 · 2026.8 기준)</span></h1>
+<div style="display:flex; gap:12px; align-items:center; margin-bottom:16px;">
+  <button onclick="history.back()" style="width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:20px;">&larr;</button>
+  <h1 style="margin:0; flex:1;">🎬 OTT 영어 애니메이션 통합 목록 <span style="font-size:60%">(검토용 · 2026.8 기준)</span></h1>
+</div>
 <p class="sub">Netflix 30 · Disney+ 30 · 쿠팡플레이 30 · TVING 17 = 총 107편 &nbsp;|&nbsp; 연계 원서 있는 작품 64편<br>
 레벨은 영상용 자체 지표(패턴성·상황 다양성·말 속도·문장 수준 기준)이며 AR 대역은 감각 환산 추정치입니다. 원서의 AR은 공식 값 기준.</p>
 <div class="tools">
@@ -1175,5 +1178,65 @@ document.getElementById('arin').oninput=apply;
 document.getElementById('bf').onchange=apply;
 apply();
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+window.addEventListener('load', async () => {
+  const userId = localStorage.getItem('currentUser');
+  if (!userId) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // 읽은 항목 로드
+  const snapshot = await db.ref(`userReadings/${userId}`).once('value');
+  const readings = snapshot.val() || {};
+  
+  // 테이블 행의 체크박스 복원
+  document.querySelectorAll('tr[data-p]').forEach(row => {
+    const rowNum = row.getAttribute('data-no') || '';
+    const ottId = 'ott-' + rowNum;
+    const checkbox = row.querySelector('input[type="checkbox"]');
+    if (checkbox && readings[ottId]) {
+      checkbox.checked = true;
+    }
+  });
+
+  // 체크박스 변경 이벤트
+  document.querySelectorAll('tr[data-p] input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', async (e) => {
+      const row = e.target.closest('tr');
+      const rowNum = row.getAttribute('data-no') || '';
+      const ottId = 'ott-' + rowNum;
+      
+      if (e.target.checked) {
+        await db.ref(`userReadings/${userId}/${ottId}`).set(firebase.database.ServerValue.TIMESTAMP);
+        await db.ref(`userActivity/${userId}`).push({
+          action: 'watch_ott',
+          detail: {ottId: ottId},
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
+      } else {
+        await db.ref(`userReadings/${userId}/${ottId}`).remove();
+      }
+    });
+  });
+});
+</script>
+
 </body>
 </html>
