@@ -47,9 +47,6 @@ a.card:active { transform:scale(.98); }
 <script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
 <div class="header">
   <h1>Halo <span style="color:var(--acc);">Kids!</span></h1>
-  <button class="hbtn" onclick="toggleTheme()" title="테마 변경" id="themeBtn">
-    <svg data-feather="sun" width="20" height="20"></svg>
-  </button>
   <button class="hbtn avatar" onclick="toggleMenu(event)" title="내 계정" id="menuBtn">?</button>
 
   <div class="dropdown" id="dropdown">
@@ -58,6 +55,7 @@ a.card:active { transform:scale(.98); }
       <div style="font-size:12px; color:var(--sub);" id="ddUsername">-</div>
     </div>
     <a class="dd-item" href="profile.html"><svg data-feather="user"></svg>프로필</a>
+    <button class="dd-item" onclick="event.stopPropagation(); toggleTheme()"><svg data-feather="moon" id="ddThemeIcon"></svg><span id="ddThemeLabel">어두운 테마로</span></button>
     <a class="dd-item" href="settings.html"><svg data-feather="settings"></svg>설정</a>
     <a class="dd-item" href="admin.html" id="adminItem" style="display:none"><svg data-feather="shield"></svg>관리</a>
     <button class="dd-item danger dd-sep" onclick="handleLogout()"><svg data-feather="log-out"></svg>로그아웃</button>
@@ -114,13 +112,15 @@ function toggleTheme() {
   updateThemeIcon();
 }
 
-// 테마 아이콘 업데이트
+// 테마 메뉴 항목 라벨/아이콘 갱신
 function updateThemeIcon() {
   const attr = document.documentElement.getAttribute('data-theme');
   const isDark = attr ? attr === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  const icon = document.querySelector('#themeBtn svg');
+  const label = document.getElementById('ddThemeLabel');
+  const icon = document.getElementById('ddThemeIcon');
+  if (label) label.textContent = isDark ? '밝은 테마로' : '어두운 테마로';
   if (icon) {
-    icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
+    icon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
     if (window.feather) feather.replace();
   }
 }
