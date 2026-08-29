@@ -35,6 +35,7 @@ a.card:active, button.card:active { transform:scale(.98); }
 </style>
 </head>
 <body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
 <div class="header">
   <h1>Halo <span style="color:var(--acc);">Kids!</span></h1>
   <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">
@@ -101,22 +102,18 @@ window.addEventListener('DOMContentLoaded', () => {
 // 테마 토글
 function toggleTheme() {
   const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-
-  if (isDark) {
-    html.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'light');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-  }
-
+  const attr = html.getAttribute('data-theme');
+  const isDark = attr ? attr === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
   updateThemeIcon();
 }
 
 // 테마 아이콘 업데이트
 function updateThemeIcon() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const attr = document.documentElement.getAttribute('data-theme');
+  const isDark = attr ? attr === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   const icon = document.querySelector('.theme-toggle svg');
   if (icon) {
     icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');

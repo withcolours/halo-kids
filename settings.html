@@ -36,6 +36,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:32px; margin:0; fl
 </style>
 </head>
 <body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
 <div class="header">
   <button class="back-btn" onclick="goBack()"><svg data-feather="chevron-left" width="20" height="20"></svg></button>
   <h1>설정</h1>
@@ -85,12 +86,11 @@ window.addEventListener('load', () => {
     return;
   }
 
-  // 테마 복원
-  const savedTheme = localStorage.getItem('theme');
-  const isDark = savedTheme === 'dark';
+  // 토글 상태 표시 (테마 자체는 body 첫 스크립트에서 이미 복원됨)
+  const attr = document.documentElement.getAttribute('data-theme');
+  const isDark = attr ? attr === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
 
   if (isDark) {
-    document.documentElement.setAttribute('data-theme', 'dark');
     document.getElementById('themeToggle').classList.add('on');
     document.getElementById('themeDesc').textContent = '어둠';
   }
@@ -100,21 +100,16 @@ window.addEventListener('load', () => {
 
 function toggleTheme() {
   const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
+  const attr = html.getAttribute('data-theme');
+  const isDark = attr ? attr === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const next = isDark ? 'light' : 'dark';
   const toggle = document.getElementById('themeToggle');
   const desc = document.getElementById('themeDesc');
 
-  if (isDark) {
-    html.removeAttribute('data-theme');
-    toggle.classList.remove('on');
-    localStorage.setItem('theme', 'light');
-    desc.textContent = '밝음';
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    toggle.classList.add('on');
-    localStorage.setItem('theme', 'dark');
-    desc.textContent = '어둠';
-  }
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  toggle.classList.toggle('on', next === 'dark');
+  desc.textContent = next === 'dark' ? '어둠' : '밝음';
 }
 
 async function handleLogout() {
