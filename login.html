@@ -189,12 +189,12 @@ button {
   <div class="form-section active" id="loginForm">
     <div class="form-group">
       <label>계정</label>
-      <input type="text" id="loginUsername" placeholder="영문, 숫자, _, -, . 만 가능">
+      <input type="text" id="loginUsername" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
       <div class="error-msg" id="loginUsernameError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호</label>
-      <input type="password" id="loginPassword" placeholder="최소 5자리">
+      <input type="password" autocapitalize="none" autocorrect="off" id="loginPassword" placeholder="최소 5자리">
       <div class="error-msg" id="loginPasswordError"></div>
     </div>
     <div class="error-msg" id="loginError"></div>
@@ -208,17 +208,17 @@ button {
   <div class="form-section" id="signupForm">
     <div class="form-group">
       <label>계정</label>
-      <input type="text" id="signupUsername" placeholder="영문, 숫자, _, -, . 만 가능">
+      <input type="text" id="signupUsername" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username" placeholder="영문, 숫자, _, -, . 만 가능">
       <div class="error-msg" id="signupUsernameError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호</label>
-      <input type="password" id="signupPassword" placeholder="최소 5자리">
+      <input type="password" autocapitalize="none" autocorrect="off" id="signupPassword" placeholder="최소 5자리">
       <div class="error-msg" id="signupPasswordError"></div>
     </div>
     <div class="form-group">
       <label>비밀번호 확인</label>
-      <input type="password" id="signupPasswordConfirm" placeholder="다시 입력하세요">
+      <input type="password" autocapitalize="none" autocorrect="off" id="signupPasswordConfirm" placeholder="다시 입력하세요">
       <div class="error-msg" id="signupPasswordConfirmError"></div>
     </div>
     <div class="error-msg" id="signupError"></div>
@@ -432,6 +432,15 @@ function setLoading(isLoading) {
     btn.disabled = isLoading;
   });
 }
+// 계정 입력은 항상 소문자
+['loginUsername', 'signupUsername'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    const p = e.target.selectionStart;
+    e.target.value = e.target.value.toLowerCase();
+    e.target.setSelectionRange(p, p);
+  });
+});
+
 // Enter 키로 제출
 ['loginUsername', 'loginPassword'].forEach(id => {
   document.getElementById(id).addEventListener('keydown', e => {
