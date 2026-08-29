@@ -70,6 +70,12 @@ a.card:active, button.card:active { transform:scale(.98); }
     <span class="tag" style="background:#7CA815">설정</span>
   </a>
 
+  <a class="card" href="admin.html" id="adminCard" style="display:none">
+    <div class="icon"><svg data-feather="shield" width="32" height="32"></svg></div>
+    <span><span class="t">관리</span><br><span class="d">사용자 · 활동 기록</span></span>
+    <span class="tag" style="background:#D6453D">admin</span>
+  </a>
+
   <button class="card logout-btn" onclick="handleLogout()">
     <div class="icon"><svg data-feather="log-out" width="32" height="32"></svg></div>
     <span><span class="t">로그아웃</span><br><span class="d">계정에서 나가기</span></span>
@@ -154,6 +160,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
+
+// 관리자면 관리 카드 표시
+(async () => {
+  const uid = localStorage.getItem('currentUser');
+  if (!uid) return;
+  const me = (await db.ref(`users/${uid}`).once('value')).val();
+  if (me && me.role === 'admin') {
+    document.getElementById('adminCard').style.display = '';
+    if (window.feather) feather.replace();
+  }
+})();
 
 // 로그아웃 함수 업데이트 (Firebase 사용)
 async function handleLogoutWithFirebase() {

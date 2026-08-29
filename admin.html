@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Halo Kids 관리</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFDF6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+:root { --bg:#FFFDF6; --card:#FFFFFF; --ink:#2A2725; --sub:#8A8378; --line:#E4DCCB; --acc:#E0742C; --alt:#FAF6EC; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; --alt:#211D17; } }
+:root[data-theme="dark"] { --bg:#1C1915; --card:#26221C; --ink:#F0EAE0; --sub:#A89F92; --line:#3D372E; --alt:#211D17; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center; }
+.header { width:100%; max-width:860px; margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.back-btn { width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 40px; }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:28px; margin:0; flex:1; }
+h2 { font-family:'Jua',sans-serif; font-weight:400; font-size:19px; margin:26px 0 10px; width:100%; max-width:860px; }
+.panel { background:var(--card); border:1.5px solid var(--line); border-radius:16px; width:100%; max-width:860px; overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:13.5px; }
+th { text-align:left; font-size:12px; color:var(--sub); padding:10px 14px; border-bottom:1.5px solid var(--line); white-space:nowrap; }
+td { padding:10px 14px; border-bottom:1px solid var(--line); white-space:nowrap; }
+tr:last-child td { border-bottom:none; }
+tr:nth-child(even) td { background:var(--alt); }
+.badge { font-size:11px; font-weight:700; border-radius:99px; padding:2px 8px; color:#fff; }
+.muted { color:var(--sub); }
+.loading { color:var(--sub); padding:30px; text-align:center; }
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
+<div class="header">
+  <button class="back-btn" onclick="location.href='index.html'"><svg data-feather="chevron-left" width="20" height="20"></svg></button>
+  <h1>관리자</h1>
+</div>
+
+<h2>사용자</h2>
+<div class="panel"><div class="loading" id="usersLoading">불러오는 중...</div>
+<table id="usersTable" style="display:none">
+<thead><tr><th>계정</th><th>닉네임</th><th>생년(나이)</th><th>역할</th><th>읽음/봤음</th><th>가입일</th></tr></thead>
+<tbody id="usersBody"></tbody>
+</table></div>
+
+<h2>최근 활동</h2>
+<div class="panel"><div class="loading" id="actLoading">불러오는 중...</div>
+<table id="actTable" style="display:none">
+<thead><tr><th>시각</th><th>계정</th><th>활동</th><th>항목</th></tr></thead>
+<tbody id="actBody"></tbody>
+</table></div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const ACTION_KO = { login: '로그인', logout: '로그아웃', signup: '가입', read_book: '책 읽음', watch_ott: '영상 봤음', update_profile: '프로필 수정' };
+const fmt = ts => ts ? new Date(ts).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+
+window.addEventListener('load', async () => {
+  const userId = localStorage.getItem('currentUser');
+  if (!userId) { window.location.href = 'login.html'; return; }
+  feather.replace();
+
+  // 관리자 권한 확인
+  const me = (await db.ref(`users/${userId}`).once('value')).val();
+  if (!me || me.role !== 'admin') {
+    alert('관리자만 접근할 수 있습니다');
+    window.location.href = 'index.html';
+    return;
+  }
+
+  // 사용자 목록 + 읽음 수
+  const users = (await db.ref('users').once('value')).val() || {};
+  const readings = (await db.ref('userReadings').once('value')).val() || {};
+  const currentYear = new Date().getFullYear();
+
+  const rows = Object.entries(users).map(([uid, u]) => {
+    const r = readings[uid] || {};
+    const books = Object.keys(r).filter(k => k.startsWith('at-series')).length;
+    const otts = Object.keys(r).filter(k => k.startsWith('ott')).length;
+    const age = u.birthYear ? `${u.birthYear} (${currentYear - u.birthYear}세)` : '-';
+    const role = u.role === 'admin'
+      ? '<span class="badge" style="background:#E0742C">admin</span>'
+      : '<span class="badge" style="background:#8A8378">child</span>';
+    return `<tr><td><b>${u.username || uid}</b></td><td>${u.nickname || '<span class="muted">-</span>'}</td><td>${age}</td><td>${role}</td><td>책 ${books} · 영상 ${otts}</td><td class="muted">${fmt(u.createdAt)}</td></tr>`;
+  });
+  document.getElementById('usersBody').innerHTML = rows.join('');
+  document.getElementById('usersLoading').style.display = 'none';
+  document.getElementById('usersTable').style.display = '';
+
+  // 최근 활동 (전 사용자, 최신 30건)
+  const acts = (await db.ref('userActivity').once('value')).val() || {};
+  const all = [];
+  Object.entries(acts).forEach(([uid, items]) => {
+    const uname = (users[uid] && users[uid].username) || uid;
+    Object.values(items).forEach(a => all.push({ ...a, uname }));
+  });
+  all.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+  const actRows = all.slice(0, 30).map(a =>
+    `<tr><td class="muted">${fmt(a.timestamp)}</td><td><b>${a.uname}</b></td><td>${ACTION_KO[a.action] || a.action}</td><td class="muted">${(a.detail && (a.detail.itemId || a.detail.bookId || a.detail.ottId)) || '-'}</td></tr>`);
+  document.getElementById('actBody').innerHTML = actRows.join('');
+  document.getElementById('actLoading').style.display = 'none';
+  document.getElementById('actTable').style.display = '';
+});
+</script>
+</body>
+</html>
