@@ -1,0 +1,3284 @@
+[
+ {
+  "kr": "개비의 인형집",
+  "en": "Gabby&#x27;s Dollhouse",
+  "th": "판타지·마법",
+  "lvl": 2,
+  "ar": [
+   1.2,
+   1.8
+  ],
+  "age": "3~6",
+  "subj": "사람+판타지",
+  "pref": "여아",
+  "note": "기초 표현 상호작용형 반복 — 흥미연령 낮음",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 1
+ },
+ {
+  "kr": "공원 파수꾼 스피릿 렌저스",
+  "en": "Spirit Rangers",
+  "th": "판타지·마법",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "5~8",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "자연·계절 어휘와 문제 해결 대화, 사람 아이 주인공",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 2
+ },
+ {
+  "kr": "닌자고: 드래곤 라이징",
+  "en": "Ninjago: Dragons Rising",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   2.8
+  ],
+  "age": "7~11",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "액션 상황의 짧은 명령문·팀 대화 — 9세 취향+적정 난이도",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 3
+ },
+ {
+  "kr": "달려라 멍멍아!",
+  "en": "Go, Dog. Go!",
+  "th": "탈것·로봇",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "이동·탈것 기본 동사, 리듬 반복 — 유아용",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 4
+ },
+ {
+  "kr": "드래곤 프린스",
+  "en": "The Dragon Prince",
+  "th": "판타지·마법",
+  "lvl": 5,
+  "ar": [
+   3.5,
+   4.5
+  ],
+  "age": "10~14",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "격식체·긴 대사 — 상급 도전용",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 5
+ },
+ {
+  "kr": "마이티 익스프레스",
+  "en": "Mighty Express",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "4~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "배달·협동 상황의 요청·응답 반복 — 유아용 (패턴형)",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 6
+ },
+ {
+  "kr": "바다 탐험대 옥토넛",
+  "en": "Octonauts",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "해양 생물 어휘와 출동 명령문을 매화 같은 공식으로 반복 (패턴형)",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 7
+ },
+ {
+  "kr": "발명왕 봉봉이",
+  "en": "Chico Bon Bon: Monkey with a Tool Belt",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "도구·수리 어휘와 how-to 설명 패턴 (패턴형)",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 8
+ },
+ {
+  "kr": "백악기 캠프",
+  "en": "Jurassic World: Camp Cretaceous",
+  "th": "모험·탐험",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "사람 아이들의 공룡 서바이벌 — 9세 스위트스팟 도전작",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 9
+ },
+ {
+  "kr": "브레드 이발소 (영어판)",
+  "en": "Bread Barbershop",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "6~9",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "짧은 생활 회화와 감정 표현을 부담 없이 반복 청취",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 10
+ },
+ {
+  "kr": "비밀 탐정단: 크리처 케이스",
+  "en": "The Creature Cases",
+  "th": "과학·자연",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "6~9",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "동물 어휘와 단서 추리 질문·답변 패턴",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 11
+ },
+ {
+  "kr": "샤크독",
+  "en": "Sharkdog",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.6,
+   2.2
+  ],
+  "age": "5~8",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "사람 소년 주인공의 짧은 일상 회화",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 12
+ },
+ {
+  "kr": "소닉 프라임",
+  "en": "Sonic Prime",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "빠른 구어체와 감탄사 — 배경음악화 주의 (속도 빠름)",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 13
+ },
+ {
+  "kr": "슈퍼 몬스터",
+  "en": "Super Monsters",
+  "th": "판타지·마법",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "4~6",
+  "subj": "사람+판타지",
+  "pref": "공통",
+  "note": "유치원 생활 표현 — 흥미연령 낮음",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 14
+ },
+ {
+  "kr": "스카이랜더 아카데미",
+  "en": "Skylanders Academy",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "게임 원작 팀 액션 — 9세 취향 도전작",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 15
+ },
+ {
+  "kr": "스토리봇에게 물어보세요",
+  "en": "Ask the StoryBots",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "5~8",
+  "subj": "사람+판타지",
+  "pref": "공통",
+  "note": "why/how 질문문과 과학 기초 어휘를 노래로 반복",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 16
+ },
+ {
+  "kr": "스토리봇이 알려줄게요",
+  "en": "StoryBots: Answer Time",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "5~8",
+  "subj": "사람+판타지",
+  "pref": "공통",
+  "note": "궁금증을 묻고 답하는 설명체 영어 기초",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 17
+ },
+ {
+  "kr": "신기한 아다의 세계",
+  "en": "Ada Twist, Scientist",
+  "th": "과학·자연",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "5~8",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "가설·관찰·질문 등 탐구 영어 표현",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 18
+ },
+ {
+  "kr": "신기한 희한한 과학교실",
+  "en": "The Magic School Bus Rides Again",
+  "th": "과학·자연",
+  "lvl": 3,
+  "ar": [
+   2.4,
+   3.0
+  ],
+  "age": "7~10",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "과학 개념을 설명하는 문장 구조와 질문 표현",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 19
+ },
+ {
+  "kr": "액션 팩",
+  "en": "Action Pack",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "사람 아이 히어로 — 언어 쉬움, 흥미연령은 다소 낮음 (패턴형)",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 20
+ },
+ {
+  "kr": "오드볼",
+  "en": "Oddballs",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "또래 소년의 일상 불평·농담 구어체 (자연회화형)",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 21
+ },
+ {
+  "kr": "우리 아빠는 외계인 사냥꾼",
+  "en": "My Dad the Bounty Hunter",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "실제 가족 간 빠른 구어체 — 사람 중심 도전작 (자연회화형)",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 22
+ },
+ {
+  "kr": "우주의 왕자 히맨",
+  "en": "He-Man and the Masters of the Universe",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.0
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "액션 위주라 문장 간결 — 사람 주인공 스위트스팟",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 23
+ },
+ {
+  "kr": "쥬라기 월드: 카오스 이론",
+  "en": "Jurassic World: Chaos Theory",
+  "th": "모험·탐험",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "백악기 캠프 후속 — 추리·긴장 서사 도전",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 24
+ },
+ {
+  "kr": "출동! 드래곤 소방대",
+  "en": "Dragons: Rescue Riders",
+  "th": "판타지·마법",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "5~8",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "구조·협동 상황의 기본 동사와 명령문 패턴 (패턴형)",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 25
+ },
+ {
+  "kr": "카르멘 산디에고",
+  "en": "Carmen Sandiego",
+  "th": "모험·탐험",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "세계 지리·문화 어휘와 설명체 — 도전용",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 26
+ },
+ {
+  "kr": "컵헤드 쇼!",
+  "en": "The Cuphead Show!",
+  "th": "일상·코미디",
+  "lvl": 5,
+  "ar": [
+   3.5,
+   4.5
+  ],
+  "age": "9~13",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "1930년대풍 속사포 만담 — 원어민 아동 수준 (속도 빠름)",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 27
+ },
+ {
+  "kr": "키포와 신기한 동물들",
+  "en": "Kipo and the Age of Wonderbeasts",
+  "th": "모험·탐험",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "또래 구어체와 유머 섞인 자연스러운 대화 (자연회화형)",
+  "cat": "Netflix",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 28
+ },
+ {
+  "kr": "트롤헌터: 아카디아의 전설",
+  "en": "Trollhunters: Tales of Arcadia",
+  "th": "판타지·마법",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "중학생 주인공 판타지 — 긴 서사 도전",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 29
+ },
+ {
+  "kr": "포켓몬 컨시어지",
+  "en": "Pokémon Concierge",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "6~10",
+  "subj": "사람+판타지",
+  "pref": "공통",
+  "note": "잔잔하고 느린 응대 표현 — 편안한 청취용",
+  "cat": "Netflix",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 30
+ },
+ {
+  "cat": "Netflix",
+  "kr": "K-팝 악마 사냥꾼",
+  "en": "K-Pop Demon Hunters",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   4.0
+  ],
+  "age": "8~12세",
+  "subj": "사람+판타지",
+  "pref": "공통",
+  "book": null,
+  "note": "케이팝 걸그룹의 이중 생활 — 한국 신화·케이팝·액션 결합",
+  "v": "확인",
+  "new": true,
+  "no": 31
+ },
+ {
+  "cat": "Netflix",
+  "kr": "가필드",
+  "en": "The Garfield Movie",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   3.0
+  ],
+  "age": "5~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "게으른 고양이의 아버지 찾기 — Chris Pratt 성우, 치즈와 농장 소재",
+  "v": "확인",
+  "new": true,
+  "no": 32
+ },
+ {
+  "cat": "Netflix",
+  "kr": "그 크리스마스",
+  "en": "That Christmas",
+  "th": "일상·따뜻함",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "6~10세",
+  "subj": "사람",
+  "pref": "공통",
+  "book": null,
+  "note": "리처드 커티스 원작 크리스마스 영화 — 가족·우정·산타의 실수",
+  "v": "확인",
+  "new": true,
+  "no": 33
+ },
+ {
+  "cat": "Netflix",
+  "kr": "꿈 속으로",
+  "en": "In Your Dreams",
+  "th": "판타지·모험",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "6~10세",
+  "subj": "사람",
+  "pref": "공통",
+  "book": null,
+  "note": "꿈의 세계 모험 — 형제의 부모 관계 수복, 판타스틱한 시각",
+  "v": "확인",
+  "new": true,
+  "no": 34
+ },
+ {
+  "cat": "Netflix",
+  "kr": "나의 멜로디와 쿠로미",
+  "en": "My Melody & Kuromi",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~8세",
+  "subj": "의인화",
+  "pref": "여아",
+  "book": null,
+  "note": "스탑모션 귀여운 캐릭터 — 케이크와 과자 가게, 따뜻한 감정",
+  "v": "확인",
+  "new": true,
+  "no": 35
+ },
+ {
+  "cat": "Netflix",
+  "kr": "닥터 수스의 빨강 물고기 파랑 물고기",
+  "en": "Dr. Seuss's Red Fish, Blue Fish",
+  "th": "음악·학습",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "리드미컬한 운율의 학습 — 닥터 수스 고전, 색상과 음성 반복",
+  "v": "주의",
+  "new": true,
+  "no": 36
+ },
+ {
+  "cat": "Netflix",
+  "kr": "독 맨",
+  "en": "Dog Man",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   3.0
+  ],
+  "age": "6~10세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "경찰관과 개의 합체 히어로 — DreamWorks 유머, 그래픽 노블 원작",
+  "v": "확인",
+  "new": true,
+  "no": 37
+ },
+ {
+  "cat": "Netflix",
+  "kr": "비키니 팬츠 구하기: 샌디 치크스 영화",
+  "en": "Saving Bikini Bottom: The Sandy Cheeks Movie",
+  "th": "모험·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "5~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "스펀지밥 스핀오프 — 샌디와 스펀지밥의 텍사스 모험",
+  "v": "확인",
+  "new": true,
+  "no": 38
+ },
+ {
+  "cat": "Netflix",
+  "kr": "상상의 세계",
+  "en": "The Imaginary",
+  "th": "판타지·모험",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "6~10세",
+  "subj": "사람",
+  "pref": "공통",
+  "book": null,
+  "note": "상상의 친구 주인공 — 스튜디오 Ponoc 손그리기 애니메이션, 손실과 치유의 이야기",
+  "v": "확인",
+  "new": true,
+  "no": 39
+ },
+ {
+  "cat": "Netflix",
+  "kr": "아스테릭스와 오벨릭스: 큰 싸움",
+  "en": "Asterix & Obelix: The Big Fight",
+  "th": "모험·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   4.0
+  ],
+  "age": "7~11세",
+  "subj": "사람",
+  "pref": "남아",
+  "book": null,
+  "note": "고대 갈리아의 영웅 모험 — 고전 만화 원작, 로마와의 전쟁",
+  "v": "확인",
+  "new": true,
+  "no": 40
+ },
+ {
+  "cat": "Netflix",
+  "kr": "악당들의 악질 할로윈",
+  "en": "The Bad Guys: Haunted Heist",
+  "th": "코미디·모험",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   3.0
+  ],
+  "age": "5~9세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "악당 캐릭터의 할로윈 도둑질 — 단편 스페셜, 밝은 유머",
+  "v": "확인",
+  "new": true,
+  "no": 41
+ },
+ {
+  "cat": "Netflix",
+  "kr": "엘리너는 궁금한 게 많아",
+  "en": "Elinor Wonders Why",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "6~10세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "과학 소녀의 자연 탐험 — PBS/Netflix, 호기심과 관찰 학습",
+  "v": "주의",
+  "new": true,
+  "no": 42
+ },
+ {
+  "cat": "Netflix",
+  "kr": "월리스와 그로밋: 무섭도록 영리한 복수",
+  "en": "Wallace & Gromit: Vengeance Most Fowl",
+  "th": "모험·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "6~10세",
+  "subj": "사람+의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "스톱모션 고전 캐릭터 — 영국식 유머, 영리한 발명품",
+  "v": "확인",
+  "new": true,
+  "no": 43
+ },
+ {
+  "cat": "Netflix",
+  "kr": "유후와 친구들의 모험",
+  "en": "YooHoo to the Rescue",
+  "th": "모험·탐험",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "5~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "마법의 땅에서 동물 친구들의 모험 — 영국/이탈리아 제작, 남극과 세계 각지 배경",
+  "v": "확인",
+  "new": true,
+  "no": 44
+ },
+ {
+  "cat": "Netflix",
+  "kr": "일곱 마리 곰",
+  "en": "7 Bears",
+  "th": "판타지·모험",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "6~10세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "동화 재해석 — 신데렐라·빨강모자 등 고전 이야기를 곰 캐릭터로",
+  "v": "확인",
+  "new": true,
+  "no": 45
+ },
+ {
+  "cat": "Netflix",
+  "kr": "주술",
+  "en": "Spellbound",
+  "th": "판타지·모험",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "7~12세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "공주의 마법 모험 — Rachel Zegler 성우, Alan Menken 음악",
+  "v": "확인",
+  "new": true,
+  "no": 46
+ },
+ {
+  "cat": "Netflix",
+  "kr": "코코멜론 레인: 동요 뮤지컬",
+  "en": "CoComelon Lane: The Nursery Rhyme Musical",
+  "th": "음악·학습",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "사람",
+  "pref": "공통",
+  "book": null,
+  "note": "동요와 뮤지컬 — 코코멜론 캐릭터의 학교 공연, 감정 표현",
+  "v": "확인",
+  "new": true,
+  "no": 47
+ },
+ {
+  "cat": "Netflix",
+  "kr": "트랜스포머 어스스파크",
+  "en": "Transformers: EarthSpark",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "7~12세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "신세대 트랜스포머의 목적 찾기 — 니켈로디언 오리지널, 액션과 모험",
+  "v": "확인",
+  "new": true,
+  "no": 48
+ },
+ {
+  "cat": "Netflix",
+  "kr": "트랜스포머: 비봇츠",
+  "en": "Transformers: BotBots",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   3.0
+  ],
+  "age": "6~10세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "쇼핑몰에 숨어사는 미니 로봇 — 경쾌한 톤, 팀 액션",
+  "v": "주의",
+  "new": true,
+  "no": 49
+ },
+ {
+  "cat": "Netflix",
+  "kr": "플랑크톤: 더 무비",
+  "en": "Plankton: The Movie",
+  "th": "모험·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "5~9세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "악당 플랑크톤의 세계 지배 꿈 — 뮤지컬 코미디, 스펀지밥 우주",
+  "v": "확인",
+  "new": true,
+  "no": 50
+ },
+ {
+  "cat": "Netflix",
+  "kr": "핫 휠: 레이싱 시즌 2",
+  "en": "Hot Wheels Let's Race Season 2",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "6~10세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "자동차 캐릭터의 경주 — STEM 교육, 협력과 우정",
+  "v": "확인",
+  "new": true,
+  "no": 51
+ },
+ {
+  "kr": "그래비티 폴즈",
+  "en": "Gravity Falls",
+  "th": "모험·탐험",
+  "lvl": 5,
+  "ar": [
+   3.5,
+   4.5
+  ],
+  "age": "10~14",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "미스터리 서사 — 상급 도전, 나중을 위한 찜",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 52
+ },
+ {
+  "kr": "긴급 구조 친구들",
+  "en": "Firebuds",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.6,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "긴급 구조·탈것 어휘, 사람 아이+탈것 콤비 (패턴형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 53
+ },
+ {
+  "kr": "더그의 일상",
+  "en": "Dug Days",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "5~9",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "강아지 시점 단문·감탄문 — 짧고 편안함",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 54
+ },
+ {
+  "kr": "도날드 덕 가족의 모험",
+  "en": "DuckTales",
+  "th": "모험·탐험",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "보물찾기 서사 어휘 풍부 — 도전용",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 55
+ },
+ {
+  "kr": "라이온 수호대",
+  "en": "The Lion Guard",
+  "th": "모험·탐험",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   2.8
+  ],
+  "age": "5~9",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "동물·자연 어휘와 리더십 표현, 노래 포함",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 56
+ },
+ {
+  "kr": "마일로 머피의 법칙",
+  "en": "Milo Murphy&#x27;s Law",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "피니와 퍼브 제작진의 빠른 개그 — 도전용",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 57
+ },
+ {
+  "kr": "멍멍건설",
+  "en": "Pupstruction",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "건설 장비·협동 어휘 — 유아용 (패턴형)",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 58
+ },
+ {
+  "kr": "모두의 리그: 이기거나 지거나",
+  "en": "Win or Lose",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~13",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "초등 야구팀 아이들의 스포츠 일상 — 사람 중심 (자연회화형)",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 59
+ },
+ {
+  "kr": "몬스터 근무일지",
+  "en": "Monsters at Work",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "직장·업무 상황 유머 — 도전용",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 60
+ },
+ {
+  "kr": "몰리 맥기와 유령",
+  "en": "The Ghost and Molly McGee",
+  "th": "판타지·마법",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "7~11",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "밝은 일상 대화와 노래 — 사람 중심",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 61
+ },
+ {
+  "kr": "문걸과 데블 다이노소어",
+  "en": "Marvel&#x27;s Moon Girl and Devil Dinosaur",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "과학 천재 + 공룡 콤비 — STEM 어휘와 슬랭",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 62
+ },
+ {
+  "kr": "미키마우스 클럽하우스",
+  "en": "Mickey Mouse Clubhouse",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "숫자·도형·문제 해결 기초 영어의 정석 — 유아용",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 63
+ },
+ {
+  "kr": "미키마우스 펀하우스",
+  "en": "Mickey Mouse Funhouse",
+  "th": "판타지·마법",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "참여형 질문 구조 — 유아용",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 64
+ },
+ {
+  "kr": "베이맥스!",
+  "en": "Baymax!",
+  "th": "탈것·로봇",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "7~11",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "천천히 또박또박 말하는 로봇 발화 — 듣기 최적",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 65
+ },
+ {
+  "kr": "블루이",
+  "en": "Bluey",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   3.0
+  ],
+  "age": "4~9",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "자연스러운 가족 회화, 매화 상황·배경이 다양해 체감 상급 (자연회화형·다양한 상황)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 66
+ },
+ {
+  "kr": "빅 시티 그린",
+  "en": "Big City Greens",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "10세 소년 시점 생활 구어체 — 9세 스위트스팟 (자연회화형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 67
+ },
+ {
+  "kr": "빅 히어로 6 시리즈",
+  "en": "Big Hero 6: The Series",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "과학·기술 어휘 액션 — 사람 중심 도전작",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 68
+ },
+ {
+  "kr": "스파이디와 친구들",
+  "en": "Spidey and His Amazing Friends",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "히어로 패턴 문장 — 흥미연령 낮음 (패턴형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 69
+ },
+ {
+  "kr": "신비한 개구리 나라, 앰피비아",
+  "en": "Amphibia",
+  "th": "모험·탐험",
+  "lvl": 5,
+  "ar": [
+   3.5,
+   4.2
+  ],
+  "age": "9~13",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "이세계 모험 + 십대 구어체 — 상급 도전",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 70
+ },
+ {
+  "kr": "아울 하우스",
+  "en": "The Owl House",
+  "th": "판타지·마법",
+  "lvl": 5,
+  "ar": [
+   3.5,
+   4.5
+  ],
+  "age": "10~14",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "판타지 세계관 어휘·긴 대사 — 상급 도전",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 71
+ },
+ {
+  "kr": "영 제다이 어드벤처",
+  "en": "Star Wars: Young Jedi Adventures",
+  "th": "모험·탐험",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "4~8",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "우주 모험 속 예절·협동 표현 — 사람 주인공 (패턴형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 72
+ },
+ {
+  "kr": "자이언트 사우루스",
+  "en": "Gigantosaurus",
+  "th": "모험·탐험",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "공룡 이름과 모험 기본 동사 — 유아~초저",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 73
+ },
+ {
+  "kr": "주토피아+",
+  "en": "Zootopia+",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "6~10",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "8분 단편으로 다양한 캐릭터 말투 비교",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 74
+ },
+ {
+  "kr": "출동! 파자마 삼총사",
+  "en": "PJ Masks",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "히어로 구호 반복 — 흥미연령 낮음 (패턴형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 75
+ },
+ {
+  "kr": "칩과 데일의 파크 라이프",
+  "en": "Chip &#x27;n&#x27; Dale: Park Life",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "5~9",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "대사가 거의 없는 슬랩스틱 — 영어 노출량은 적음",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 76
+ },
+ {
+  "kr": "카 온 더 로드",
+  "en": "Cars on the Road",
+  "th": "탈것·로봇",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   2.8
+  ],
+  "age": "6~10",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "여행·도로 상황 구어체 농담, 9분 단편",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 77
+ },
+ {
+  "kr": "키프",
+  "en": "Kiff",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "학교생활·친구 관계 구어체 (자연회화형)",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 78
+ },
+ {
+  "kr": "퍼피독 친구들",
+  "en": "Puppy Dog Pals",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "임무 수행 패턴 반복 — 유아용 (패턴형)",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 79
+ },
+ {
+  "kr": "피니와 퍼브",
+  "en": "Phineas and Ferb",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "8~13",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "발명 소재 + 빠른 개그 — 사람 중심 도전작",
+  "cat": "Disney+",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 80
+ },
+ {
+  "kr": "햄스터와 그레텔",
+  "en": "Hamster &amp; Gretel",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "남매 일상 대화 + 히어로 액션 — 사람 중심",
+  "cat": "Disney+",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 81
+ },
+ {
+  "cat": "Disney+",
+  "kr": "곰돌이 푸",
+  "en": "Winnie the Pooh",
+  "th": "판타지 우정물",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "3~8세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "100에이커 숲 동물들의 따뜻한 이야기, 기초 감정·우정 표현",
+  "v": "확인",
+  "new": true,
+  "no": 82
+ },
+ {
+  "cat": "Disney+",
+  "kr": "곰돌이 푸의 새로운 모험",
+  "en": "Winnie the Pooh: A Very Merry Pooh Year",
+  "th": "판타지 계절물",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "3~8세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "100에이커 숲 연중 행사, 계절·축제 어휘·우정",
+  "v": "주의",
+  "new": true,
+  "no": 83
+ },
+ {
+  "cat": "Disney+",
+  "kr": "디즈니 주니어 에리얼",
+  "en": "Disney Junior's Ariel",
+  "th": "판타지 음악",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "3~8세",
+  "subj": "사람+판타지",
+  "pref": "여아",
+  "book": null,
+  "note": "어린 인어공주 수중 모험, 과학 호기심·가족·음악",
+  "v": "주의",
+  "new": true,
+  "no": 84
+ },
+ {
+  "cat": "Disney+",
+  "kr": "디즈니 주니어 음악 동요",
+  "en": "Disney Junior Music Nursery Rhymes",
+  "th": "음악 교육",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "2~5세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "클래식 동요 모음, 음악·리듬·조기 언어 학습 최적화",
+  "v": "주의",
+  "new": true,
+  "no": 85
+ },
+ {
+  "cat": "Disney+",
+  "kr": "라푼젤: 왕국의 공주",
+  "en": "Rapunzel's Tangled Adventure",
+  "th": "판타지 모험",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.5
+  ],
+  "age": "6~12세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "장발 공주의 모험, 독립심·용기·우정 발달, 다중 음성 지원",
+  "v": "확인",
+  "new": true,
+  "no": 86
+ },
+ {
+  "cat": "Disney+",
+  "kr": "리틀 프린세스 소피아",
+  "en": "Sofia the First",
+  "th": "판타지 성장기",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "평민에서 공주가 된 소녀의 성장, 도덕성·예절·감정 표현",
+  "v": "확인",
+  "new": true,
+  "no": 87
+ },
+ {
+  "cat": "Disney+",
+  "kr": "리틀 프린세스 소피아: 로열 매직",
+  "en": "Sofia the First: Royal Prep Academy",
+  "th": "판타지 성장기",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "로열 에티켓 학습, 예절·예의·공주 되기 교육",
+  "v": "주의",
+  "new": true,
+  "no": 88
+ },
+ {
+  "cat": "Disney+",
+  "kr": "리틀 프린세스 소피아: 마법 학교",
+  "en": "Sofia the First: The Magical Seasons",
+  "th": "판타지 성장기",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "사람",
+  "pref": "여아",
+  "book": null,
+  "note": "소피아 마법 학교 생활, 우정·신뢰·도덕성 발달",
+  "v": "주의",
+  "new": true,
+  "no": 89
+ },
+ {
+  "cat": "Disney+",
+  "kr": "마블 퓨처 어벤져스",
+  "en": "Marvel Future Avengers",
+  "th": "슈퍼히어로 액션",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   4.0
+  ],
+  "age": "6~12세",
+  "subj": "사람",
+  "pref": "남아",
+  "book": null,
+  "note": "미래의 어벤져스, 팀워크·협력·리더십 발달",
+  "v": "주의",
+  "new": true,
+  "no": 90
+ },
+ {
+  "cat": "Disney+",
+  "kr": "미키마우스",
+  "en": "Mickey Mouse (2013)",
+  "th": "코미디 일상",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "미키와 친구들 짧은 에피소드, 문제 해결·협력 기본 표현",
+  "v": "확인",
+  "new": true,
+  "no": 91
+ },
+ {
+  "cat": "Disney+",
+  "kr": "미키마우스 뒤죽박죽 모험",
+  "en": "Mickey Mouse Mixed-Up Adventures",
+  "th": "코미디 문제 해결",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "차고의 도구 활용 모험, 창의성·기초 동사·응급 표현",
+  "v": "주의",
+  "new": true,
+  "no": 92
+ },
+ {
+  "cat": "Disney+",
+  "kr": "미키마우스의 멋진 대모험",
+  "en": "Mickey's Mystery Tour",
+  "th": "코미디 모험",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "4~9세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "미키 일행 세계 여행, 지리·문화·탐험 흥미 발달",
+  "v": "주의",
+  "new": true,
+  "no": 93
+ },
+ {
+  "cat": "Disney+",
+  "kr": "슈퍼키티스",
+  "en": "Superkitties",
+  "th": "코미디 어드벤처",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "3~8세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "정비사 고양이들의 마을 모험, 문제 해결·협력 주제",
+  "v": "주의",
+  "new": true,
+  "no": 94
+ },
+ {
+  "cat": "Disney+",
+  "kr": "올라프가 전해요",
+  "en": "Olaf Presents",
+  "th": "판타지 코미디",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "5~10세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "디즈니 명작을 올라프 방식으로 재해석, 유머 중심 창의성",
+  "v": "확인",
+  "new": true,
+  "no": 95
+ },
+ {
+  "cat": "Disney+",
+  "kr": "올라프의 겨울왕국 어드벤처",
+  "en": "Olaf's Frozen Adventure",
+  "th": "판타지 음악",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.5
+  ],
+  "age": "5~10세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "눈사람의 크리스마스 모험, 가족애·음악 반복, 감정 교육",
+  "v": "확인",
+  "new": true,
+  "no": 96
+ },
+ {
+  "cat": "Disney+",
+  "kr": "치비: 아기자기 이야기",
+  "en": "Chibi Tiny Tales",
+  "th": "코미디 옴니버스",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "4~10세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "디즈니 캐릭터 미니 에피소드, 3~5분 짧은 형식·유머",
+  "v": "확인",
+  "new": true,
+  "no": 97
+ },
+ {
+  "cat": "Disney+",
+  "kr": "터보 FAST",
+  "en": "Turbo FAST",
+  "th": "스포츠 코미디",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   3.0
+  ],
+  "age": "5~10세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "달팽이 레이싱 드림, 꿈·도전·응원 표현",
+  "v": "주의",
+  "new": true,
+  "no": 98
+ },
+ {
+  "cat": "Disney+",
+  "kr": "프린세스 스타의 모험일기",
+  "en": "Star vs. The Forces of Evil",
+  "th": "판타지 액션 코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   4.0
+  ],
+  "age": "8~12세",
+  "subj": "사람",
+  "pref": "공통",
+  "book": null,
+  "note": "차원 간 공주 모험, 빠른 구어체·캐릭터 개성·우정",
+  "v": "주의",
+  "new": true,
+  "no": 99
+ },
+ {
+  "cat": "Disney+",
+  "kr": "피니와 퍼브 영어판",
+  "en": "Phineas and Ferb (English version on Disney+)",
+  "th": "코미디 발명물",
+  "lvl": 4,
+  "ar": [
+   3.5,
+   4.5
+  ],
+  "age": "8~13세",
+  "subj": "사람",
+  "pref": "남아",
+  "book": null,
+  "note": "남매 방학 발명 프로젝트, 빠른 개그·창의성·문제 해결",
+  "v": "주의",
+  "new": true,
+  "no": 100
+ },
+ {
+  "kr": "구름빵 (영어)",
+  "en": "Cloud Bread",
+  "th": "판타지·마법",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "동화체 짧은 문장 — 한국 애니 영어판",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 101
+ },
+ {
+  "kr": "극장판 헬로카봇 (영어)",
+  "en": "Hello Carbot the Movie",
+  "th": "탈것·로봇",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "5~9",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "아는 스토리에 영어 입히기 — 한국 애니 영어판",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 102
+ },
+ {
+  "kr": "넘버블록스 (영어)",
+  "en": "Numberblocks",
+  "th": "과학·자연",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "숫자·수학 개념 영어 — 학습 목적 뚜렷 (BBC)",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 103
+ },
+ {
+  "kr": "래브라도 경장 (영어)",
+  "en": "Sheriff Labrador",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "사건 해결 패턴 반복, 시즌3~14 대량 제공 (패턴형)",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 104
+ },
+ {
+  "kr": "레인보우 루비 (영어)",
+  "en": "Rainbow Ruby",
+  "th": "판타지·마법",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "사람+판타지",
+  "pref": "여아",
+  "note": "직업 체험 어휘와 도움 요청 표현 (패턴형)",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 105
+ },
+ {
+  "kr": "로봇트레인 (영어)",
+  "en": "Robot Trains",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "기차·변신 어휘 반복 — 유아용 · 기존 목록 중 유일하게 티빙 영어판 확인",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 106
+ },
+ {
+  "kr": "바다 탐험대 옥토넛 (영어)",
+  "en": "The Octonauts",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "시즌1~4 영어판 제공 (패턴형)",
+  "cat": "TVING",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 107
+ },
+ {
+  "kr": "베이비버스 키키묘묘 구조대 (영어)",
+  "en": "BabyBus Kiki &amp; Miumiu Rescue Team",
+  "th": "모험·탐험",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "3~5",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "구조·응급 표현 — 유아용",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 108
+ },
+ {
+  "kr": "뽀로로 극장판 보물섬 대모험 (영어)",
+  "en": "Pororo: Treasure Island Adventure",
+  "th": "모험·탐험",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "아는 캐릭터로 영어 극장판 몰입 — 유아용",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 109
+ },
+ {
+  "kr": "뽀로로 극장판: 공룡섬 대모험 (영어)",
+  "en": "Pororo: Dino Island Adventure",
+  "th": "모험·탐험",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "공룡 소재 극장판 영어 더빙 — 유아용",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 110
+ },
+ {
+  "kr": "슈퍼히어로 아기상어 (영어)",
+  "en": "Baby Shark Superhero",
+  "th": "히어로·액션",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "3~5",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "히어로 출동 표현 쉬운 문장 — 유아용",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 111
+ },
+ {
+  "kr": "실바니안 패밀리 스페셜 (영어)",
+  "en": "Sylvanian Families: Everyone&#x27;s Big Dream",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "여아",
+  "note": "가족·마을 생활 공손한 말투",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 112
+ },
+ {
+  "kr": "실바니안 패밀리: 프레야의 꿈을 찾아서 (영어)",
+  "en": "Sylvanian Families: Freya&#x27;s Dream",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "여아",
+  "note": "꿈·감정 표현과 격려 문장",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 113
+ },
+ {
+  "kr": "아기 공룡 버디 (영어)",
+  "en": "Dinosaur Train",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "시즌1~5 영어판 제공 (PBS)",
+  "cat": "TVING",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 114
+ },
+ {
+  "kr": "알파블록스",
+  "en": "Alphablocks",
+  "th": "과학·자연",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "파닉스 특화 (BBC) — &#x27;더빙&#x27; 표기라 영어 음성 재생 확인 필요",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 115
+ },
+ {
+  "kr": "엉뚱발랄 콩순이와 친구들 (영어)",
+  "en": "Kongsuni and Friends",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "여아",
+  "note": "유치원·집안 일상 표현 — 한국 애니 영어판",
+  "cat": "TVING",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 116
+ },
+ {
+  "kr": "페파 피그 (영어)",
+  "en": "Peppa Pig",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.2,
+   1.8
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "시즌1~5 영어판 제공",
+  "cat": "TVING",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 117
+ },
+ {
+  "cat": "TVING",
+  "kr": "깨미 영어 율동",
+  "en": "Kkhaemi English Dance",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "깨미 캐릭터와 함께하는 영어 율동 교육",
+  "v": "확인",
+  "new": true,
+  "no": 118
+ },
+ {
+  "cat": "TVING",
+  "kr": "리아차차 인기동요 (영어)",
+  "en": "Lia Char Char Popular Songs (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "여아",
+  "book": null,
+  "note": "쌍둥이 여아 캐릭터의 신나는 영어 동요",
+  "v": "확인",
+  "new": true,
+  "no": 119
+ },
+ {
+  "cat": "TVING",
+  "kr": "베베핀 시즌4 Part2 (영어)",
+  "en": "Baby Phin Season 4 Part2 (English)",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "3~6세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "아기 베베핀과 가족의 하루 영어 스토리",
+  "v": "확인",
+  "new": true,
+  "no": 120
+ },
+ {
+  "cat": "TVING",
+  "kr": "베이비버스 쏭쏭쏭 직업동요 모음 (영어)",
+  "en": "BabyBus Song Song Song Occupation Collection (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "키키·묘묘와 함께 배우는 다양한 직업 동요",
+  "v": "확인",
+  "new": true,
+  "no": 121
+ },
+ {
+  "cat": "TVING",
+  "kr": "베이비버스 키키묘묘 인기동요 1 (영어)",
+  "en": "BabyBus Kiki Miumiu Popular Songs 1 (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "키키·묘묘 캐릭터의 베이비버스 영어 동요 시리즈",
+  "v": "확인",
+  "new": true,
+  "no": 122
+ },
+ {
+  "cat": "TVING",
+  "kr": "뽀로로 잉글리시 쇼",
+  "en": "Pororo English Show",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "3~6세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "뽀로로 캐릭터의 유아용 영어교육 특별 시리즈",
+  "v": "확인",
+  "new": true,
+  "no": 123
+ },
+ {
+  "cat": "TVING",
+  "kr": "스토리 리듬송: 나는 키키 (영어)",
+  "en": "Story Rhythm Song: I am Kiki (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~6세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "아기 기린 캐릭터의 인지 발달 음악 콘텐츠",
+  "v": "확인",
+  "new": true,
+  "no": 124
+ },
+ {
+  "cat": "TVING",
+  "kr": "스토리 리듬송: 더기 & 피기 (영어)",
+  "en": "Story Rhythm Song: Ducky & Piggy (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~5세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "아기 오리와 아기돼지 캐릭터의 스토리 리듬송",
+  "v": "확인",
+  "new": true,
+  "no": 125
+ },
+ {
+  "cat": "TVING",
+  "kr": "옥토넛과 노래해요 (영어)",
+  "en": "Sing with Octonauts (English)",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "4~8세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "옥토넛 캐릭터의 노래와 함께 배우는 영어",
+  "v": "확인",
+  "new": true,
+  "no": 126
+ },
+ {
+  "cat": "TVING",
+  "kr": "코코비 스페셜 인기 동요 3 (영어)",
+  "en": "Coco B Special Popular Songs 3 (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "코코비 캐릭터의 인기 동요 모음 영어판",
+  "v": "확인",
+  "new": true,
+  "no": 127
+ },
+ {
+  "cat": "TVING",
+  "kr": "코코비 인기동요 17 (영어)",
+  "en": "Coco B Popular Songs 17 (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "코코비 캐릭터의 추가 인기 동요 영어 버전",
+  "v": "확인",
+  "new": true,
+  "no": 128
+ },
+ {
+  "cat": "TVING",
+  "kr": "타오 영어 율동",
+  "en": "Tao English Dance",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "타오와 친구들 캐릭터의 영어 율동 교육",
+  "v": "확인",
+  "new": true,
+  "no": 129
+ },
+ {
+  "cat": "TVING",
+  "kr": "톰토미 공주동요 (영어)",
+  "en": "Tomomi Princess Nursery Rhyme (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~6세",
+  "subj": "의인화",
+  "pref": "여아",
+  "book": null,
+  "note": "톰토미 캐릭터의 공주 테마 영어 동요",
+  "v": "확인",
+  "new": true,
+  "no": 130
+ },
+ {
+  "cat": "TVING",
+  "kr": "톰토미와 친구들 (영어)",
+  "en": "Tomomi and Friends (English)",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "톰토미의 친구들과 함께하는 일상 영어 애니메이션",
+  "v": "확인",
+  "new": true,
+  "no": 131
+ },
+ {
+  "cat": "TVING",
+  "kr": "핑크퐁 도둑잡기 놀이 (영어)",
+  "en": "Pinkfong Catch the Thief Game (English)",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "4~8세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "경찰 핑크퐁의 도둑 추적 영어 애니메이션",
+  "v": "확인",
+  "new": true,
+  "no": 132
+ },
+ {
+  "cat": "TVING",
+  "kr": "핑크퐁 마더구스",
+  "en": "Pinkfong Mother Goose",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "영어 라임이 있는 마더구스 클래식 동요",
+  "v": "확인",
+  "new": true,
+  "no": 133
+ },
+ {
+  "cat": "TVING",
+  "kr": "핑크퐁 슈퍼구조대 (영어)",
+  "en": "Pinkfong Super Rescue Squad (English)",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "4~8세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "구조대원들의 도시 안전 미션 영어 애니메이션",
+  "v": "확인",
+  "new": true,
+  "no": 134
+ },
+ {
+  "cat": "TVING",
+  "kr": "핑크퐁 슈퍼구조대 2 (영어)",
+  "en": "Pinkfong Super Rescue Squad 2 (English)",
+  "th": "히어로·액션",
+  "lvl": 2,
+  "ar": [
+   1.0,
+   2.0
+  ],
+  "age": "4~8세",
+  "subj": "의인화",
+  "pref": "남아",
+  "book": null,
+  "note": "슈퍼구조대의 확장된 미션과 안전 학습",
+  "v": "확인",
+  "new": true,
+  "no": 135
+ },
+ {
+  "cat": "TVING",
+  "kr": "핑크퐁 아기동물 동요 (영어)",
+  "en": "Pinkfong Baby Animal Songs (English)",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   0.5,
+   1.5
+  ],
+  "age": "3~7세",
+  "subj": "의인화",
+  "pref": "공통",
+  "book": null,
+  "note": "핑크퐁의 귀여운 아기동물 동요 시리즈",
+  "v": "확인",
+  "new": true,
+  "no": 136
+ },
+ {
+  "kr": "고 디에고 고 (영어판)",
+  "en": "Go, Diego, Go!",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "동물 이름·서식지 어휘, 시청자 참여형 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 137
+ },
+ {
+  "kr": "꼬마버스 타요 (영어판)",
+  "en": "Tayo the Little Bus",
+  "th": "탈것·로봇",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "기초 생활영어 입문 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 138
+ },
+ {
+  "kr": "내 친구 아서",
+  "en": "Arthur",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.4,
+   3.0
+  ],
+  "age": "6~10",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "미국 초등 학교생활 — 9세 스위트스팟, 원서 연계 최상",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 139
+ },
+ {
+  "kr": "네모바지 스폰지밥",
+  "en": "SpongeBob SquarePants",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "7~12",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "원어민 감성 억양과 위트 — 말 빠름 주의 (속도 빠름)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 140
+ },
+ {
+  "kr": "도라의 모험",
+  "en": "Dora the Explorer",
+  "th": "모험·탐험",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.6
+  ],
+  "age": "3~6",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "따라 말하기 구조 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 141
+ },
+ {
+  "kr": "드래곤 길들이기: 버크의 라이더",
+  "en": "Dragons: Riders of Berk",
+  "th": "판타지·마법",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "사람 소년+드래곤 모험 — 9세 취향 도전작",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 142
+ },
+ {
+  "kr": "레고 닌자고: 드래곤 라이징",
+  "en": "LEGO Ninjago: Dragons Rising",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   2.8
+  ],
+  "age": "7~11",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "넷플릭스와 동일 시리즈 — 영어 음성 앱 확인 필요",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 143
+ },
+ {
+  "kr": "레고 드림즈",
+  "en": "LEGO DREAMZzz",
+  "th": "판타지·마법",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "8~12",
+  "subj": "사람",
+  "pref": "남아",
+  "note": "꿈·상상 소재 묘사 표현 — 영어 음성 앱 확인 필요",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 144
+ },
+ {
+  "kr": "로보카폴리 (영어판)",
+  "en": "Robocar POLI",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "안전 규칙 영어 명령문 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 145
+ },
+ {
+  "kr": "리키 줌",
+  "en": "Ricky Zoom",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "영국식 발음과 격려 표현 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 146
+ },
+ {
+  "kr": "마다가스카의 펭귄",
+  "en": "The Penguins of Madagascar",
+  "th": "일상·코미디",
+  "lvl": 4,
+  "ar": [
+   3.0,
+   3.8
+  ],
+  "age": "7~12",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "작전·명령 표현과 속사포 유머 (속도 빠름)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 147
+ },
+ {
+  "kr": "마이티 익스프레스",
+  "en": "Mighty Express",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.0
+  ],
+  "age": "4~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "배달·문제 해결 쉬운 회화 패턴 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 148
+ },
+ {
+  "kr": "몰리 오브 디날리",
+  "en": "Molly of Denali",
+  "th": "모험·탐험",
+  "lvl": 3,
+  "ar": [
+   2.4,
+   3.0
+  ],
+  "age": "6~10",
+  "subj": "사람",
+  "pref": "공통",
+  "note": "알래스카 소녀의 정보 찾기·설명 — 사람 중심 (PBS)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 149
+ },
+ {
+  "kr": "바다 탐험대 옥토넛",
+  "en": "Octonauts",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.5,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "넷플릭스와 동일 — 시즌 구성 차이 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 150
+ },
+ {
+  "kr": "블레이즈와 몬스터 머신",
+  "en": "Blaze and the Monster Machines",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.6,
+   2.2
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "속도·마찰 등 STEM 개념을 패턴으로 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 151
+ },
+ {
+  "kr": "소닉 붐",
+  "en": "Sonic Boom",
+  "th": "히어로·액션",
+  "lvl": 4,
+  "ar": [
+   2.8,
+   3.5
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "티키타카식 빠른 농담 — 도전용 (속도 빠름)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 152
+ },
+ {
+  "kr": "아기 공룡 버디",
+  "en": "Dinosaur Train",
+  "th": "과학·자연",
+  "lvl": 2,
+  "ar": [
+   1.8,
+   2.4
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "공룡 학명과 질문-답변 구조 (PBS)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 153
+ },
+ {
+  "kr": "아기상어 올리와 윌리엄",
+  "en": "Baby Shark&#x27;s Big Show!",
+  "th": "일상·코미디",
+  "lvl": 1,
+  "ar": [
+   1.0,
+   1.5
+  ],
+  "age": "3~5",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "노래·챈트 반복 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 154
+ },
+ {
+  "kr": "위 베어 베어스",
+  "en": "We Bare Bears",
+  "th": "일상·코미디",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "8~12",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "형제 일상 잡담 실생활 구어 — 9세 취향 (자연회화형)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 155
+ },
+ {
+  "kr": "출동! 슈퍼윙스",
+  "en": "Super Wings",
+  "th": "모험·탐험",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "세계 지명·배달 패턴 반복 — 유아용 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 156
+ },
+ {
+  "kr": "쿵푸팬더: 전설의 마스터",
+  "en": "Kung Fu Panda: Legends of Awesomeness",
+  "th": "히어로·액션",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "7~11",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "유머 섞인 액션 대사 — 흥미 유지 좋음",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 157
+ },
+ {
+  "kr": "클리포드 (영어판)",
+  "en": "Clifford the Big Red Dog",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.6,
+   2.2
+  ],
+  "age": "4~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "이웃·우정 일상 회화 — 원서 연계 좋음",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 158
+ },
+ {
+  "kr": "탑 윙",
+  "en": "Top Wing",
+  "th": "모험·탐험",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "임무 수행·격려 표현 반복 — 유아용 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 159
+ },
+ {
+  "kr": "터보 FAST",
+  "en": "Turbo FAST",
+  "th": "탈것·로봇",
+  "lvl": 3,
+  "ar": [
+   2.5,
+   3.2
+  ],
+  "age": "7~11",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "레이싱 표현과 응원 구문",
+  "cat": "쿠팡플레이",
+  "book": null,
+  "v": "확인",
+  "new": false,
+  "no": 160
+ },
+ {
+  "kr": "토마스와 친구들: 올 엔진 고",
+  "en": "Thomas &amp; Friends: All Engines Go",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "남아",
+  "note": "협동·양보 기본 동사 반복 — 유아용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 161
+ },
+ {
+  "kr": "트랜스포머 레스큐봇",
+  "en": "Transformers: Rescue Bots",
+  "th": "탈것·로봇",
+  "lvl": 3,
+  "ar": [
+   2.0,
+   2.6
+  ],
+  "age": "5~9",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "긴급 상황 지시문과 팀워크 표현, 사람+로봇",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 162
+ },
+ {
+  "kr": "트롤스토피아",
+  "en": "TrollsTopia",
+  "th": "판타지·마법",
+  "lvl": 3,
+  "ar": [
+   2.2,
+   2.8
+  ],
+  "age": "5~9",
+  "subj": "사람+판타지",
+  "pref": "여아",
+  "note": "음악과 감정·협동 표현 — 영어 음성 앱 확인 필요",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 163
+ },
+ {
+  "kr": "퍼피 구조대",
+  "en": "PAW Patrol",
+  "th": "탈것·로봇",
+  "lvl": 2,
+  "ar": [
+   1.4,
+   2.0
+  ],
+  "age": "3~7",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "구조 임무 구호 반복 — 유아용이나 언어 연습 효율 높음 (패턴형)",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 164
+ },
+ {
+  "kr": "페파 피그",
+  "en": "Peppa Pig",
+  "th": "일상·코미디",
+  "lvl": 2,
+  "ar": [
+   1.2,
+   1.8
+  ],
+  "age": "3~6",
+  "subj": "의인화",
+  "pref": "공통",
+  "note": "영국식 가족 일상 표현 기초 — 유아용이나 어휘 실속",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 165
+ },
+ {
+  "kr": "핀과 제이크의 어드벤처 타임",
+  "en": "Adventure Time",
+  "th": "판타지·마법",
+  "lvl": 5,
+  "ar": [
+   3.8,
+   4.8
+  ],
+  "age": "10~14",
+  "subj": "사람+판타지",
+  "pref": "남아",
+  "note": "은어·창작 표현 다수 — 상급 도전, 나중용",
+  "cat": "쿠팡플레이",
+  "book": {
+   "t": ""
+  },
+  "v": "확인",
+  "new": false,
+  "no": 166
+ }
+]
