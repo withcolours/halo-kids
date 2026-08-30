@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>주간 계획</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon-home.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F2F8FD">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+:root { --bg:#F2F8FD; --card:#FFFFFF; --ink:#22303C; --sub:#64748B; --line:#D8E6F2; --acc:#1E90FF; --ok:#2E9E5B; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; } }
+:root[data-theme="dark"] { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center; }
+.header { width:100%; max-width:640px; margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+.back-btn { width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 40px; text-decoration:none; }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:28px; margin:0; flex:1; }
+h2 { font-family:'Jua',sans-serif; font-weight:400; font-size:18px; margin:22px 0 10px; width:100%; max-width:640px; }
+.panel { background:var(--card); border:1.5px solid var(--line); border-radius:18px; width:100%; max-width:640px; padding:18px; }
+label { display:block; font-size:13px; font-weight:700; margin:12px 0 6px; }
+input[type=text], select { width:100%; padding:11px; border:1.5px solid var(--line); border-radius:12px; background:var(--bg); color:var(--ink); font-family:inherit; font-size:14px; }
+input:focus { outline:none; border-color:var(--acc); }
+.typegrp, .daygrp { display:flex; gap:6px; flex-wrap:wrap; }
+.tchip, .dchip { border:1.5px solid var(--line); background:var(--bg); color:var(--sub); border-radius:99px; padding:7px 13px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; }
+.tchip.on { background:var(--acc); border-color:var(--acc); color:#fff; }
+.dchip.on { background:var(--ink); border-color:var(--ink); color:var(--bg); }
+.sugg { position:relative; }
+.sugg-list { position:absolute; top:100%; left:0; right:0; background:var(--card); border:1.5px solid var(--line); border-radius:12px; margin-top:4px; max-height:240px; overflow-y:auto; z-index:10; display:none; box-shadow:0 8px 20px rgba(16,42,67,.15); }
+.sugg-item { padding:10px 13px; cursor:pointer; font-size:14px; border-bottom:1px solid var(--line); }
+.sugg-item:last-child { border-bottom:none; }
+.sugg-item:hover, .sugg-item:active { background:var(--bg); }
+.sugg-item .s { font-size:11.5px; color:var(--sub); margin-left:6px; }
+.addbtn { width:100%; margin-top:16px; padding:12px; border:none; border-radius:99px; background:var(--acc); color:#fff; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit; }
+.item { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid var(--line); border-radius:14px; margin-bottom:8px; background:var(--card); }
+.item .emoji { font-size:20px; }
+.item .tt { flex:1; }
+.item .tt b { font-size:14.5px; }
+.item .days { font-size:12px; color:var(--sub); margin-top:2px; }
+.del { border:none; background:none; color:var(--sub); cursor:pointer; font-size:18px; padding:4px 8px; }
+.empty { color:var(--sub); font-size:14px; text-align:center; padding:24px; }
+.msg { text-align:center; color:var(--ok); font-size:13px; margin-top:8px; min-height:18px; }
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
+<div class="header">
+  <a class="back-btn" href="index.html"><svg data-feather="chevron-left" width="20" height="20"></svg></a>
+  <h1>주간 계획</h1>
+  <span id="whose" style="font-size:13px; color:var(--sub);"></span>
+</div>
+
+<div class="panel">
+  <label>무엇을 할까?</label>
+  <div class="typegrp" id="typegrp">
+    <button class="tchip on" data-t="book">📚 책 읽기</button>
+    <button class="tchip" data-t="ott">🎬 영상 보기</button>
+    <button class="tchip" data-t="task">✏️ 문제집·과제</button>
+    <button class="tchip" data-t="etc">⭐ 기타</button>
+  </div>
+
+  <label id="titleLabel">책 제목 (검색해서 고르기)</label>
+  <div class="sugg">
+    <input type="text" id="title" placeholder="제목을 입력하면 목록에서 찾아줘요" maxlength="60" autocomplete="off">
+    <div class="sugg-list" id="suggList"></div>
+  </div>
+
+  <label>요일 (반복)</label>
+  <div class="daygrp" id="daygrp">
+    <button class="dchip" data-d="1">월</button><button class="dchip" data-d="2">화</button>
+    <button class="dchip" data-d="3">수</button><button class="dchip" data-d="4">목</button>
+    <button class="dchip" data-d="5">금</button><button class="dchip" data-d="6">토</button>
+    <button class="dchip" data-d="0">일</button>
+    <button class="dchip" data-d="all" style="margin-left:6px">매일</button>
+  </div>
+
+  <button class="addbtn" onclick="addItem()">계획에 추가</button>
+  <div class="msg" id="msg"></div>
+</div>
+
+<h2>내 계획</h2>
+<div id="list" style="width:100%; max-width:640px;"><div class="empty">불러오는 중...</div></div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const EMOJI = { book:'📚', ott:'🎬', task:'✏️', etc:'⭐' };
+const DAY_KO = ['일','월','수','목','금','토']; // placeholder, replaced below
+const DKO = {0:'일',1:'월',2:'화',3:'수',4:'목',5:'금',6:'토'};
+
+let curType = 'book';
+let selRef = null;   // 카탈로그 선택 시 {id,title}
+let selDays = new Set();
+let CATALOG = [];
+let targetUid = null;
+
+// 유형 선택
+document.querySelectorAll('.tchip').forEach(b => b.onclick = () => {
+  curType = b.dataset.t;
+  document.querySelectorAll('.tchip').forEach(x => x.classList.toggle('on', x === b));
+  selRef = null; document.getElementById('title').value = '';
+  const lbl = document.getElementById('titleLabel');
+  lbl.textContent = curType === 'book' ? '책 제목 (검색해서 고르기)'
+    : curType === 'ott' ? '영상 제목 (검색해서 고르기)'
+    : curType === 'task' ? '할 일 (예: 수학 문제집 2쪽)'
+    : '할 일';
+});
+
+// 요일 선택
+document.querySelectorAll('.dchip').forEach(b => b.onclick = () => {
+  if (b.dataset.d === 'all') {
+    const all = selDays.size < 7;
+    selDays = all ? new Set([0,1,2,3,4,5,6]) : new Set();
+    document.querySelectorAll('.dchip').forEach(x => { if (x.dataset.d !== 'all') x.classList.toggle('on', all); });
+    b.classList.toggle('on', all);
+    return;
+  }
+  const d = parseInt(b.dataset.d);
+  selDays.has(d) ? selDays.delete(d) : selDays.add(d);
+  b.classList.toggle('on', selDays.has(d));
+});
+
+// 카탈로그 자동완성
+async function loadCatalog() {
+  const r = await fetch('catalog.json');
+  CATALOG = await r.json();
+}
+const titleEl = document.getElementById('title');
+const suggEl = document.getElementById('suggList');
+titleEl.addEventListener('input', () => {
+  selRef = null;
+  const q = titleEl.value.trim();
+  if ((curType !== 'book' && curType !== 'ott') || q.length < 1) { suggEl.style.display = 'none'; return; }
+  const kind = curType === 'book' ? 'book' : 'ott';
+  const hits = CATALOG.filter(x => x.kind === kind && x.title.includes(q)).slice(0, 8);
+  if (!hits.length) { suggEl.style.display = 'none'; return; }
+  suggEl.innerHTML = hits.map(h =>
+    `<div class="sugg-item" data-id="${h.id}" data-title="${h.title.replace(/"/g,'&quot;')}"><b>${h.title}</b><span class="s">${h.series}</span></div>`).join('');
+  suggEl.style.display = 'block';
+  suggEl.querySelectorAll('.sugg-item').forEach(el => el.onclick = () => {
+    selRef = { id: el.dataset.id, title: el.dataset.title };
+    titleEl.value = el.dataset.title;
+    suggEl.style.display = 'none';
+  });
+});
+document.addEventListener('click', e => { if (!e.target.closest('.sugg')) suggEl.style.display = 'none'; });
+
+// 항목 추가
+async function addItem() {
+  const msg = document.getElementById('msg');
+  const title = titleEl.value.trim();
+  if (!title) { msg.textContent = '제목을 입력하세요'; msg.style.color = '#D6453D'; return; }
+  if (!selDays.size) { msg.textContent = '요일을 하나 이상 선택하세요'; msg.style.color = '#D6453D'; return; }
+  const item = {
+    type: curType, title: title,
+    refId: selRef && selRef.title === title ? selRef.id : null,
+    days: [...selDays].sort(),
+    createdAt: firebase.database.ServerValue.TIMESTAMP
+  };
+  await db.ref(`userPlans/${targetUid}`).push(item);
+  msg.textContent = '추가했어요!'; msg.style.color = 'var(--ok)';
+  titleEl.value = ''; selRef = null;
+  setTimeout(() => msg.textContent = '', 1500);
+  renderList();
+}
+
+// 목록
+async function renderList() {
+  const snap = await db.ref(`userPlans/${targetUid}`).once('value');
+  const plans = snap.val() || {};
+  const list = document.getElementById('list');
+  const keys = Object.keys(plans);
+  if (!keys.length) { list.innerHTML = '<div class="empty">아직 계획이 없어요. 위에서 추가해 보세요!</div>'; return; }
+  list.innerHTML = keys.map(k => {
+    const p = plans[k];
+    const days = (p.days || []).length === 7 ? '매일' : (p.days || []).map(d => DKO[d]).join('·');
+    return `<div class="item"><span class="emoji">${EMOJI[p.type] || '⭐'}</span>
+      <span class="tt"><b>${p.title}</b>${p.refId ? ' <span style="font-size:11px;color:var(--acc);font-weight:700">연동</span>' : ''}<div class="days">${days}</div></span>
+      <button class="del" onclick="delItem('${k}')" title="삭제">✕</button></div>`;
+  }).join('');
+}
+async function delItem(k) {
+  await db.ref(`userPlans/${targetUid}/${k}`).remove();
+  renderList();
+}
+
+window.addEventListener('load', () => {
+  if (!localStorage.getItem('currentUser')) { window.location.href = 'login.html'; return; }
+  feather.replace();
+  firebase.auth().onAuthStateChanged(async (fbUser) => {
+    if (!fbUser) { localStorage.clear(); window.location.href = 'login.html'; return; }
+    // admin이 ?uid= 로 다른 아이 계획 편집 가능
+    const param = new URLSearchParams(location.search).get('uid');
+    targetUid = fbUser.uid;
+    if (param && param !== fbUser.uid) {
+      const me = (await db.ref(`users/${fbUser.uid}`).once('value')).val();
+      if (me && me.role === 'admin') {
+        targetUid = param;
+        const tu = (await db.ref(`users/${param}`).once('value')).val();
+        document.getElementById('whose').textContent = `${(tu && (tu.nickname || tu.username)) || param}의 계획 (관리자)`;
+      }
+    }
+    loadCatalog();
+    renderList();
+  });
+});
+</script>
+</body>
+</html>
