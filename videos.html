@@ -67,14 +67,11 @@ h3 { font-family:'Jua',sans-serif; font-weight:400; font-size:16.5px; margin:2px
   <span style="font-size:12.5px">나이 <select id="agef"><option value="">선택</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>세</span>
   <button class="fb sweet" id="recbtn" style="display:none">⭐ 추천만</button>
   <span style="font-size:12.5px">AR <input id="arin" type="number" step="0.1" min="0.5" max="5" placeholder="2.3"> ±<select id="tol"><option>0.5</option><option>0.3</option><option>1.0</option></select></span>
-  <button class="lvb" data-lvl="1" data-c="#2E9E5B" style="color:#2E9E5B">L1</button><button class="lvb" data-lvl="2" data-c="#7CA815" style="color:#7CA815">L2</button><button class="lvb" data-lvl="3" data-c="#3B6FE0" style="color:#3B6FE0">L3</button><button class="lvb" data-lvl="4" data-c="#E0742C" style="color:#E0742C">L4</button><button class="lvb" data-lvl="5" data-c="#D6453D" style="color:#D6453D">L5</button>
-  <button class="fb" data-g="cat" data-v="Netflix">Netflix</button><button class="fb" data-g="cat" data-v="Disney+">Disney+</button><button class="fb" data-g="cat" data-v="TVING">TVING</button><button class="fb" data-g="cat" data-v="쿠팡플레이">쿠팡플레이</button>
-  <button class="fb" data-g="subj" data-v="사람">🧒 사람</button>
-  <button class="fb" data-g="subj" data-v="의인화">🐾 의인화</button>
-  <button class="fb" data-g="pref" data-v="남아">남아</button>
-  <button class="fb" data-g="pref" data-v="여아">여아</button>
-  <button class="fb" data-g="watch" data-v="y">✓ 본 것만</button>
-  <button class="fb" data-g="watch" data-v="n">안 본 것만</button>
+  <select id="lvlf"><option value="">🎯 레벨</option><option value="1">L1 아주 쉬움</option><option value="2">L2 쉬움</option><option value="3">L3 보통</option><option value="4">L4 어려움</option><option value="5">L5 매우 어려움</option></select>
+  <select id="catf"><option value="">📺 플랫폼</option><option>Netflix</option><option>Disney+</option><option>TVING</option><option>쿠팡플레이</option></select>
+  <select id="subjf"><option value="">🧒 소재</option><option value="사람">사람 중심</option><option value="사람+판타지">사람+판타지</option><option value="의인화">의인화</option></select>
+  <select id="preff"><option value="">💙 취향</option><option value="남아">남아</option><option value="여아">여아</option><option value="공통">공통</option></select>
+  <select id="watchf"><option value="">✓ 시청</option><option value="y">본 것만</option><option value="n">안 본 것만</option></select>
 </div>
 <p class="cnt"><b id="shown">0</b>편 표시 중 · 전체 181편 · ▶ 버튼으로 해당 앱이 바로 열려요</p>
 <div class="grid" id="mg">
@@ -2112,21 +2109,11 @@ document.getElementById('agef').onchange = e => {
 document.getElementById('recbtn').onclick = e => { state.rec = !state.rec; e.target.classList.toggle('on', state.rec); apply(); };
 document.getElementById('arin').oninput = e => { state.ar = e.target.value ? +e.target.value : null; apply(); };
 document.getElementById('tol').onchange = e => { state.tol = +e.target.value; apply(); };
-document.querySelectorAll('.fb[data-g], .lvb[data-lvl]').forEach(b => b.onclick = () => {
-  if (b.dataset.lvl) {
-    state.lvl = state.lvl === +b.dataset.lvl ? null : +b.dataset.lvl;
-    document.querySelectorAll('.lvb').forEach(x => { const on = state.lvl === +x.dataset.lvl;
-      x.classList.toggle('on', on); x.style.background = on ? x.dataset.c : ''; x.style.borderColor = on ? x.dataset.c : ''; });
-  } else if (b.dataset.g === 'cat') {
-    state.cat = state.cat === b.dataset.v ? null : b.dataset.v;
-    document.querySelectorAll('[data-g="cat"]').forEach(x => x.classList.toggle('on', state.cat === x.dataset.v));
-  } else {
-    const g = b.dataset.g;
-    state[g] = state[g] === b.dataset.v ? null : b.dataset.v;
-    document.querySelectorAll(`[data-g="${g}"]`).forEach(x => x.classList.toggle('on', state[g] === x.dataset.v));
-  }
-  apply();
-});
+document.getElementById('lvlf').onchange = e => { state.lvl = e.target.value ? +e.target.value : null; apply(); };
+document.getElementById('catf').onchange = e => { state.cat = e.target.value || null; apply(); };
+document.getElementById('subjf').onchange = e => { state.subj = e.target.value || null; apply(); };
+document.getElementById('preff').onchange = e => { state.pref = e.target.value || null; apply(); };
+document.getElementById('watchf').onchange = e => { state.watch = e.target.value || null; apply(); };
 apply();
 // 카드 크기
 (function(){
