@@ -46,6 +46,15 @@ a.card:active { transform:scale(.98); }
 <body>
 <script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
 <div class="header">
+  <svg viewBox="0 -6 150 164" width="38" height="41" aria-hidden="true" style="flex:0 0 auto; margin:10px 10px 0 0;">
+    <line x1="75" y1="30" x2="75" y2="0" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/>
+    <line x1="45" y1="36" x2="31" y2="12" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/>
+    <line x1="105" y1="36" x2="119" y2="12" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="75" cy="94" r="60" fill="var(--acc)"/>
+    <circle cx="57" cy="86" r="7" fill="#fff"/>
+    <circle cx="93" cy="86" r="7" fill="#fff"/>
+    <path d="M53 110 Q75 130 97 110" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </svg>
   <h1>Halo <span style="color:var(--acc);">Kids!</span></h1>
   <button class="hbtn avatar" onclick="toggleMenu(event)" title="내 계정" id="menuBtn">?</button>
   <script>(function(){var n=localStorage.getItem('nickname')||localStorage.getItem('username');if(n)document.getElementById('menuBtn').textContent=n[0].toUpperCase();})();</script>
