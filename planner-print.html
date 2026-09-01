@@ -319,9 +319,7 @@ function fitPreview(){
   const w=el.offsetWidth,h=el.offsetHeight;
   if(!w||!h)return;
   const availableW=Math.max(320,wrap.clientWidth-4);
-  const rect=wrap.getBoundingClientRect();
-  const availableH=Math.max(420,window.innerHeight-rect.top-18);
-  const scale=Math.min(1,availableW/w,availableH/h);
+  const scale=Math.min(1,availableW/w);
   el.style.transformOrigin='top left';
   el.style.transform=`scale(${scale})`;
   wrap.style.height=Math.ceil(h*scale+6)+'px';
