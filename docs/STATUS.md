@@ -16,14 +16,17 @@
 - settings.html에 플래너 바로가기 카드(로그아웃 아래 분리, 웃는 달력 아이콘)
 - 아바타 이니셜 깜빡임 수정: localStorage `nickname` 캐시로 첫 페인트부터 표시. 로그인 시 DB에서 미리 캐시, 로그아웃·타계정 로그인 시 정리 (index/settings/profile/login)
 
-### 브랜딩 (2026-09-01)
+### 브랜딩 (2026-09-01, 확정·적용)
 - **이름 "Halo Kids" 확정** — Haylo/Hailo 등 변형 검토 후 유지 (halo+hello 이중 의미가 원안에서만 성립)
-- 로고 시안 3종: https://claude.ai/code/artifact/3cac98e3-bb0a-419d-8ff9-04e35fdf145d (A 반짝이 워드마크 / B 스마일 마스코트+빛살 / C 말풍선 인사)
-- **후광 고리 모티프 금지 확정** (고인 연상) — 빛 표현은 스파클·빛살로. **로고 최종안 선택 대기 중** → 선택되면 icon-192/512, apple-touch-icon, 헤더 로고에 적용
+- 로고 시안 3종: https://claude.ai/code/artifact/3cac98e3-bb0a-419d-8ff9-04e35fdf145d — **B 마스코트(심볼) + A 워드마크(로고타입) 조합으로 확정**
+- **후광 고리 모티프 금지 확정** (고인 연상) — 빛 표현은 스파클·빛살로
+- 적용 완료(로컬 커밋 df0e8a9, **push 대기 — 이 맥에 GitHub 인증 없음**): icon-192/512·icon-home(마스코트, 배경 #F2F8FD), index/login 헤더에 마스코트 SVG+워드마크. icon-books/ott는 유지
+- BI 확정안(토큰·조합 규칙·적용 현황)은 플래너 설계서 ⑦절에 문서화
 
 ## ⚠️ 미결
+0. **push 대기** — 브랜딩 커밋 df0e8a9. 이 맥 환경에 GitHub 인증(keychain/SSH/gh) 없음 → 사용자가 터미널에서 `git push` 필요
+0-1. **planner-print 가로 넘침 수정** — `.landscape-grid` 열을 `minmax(0,1fr)`로 패치(로컬, 미커밋). 원인: 1fr의 min-width:auto가 긴 nowrap 요약 텍스트에 밀려 열이 시트 밖으로 확장. **다른 세션에서 검증·커밋 예정**. 참고: planner-print 데이터는 localStorage라 계정별 분리·기기 간 동기화 안 됨(같은 브라우저면 thdduddn/elyse가 같은 데이터를 봄) — Firebase 저장으로 전환 검토
 1. **플래너 구현** — ⑥ 결정 6건 답변 대기 (스펙: planner-spec.md)
-2. **로고 최종안 선택** 대기 → 아이콘·헤더 적용
 3. ott-list.html(107편 표) "봤어요" 열 미완 / ott59-N vs ott-N id 통합
 4. 뒤집기 과학 심화 50권·국어 40권 수집 미해결(세트 전용 유통) → 이후 6분야 통합 메뉴(기존 읽음 id 보존)
 5. 사회 뒤집기 표지 0/40 플레이스홀더, videos.html 분량 null 25편(동요 모음집)
