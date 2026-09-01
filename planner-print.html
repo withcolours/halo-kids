@@ -193,7 +193,8 @@ async function loadWeek(){
     cachePut();render();setSync('자동 저장됨',true);
   }catch(e){
     render();setSync('연결 실패',false);
-    toast('데이터를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.');
+    console.error('loadWeek',e);
+    toast('불러오기 실패: '+((e&&(e.code||e.message))||e));
   }
 }
 function gotoWeek(ws){state.weekStart=ws;resetForm();loadWeek()}
@@ -412,7 +413,9 @@ if(!localStorage.getItem('currentUser')){
       setSync((who?who+' · ':'')+'자동 저장됨',true);
     }catch(e){
       setSync('연결 실패',false);
-      toast('데이터를 불러오지 못했어요. 관리자에게 문의해 주세요.');
+      console.error('planner init',e);
+      const msg=(e&&(e.code||e.message))||String(e);
+      toast(/permission/i.test(msg)?'연결 실패: 보안 규칙이 아직 게시되지 않았어요 ('+msg+')':'연결 실패: '+msg);
     }
   });
 }
