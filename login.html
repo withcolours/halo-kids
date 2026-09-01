@@ -338,6 +338,12 @@ async function handleLogin() {
     localStorage.setItem('currentUser', userCred.user.uid);
     localStorage.setItem('username', username); localStorage.removeItem('nickname');
 
+    // 닉네임을 미리 캐시해 index 아바타가 첫 페인트부터 올바른 글자로 뜨게 한다
+    try {
+      const nick = (await db.ref(`users/${userCred.user.uid}/nickname`).once('value')).val();
+      if (nick) localStorage.setItem('nickname', nick);
+    } catch (e) {}
+
     // index.html로 리다이렉트
     window.location.href = 'index.html';
   } catch (error) {

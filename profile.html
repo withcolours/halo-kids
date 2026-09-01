@@ -143,6 +143,10 @@ async function saveProfile() {
     birthYear: birthYear
   });
 
+  // 아바타 첫 페인트용 캐시도 함께 갱신
+  if (nickname) localStorage.setItem('nickname', nickname);
+  else localStorage.removeItem('nickname');
+
   await db.ref(`userActivity/${userId}`).push({
     action: 'update_profile',
     timestamp: firebase.database.ServerValue.TIMESTAMP
