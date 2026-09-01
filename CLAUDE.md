@@ -31,7 +31,7 @@
 - 카드가 분야별 탭에 cloneNode 복제됨 → 읽음 토글은 같은 data-book-id 전체 동기화. 필터 함수는 `window.__apply`로 노출
 
 ## 페이지 구성
-login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **planner-print**(인쇄용 주간 플래너 — 독립 도구, localStorage `halokids_weekly_grid_v1`, "자주 쓰는 일정" 라이브러리 내장) / planner(구모델 초안 — 그리드 모델로 재작업 예정)
+login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **planner-print**(주간 플래너 체크뷰 — Firebase 계정별 저장: `userPlanWeeks`/`userPlanChecks`/`userPlanLibrary`, 주별 스냅샷, 시트 위 라이브 체크(페인트 스트로크), 주 이동+빈 주 3택, localStorage는 오프라인 캐시·레거시 `halokids_weekly_grid_v1`은 최초 로그인 시 1회 이관) / planner(구모델 초안 — 그리드 모델로 재작업 예정)
 
 ## DB 구조
 - `users/{uid}`: username, nickname, birthYear, role(child|admin), createdAt, lastLogin
@@ -40,7 +40,8 @@ login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / 
 - 플래너 확장 예정: userPlans, userPlanChecks, userTasks, userBooks, userStars, rewards, redemptions, usernames, parents ([docs/planner-spec.md](docs/planner-spec.md) 참조 — 보안 규칙 재게시 필요)
 
 ## 계정
-- `elyse` (닉네임 nari ← maru에서 변경된 듯, 2017년생) — 실사용 아이 계정
+- `thdduddn` — **실사용 아이 계정** (영우, 2017년생) ← 2026-09-01 사용자 확정
+- `elyse` (닉네임 nari) — **관리자(부모) 계정**
 - `test.claude` — 검증용, 삭제 가능
 - 관리자 지정: 콘솔에서 uid의 role을 "admin"으로 수동 변경
 - 원천 자료: `~/Library/Mobile Documents/com~apple~CloudDocs/dev/LifeLog/교육/참고 자료/` (시간표 원본, OTT/도서 자료)
