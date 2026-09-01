@@ -92,6 +92,11 @@ body, button, input, select, textarea,
 @media print{.emptywk{display:none!important}}
 .workspace.nopanel{grid-template-columns:1fr}
 .workspace.nopanel .panel{display:none}
+.imgoverlay{position:fixed;inset:0;background:rgba(20,20,20,.93);z-index:98;display:none;flex-direction:column;padding:14px;gap:10px}
+.imgoverlay.on{display:flex}
+.imgoverlay-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fff;font-size:13px}
+.imgoverlay img{flex:1;min-height:0;object-fit:contain;width:100%}
+@media print{.imgoverlay{display:none!important}}
 
 /* V12 export consistency */
 .sheet,.plan-head,.landscape-grid,.day-summary,.summary-box,.timeline-labels,.memo,.memo textarea{
@@ -364,20 +369,44 @@ async function capturePlanner(){
     requestAnimationFrame(fitPreview);
   }
 }
+const IS_IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function showImageOverlay(url){
+  let ov=$('imgOverlay');
+  if(!ov){
+    ov=document.createElement('div');ov.id='imgOverlay';ov.className='imgoverlay';
+    ov.innerHTML='<div class="imgoverlay-bar"><span>이미지를 길게 눌러 「사진에 저장」 또는 「공유」를 선택하세요</span><button class="btn secondary" id="imgOverlayClose">닫기</button></div><img alt="주간 플래너 이미지">';
+    document.body.appendChild(ov);
+    ov.querySelector('#imgOverlayClose').onclick=()=>ov.classList.remove('on');
+  }
+  ov.querySelector('img').src=url;ov.classList.add('on');
+}
 $('pngBtn').onclick=async()=>{
   const canvas=await capturePlanner();
   if(!canvas)return;
+  const name=`weekly-plan-${state.weekStart}.png`;
+  const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));
+  if(!blob){toast('이미지 생성에 실패했어요.');return}
+  if(IS_IOS&&navigator.canShare){
+    const file=new File([blob],name,{type:'image/png'});
+    if(navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],title:'Weekly Plan'});return}
+      catch(e){if(e&&e.name==='AbortError')return}
+    }
+    showImageOverlay(canvas.toDataURL('image/png'));
+    return;
+  }
   const a=document.createElement('a');
-  a.download=`weekly-plan-${state.weekStart}.png`;
-  a.href=canvas.toDataURL('image/png');
+  a.download=name;
+  a.href=URL.createObjectURL(blob);
   a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),10000);
 };
 $('pdfBtn').onclick=async()=>{
   const canvas=await capturePlanner();
   if(!canvas)return;
   const img=canvas.toDataURL('image/png');
   const win=window.open('','_blank');
-  if(!win){toast('팝업이 차단되었습니다. 팝업을 허용한 뒤 다시 시도해 주세요.');return;}
+  if(!win){showImageOverlay(img);toast('이 화면에서는 인쇄 창을 열 수 없어 이미지로 보여드려요. 길게 눌러 저장·공유하세요.');return;}
   win.document.open();
   win.document.write(`<!doctype html><html><head><meta charset="utf-8">
   <title>Halo Study Planner</title>
