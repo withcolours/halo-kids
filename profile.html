@@ -95,7 +95,7 @@ window.addEventListener('load', async () => {
 
   if (!localStorage.getItem('currentUser')) { window.location.href = 'login.html'; return; }
   firebase.auth().onAuthStateChanged(async (fbUser) => {
-  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); localStorage.removeItem('nickname'); window.location.href = 'login.html'; return; }
   const userId = fbUser.uid;
   localStorage.setItem('currentUser', userId);
 

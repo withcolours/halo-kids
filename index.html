@@ -48,6 +48,7 @@ a.card:active { transform:scale(.98); }
 <div class="header">
   <h1>Halo <span style="color:var(--acc);">Kids!</span></h1>
   <button class="hbtn avatar" onclick="toggleMenu(event)" title="내 계정" id="menuBtn">?</button>
+  <script>(function(){var n=localStorage.getItem('nickname')||localStorage.getItem('username');if(n)document.getElementById('menuBtn').textContent=n[0].toUpperCase();})();</script>
 
   <div class="dropdown" id="dropdown">
     <div style="padding:13px 16px; border-bottom:1px solid var(--line);">
@@ -146,10 +147,14 @@ const db = firebase.database();
 
 // 아바타 글자 + 계정 정보 + 관리자 메뉴
 firebase.auth().onAuthStateChanged(async (fbUser) => {
-  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); window.location.href = 'login.html'; return; }
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); localStorage.removeItem('nickname'); window.location.href = 'login.html'; return; }
   const uid = fbUser.uid;
   const username = localStorage.getItem('username') || '';
-  document.getElementById('menuBtn').textContent = (username[0] || '?').toUpperCase();
+  // 첫 페인트는 위 인라인 스크립트가 캐시(nickname)로 이미 그렸으므로,
+  // 여기서는 캐시가 전혀 없던 경우에만 아이디 첫 글자로 보정한다 (깜빡임 방지)
+  if (!localStorage.getItem('nickname') && username) {
+    document.getElementById('menuBtn').textContent = username[0].toUpperCase();
+  }
   document.getElementById('ddUsername').textContent = username;
 
   const me = (await db.ref(`users/${uid}`).once('value')).val();
@@ -157,6 +162,7 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
     const name = me.nickname || username;
     document.getElementById('ddName').textContent = name;
     document.getElementById('menuBtn').textContent = name[0].toUpperCase();
+    localStorage.setItem('nickname', name);
     if (me.role === 'admin') {
       document.getElementById('adminItem').style.display = '';
       if (window.feather) feather.replace();
@@ -177,7 +183,7 @@ async function handleLogout() {
     await auth.signOut();
   } catch (e) { /* 오류여도 로컬 세션은 정리 */ }
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('username');
+  localStorage.removeItem('username'); localStorage.removeItem('nickname');
   window.location.href = 'login.html';
 }
 </script>
