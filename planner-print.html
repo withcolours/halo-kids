@@ -67,7 +67,7 @@ body, button, input, select, textarea,
 .sync.ok .dot{background:#3bb273}
 .summary-line{cursor:pointer;border-radius:3px}
 .summary-line .summary-text{flex:0 1 auto;margin-right:auto;position:relative;z-index:0;padding:0 4px}
-.summary-line .summary-text::before{content:"";position:absolute;z-index:-1;left:-1px;right:0;top:44%;bottom:20%;background:var(--c,transparent);background:linear-gradient(93deg,color-mix(in srgb,var(--c) 72%,#fff) 0%,var(--c) 18%,var(--c) 55%,color-mix(in srgb,var(--c) 88%,#fff) 78%,color-mix(in srgb,var(--c) 62%,#fff) 100%);border-radius:48% 10% 44% 12% / 62% 40% 66% 44%;transform:rotate(-1.2deg);opacity:.45}
+.summary-line .summary-text::before{content:"";position:absolute;z-index:-1;left:-1px;right:0;top:44%;bottom:20%;background:var(--c,transparent);background:linear-gradient(93deg,var(--c72,var(--c)) 0%,var(--c) 18%,var(--c) 55%,var(--c88,var(--c)) 78%,var(--c62,var(--c)) 100%);border-radius:48% 10% 44% 12% / 62% 40% 66% 44%;transform:rotate(-1.2deg);opacity:.45}
 .summary-line:nth-child(2n) .summary-text::before{transform:rotate(.9deg);border-radius:12% 46% 9% 50% / 44% 64% 40% 60%}
 .summary-line:nth-child(3n) .summary-text::before{top:48%;bottom:16%;transform:rotate(-.6deg);border-radius:38% 16% 50% 8% / 55% 48% 60% 38%}
 .summary-line.done .summary-text{color:#8b8574;text-decoration:line-through;text-decoration-thickness:1px}
@@ -96,6 +96,11 @@ body, button, input, select, textarea,
 .imgoverlay.on{display:flex}
 .imgoverlay-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fff;font-size:13px}
 .imgoverlay img{flex:1;min-height:0;object-fit:contain;width:100%}
+.export-wrap{position:relative}
+.export-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid #d7d3cc;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);display:none;min-width:168px;padding:6px;z-index:60}
+.export-menu.on{display:block}
+.export-menu button{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:8px;font-size:13px;cursor:pointer}
+.export-menu button:hover{background:#f4f2ee}
 @media print{.imgoverlay{display:none!important}}
 
 /* V12 export consistency */
@@ -106,9 +111,10 @@ body, button, input, select, textarea,
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
 </style></head><body>
-<div class="app"><div class="toolbar"><div class="toolbar-top"><div class="brand">Halo Study Planner</div><div class="controls"><div class="weeknav"><button class="wbtn" id="prevWeekBtn" aria-label="이전 주">◀</button><div class="field"><label>시작 월요일</label><input type="date" id="weekStart"></div><button class="wbtn" id="nextWeekBtn" aria-label="다음 주">▶</button><button class="btn secondary" id="thisWeekBtn">이번 주</button></div><span class="sync" id="syncState"><span class="dot"></span><span id="syncTxt">연결 중…</span></span><button class="btn secondary" id="panelBtn">입력 패널 접기</button><button class="btn secondary" id="pngBtn">PNG 저장</button><button class="btn secondary" id="pdfBtn">PDF 저장</button><button class="btn danger" id="resetBtn">이번 주 삭제</button></div></div></div>
+<div class="app"><div class="toolbar"><div class="toolbar-top"><div class="brand">Halo Study Planner</div><div class="controls"><div class="weeknav"><button class="wbtn" id="prevWeekBtn" aria-label="이전 주">◀</button><div class="field"><label>시작 월요일</label><input type="date" id="weekStart"></div><button class="wbtn" id="nextWeekBtn" aria-label="다음 주">▶</button><button class="btn secondary" id="thisWeekBtn">이번 주</button></div><span class="sync" id="syncState"><span class="dot"></span><span id="syncTxt">연결 중…</span></span><button class="btn secondary" id="panelBtn">입력 패널 접기</button><div class="export-wrap"><button class="btn secondary" id="exportBtn">내보내기 ▾</button><div class="export-menu" id="exportMenu"><button id="pngBtn">PNG로 내보내기</button><button id="pdfBtn">PDF로 내보내기</button></div></div><button class="btn danger" id="resetBtn">이번 주 삭제</button></div></div></div>
 <div class="workspace"><aside class="panel"><h2 id="formTitle">일정 추가</h2><div class="form-grid"><div class="form-group full"><label>일정명</label><input id="titleInput" maxlength="30" placeholder="예: 수학학원"></div><div class="form-group"><label>시작시간</label><div class="time-pick"><select id="startHour"></select><span>:</span><select id="startMinute"></select></div></div><div class="form-group"><label>종료시간</label><div class="time-pick"><select id="endHour"></select><span>:</span><select id="endMinute"></select></div></div><div class="form-group full"><label>반복 요일</label><div class="days" id="dayChecks"></div></div><div class="form-group full"><label>색상 선택 · 10가지 중 하나</label><div class="palette" id="palette"></div></div><div class="form-group full"><label>MEMO</label><textarea id="memoInput" rows="3" placeholder="한 주 메모를 적어주세요"></textarea></div></div><div class="form-actions"><button class="btn" id="saveBtn">일정 추가</button><button class="btn secondary" id="cancelEditBtn" style="display:none">수정 취소</button></div><p class="help">07:00~24:00 · 5분 단위 입력 · 같은 요일에 기존 일정과 겹치면 등록되지 않습니다.</p><div class="list"><div class="list-head"><strong>등록된 일정</strong><span id="countLabel"></span></div><div class="task-list" id="taskList"></div></div><div class="list"><div class="list-head"><strong>자주 쓰는 일정</strong><span id="libCount"></span></div><div class="task-list" id="libList"></div></div></aside><main class="preview-wrap"><div id="sheet" class="sheet landscape"></div><div class="emptywk" id="emptyWk"><h3 id="emptyTitle">이 주는 아직 비어 있어요</h3><p>새로운 한 주를 어떻게 시작할까요? 과거 주는 체크 기록과 함께 그대로 보관됩니다.</p><div class="choices"><button class="choice rec" id="copyPrevBtn"><span class="big">지난주 복사</span><span class="sm">가장 최근 주의 일정을 그대로 가져오기</span></button><button class="choice" id="fromLibBtn"><span class="big">자주 쓰는 일정에서</span><span class="sm">서랍에서 골라 담기</span></button><button class="choice" id="emptyStartBtn"><span class="big">빈 주로 시작</span><span class="sm">처음부터 직접 입력</span></button></div></div></main></div></div><div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
@@ -143,6 +149,8 @@ function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show')
 function esc(s){return String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]||c))}
 function setSync(txt,ok){const el=$('syncState');if(!el)return;$('syncTxt').textContent=txt;el.classList.toggle('ok',!!ok)}
 function isDone(day,id){const d=ymd(dateFor(day));return !!(state.checks[d]&&state.checks[d][id])}
+function mixWhite(hex,pct){const n=parseInt(String(hex).replace('#',''),16);if(isNaN(n))return hex;const f=c=>Math.round((c*pct+255*(100-pct))/100);return `rgb(${f(n>>16&255)},${f(n>>8&255)},${f(n&255)})`}
+function strokeVars(c){return `--c:${c};--c72:${mixWhite(c,72)};--c88:${mixWhite(c,88)};--c62:${mixWhite(c,62)}`}
 
 /* ── 오프라인 캐시 (현재 주 1칸) ── */
 function cachePut(){try{localStorage.setItem(CACHE,JSON.stringify({ws:state.weekStart,memo:state.memo,tasks:state.tasks,checks:state.checks,library:state.library}))}catch(e){}}
@@ -278,7 +286,7 @@ function header(){return `<div class="plan-head"><div><div class="plan-title">WE
 function dayTasks(i){return state.tasks.filter(t=>t.days.includes(i)).sort((a,b)=>toMin(a.start)-toMin(b.start))}
 function shortTime(t){const [h,m]=t.split(':').map(Number);return m?`${h}시 ${m}분`:`${h}시`}
 function todayIdx(){const t=ymd(new Date());for(let i=0;i<7;i++)if(ymd(dateFor(i))===t)return i;return -1}
-function summaryHTML(i){return dayTasks(i).map(t=>{const done=isDone(i,t.id);return `<div class="summary-line${done?' done':''}" data-day="${i}" data-tid="${t.id}" style="--c:${t.color}" role="checkbox" aria-checked="${done}"><span class="summary-text">${esc(t.title)} ${shortTime(t.start)}</span><span class="summary-check">${done?'✓':''}</span></div>`}).join('')}
+function summaryHTML(i){return dayTasks(i).map(t=>{const done=isDone(i,t.id);return `<div class="summary-line${done?' done':''}" data-day="${i}" data-tid="${t.id}" style="${strokeVars(t.color)}" role="checkbox" aria-checked="${done}"><span class="summary-text">${esc(t.title)} ${shortTime(t.start)}</span><span class="summary-check">${done?'✓':''}</span></div>`}).join('')}
 function gridCellsHTML(){
   return '<div class="grid-cells" aria-hidden="true">'+
     Array.from({length:102},()=>'<span class="grid-cell"></span>').join('')+
@@ -361,6 +369,10 @@ async function capturePlanner(){
       logging:false,
       removeContainer:true
     });
+  }catch(e){
+    console.error('capture',e);
+    toast('이미지 생성에 실패했어요: '+(e&&e.message||e));
+    return null;
   }finally{
     el.style.transform=oldTransform;
     el.style.transformOrigin=oldOrigin;
@@ -378,50 +390,43 @@ function showImageOverlay(url){
   }
   ov.querySelector('img').src=url;ov.classList.add('on');
 }
+function closeExportMenu(){const m=$('exportMenu');if(m)m.classList.remove('on')}
+$('exportBtn').onclick=e=>{e.stopPropagation();$('exportMenu').classList.toggle('on')};
+document.addEventListener('click',e=>{if(!e.target.closest('.export-wrap'))closeExportMenu()});
+function downloadBlob(blob,name){const a=document.createElement('a');a.download=name;a.href=URL.createObjectURL(blob);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),10000)}
+async function tryShareFile(blob,name,mime){
+  if(!(IS_IOS&&navigator.canShare))return false;
+  const file=new File([blob],name,{type:mime});
+  if(!navigator.canShare({files:[file]}))return false;
+  try{await navigator.share({files:[file],title:name});return true}
+  catch(e){return !!(e&&e.name==='AbortError')}
+}
 $('pngBtn').onclick=async()=>{
+  closeExportMenu();toast('이미지 생성 중…');
   const canvas=await capturePlanner();
   if(!canvas)return;
-  const name=`weekly-plan-${state.weekStart}.png`;
   const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));
   if(!blob){toast('이미지 생성에 실패했어요.');return}
-  if(IS_IOS&&navigator.canShare){
-    const file=new File([blob],name,{type:'image/png'});
-    if(navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],title:'Weekly Plan'});return}
-      catch(e){if(e&&e.name==='AbortError')return}
-    }
-    showImageOverlay(canvas.toDataURL('image/png'));
-    return;
-  }
-  const a=document.createElement('a');
-  a.download=name;
-  a.href=URL.createObjectURL(blob);
-  a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),10000);
+  const name=`weekly-plan-${state.weekStart}.png`;
+  if(await tryShareFile(blob,name,'image/png'))return;
+  if(IS_IOS){showImageOverlay(canvas.toDataURL('image/png'));return}
+  downloadBlob(blob,name);
 };
 $('pdfBtn').onclick=async()=>{
+  closeExportMenu();toast('PDF 생성 중…');
   const canvas=await capturePlanner();
   if(!canvas)return;
-  const img=canvas.toDataURL('image/png');
-  const win=window.open('','_blank');
-  if(!win){showImageOverlay(img);toast('이 화면에서는 인쇄 창을 열 수 없어 이미지로 보여드려요. 길게 눌러 저장·공유하세요.');return;}
-  win.document.open();
-  win.document.write(`<!doctype html><html><head><meta charset="utf-8">
-  <title>Halo Study Planner</title>
-  <style>
-    html,body{margin:0;padding:0;background:#fff}
-    body{display:flex;justify-content:center;align-items:flex-start}
-    img{display:block;max-width:100%;height:auto}
-    @page{size:A4 landscape;margin:0}
-    @media print{
-      html,body{width:297mm;height:210mm;overflow:hidden}
-      img{width:297mm;height:210mm;object-fit:contain}
-      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-    }
-  </style></head><body><img src="${img}">
-  <script>window.onload=function(){setTimeout(function(){window.focus();window.print();},300)};<\/script>
-  </body></html>`);
-  win.document.close();
+  if(!(window.jspdf&&window.jspdf.jsPDF)){toast('PDF 모듈을 불러오지 못했어요. 인터넷 연결 후 다시 시도해 주세요.');return}
+  const imgData=canvas.toDataURL('image/jpeg',0.88);
+  const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  const pw=297,ph=210,r=Math.min(pw/canvas.width,ph/canvas.height);
+  const w=canvas.width*r,h=canvas.height*r;
+  doc.addImage(imgData,'JPEG',(pw-w)/2,(ph-h)/2,w,h);
+  const blob=doc.output('blob');
+  const name=`weekly-plan-${state.weekStart}.pdf`;
+  if(await tryShareFile(blob,name,'application/pdf'))return;
+  if(IS_IOS){showImageOverlay(imgData);toast('이 환경에서는 PDF 공유가 막혀 있어 이미지로 보여드려요. 길게 눌러 저장하세요.');return}
+  downloadBlob(blob,name);
 };
 window.addEventListener('resize',()=>requestAnimationFrame(fitPreview));
 
