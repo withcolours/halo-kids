@@ -1,6 +1,6 @@
 # Halo Kids — 프로젝트 가이드
 
-아이(영우, 계정 elyse) 학습 콘텐츠 웹앱. 책/영상 메뉴판 + 읽음 추적, 주간 플래너로 확장 중.
+아이(영우, 계정 thdduddn) 학습 콘텐츠 웹앱. 책/영상 메뉴판 + 읽음 추적, 주간 플래너로 확장 중.
 **현재 상태와 미결 작업은 [docs/STATUS.md](docs/STATUS.md), 플래너 확정 스펙은 [docs/planner-spec.md](docs/planner-spec.md)를 먼저 읽을 것.**
 
 ## 배포·인프라
@@ -37,7 +37,8 @@ login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / 
 - `users/{uid}`: username, nickname, birthYear, role(child|admin), createdAt, lastLogin
 - `userReadings/{uid}/{itemId}`: timestamp (`at-series-{no}`, `ott59-{no}` 등)
 - `userActivity/{uid}/{push}`: action, detail, timestamp
-- 플래너 확장 예정: userPlans, userPlanChecks, userTasks, userBooks, userStars, rewards, redemptions, usernames, parents ([docs/planner-spec.md](docs/planner-spec.md) 참조 — 보안 규칙 재게시 필요)
+- 플래너 체크뷰(라이브, 규칙 게시됨): `userPlanWeeks/{uid}/{주시작일}`(주별 스냅샷), `userPlanChecks/{uid}/{날짜}/{taskId}`, `userPlanLibrary/{uid}`
+- 플래너 Phase B 확장 예정: userTasks, userBooks, userStars, rewards, redemptions, usernames, parents ([docs/planner-spec.md](docs/planner-spec.md) — 확장 시 보안 규칙 재게시)
 
 ## 계정
 - `thdduddn` — **실사용 아이 계정** (영우, 2017년생) ← 2026-09-01 사용자 확정
