@@ -92,7 +92,7 @@ main { width:100%; max-width:560px; }
   <div class="dline">
     <span id="dateLine">–</span>
     <span class="daychips">
-      <button class="daychip on" id="chipToday">오늘</button>
+      <button class="daychip on" id="chipToday" style="display:none">오늘로 가기</button>
     </span>
   </div>
 
@@ -126,7 +126,7 @@ main { width:100%; max-width:560px; }
     과제 — 마감 있는 숙제 관리
     <svg class="svgi chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </a>
-  <div style="text-align:center; font-size:10.5px; color:var(--line); margin-top:14px;">v2026-09-04.4</div>
+  <div style="text-align:center; font-size:10.5px; color:var(--line); margin-top:14px;">v2026-09-04.5</div>
 </main>
 <div class="toast" id="toast"></div>
 
@@ -250,7 +250,7 @@ function render(){
   }).join('');
   const tagTxt=isToday?'':(viewDate===YESTER()?' · 어제':' · 보기 전용');
   $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${tagTxt}`;
-  $('chipToday').classList.toggle('on',isToday);
+  $('chipToday').style.display=isToday?'none':'';
 
   const di=dow(viewDate);
   const items=weekTasks.filter(t=>(t.days||[]).includes(di)).sort((a,b)=>toMin(a.start)-toMin(b.start));
