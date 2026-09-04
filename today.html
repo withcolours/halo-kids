@@ -32,10 +32,11 @@ main { width:100%; max-width:560px; }
 .wd.sat { color:#2f7fd1; } .wd.sun { color:#d05555; }
 .wd.view { background:var(--acc); border-color:var(--acc); color:#fff; }
 .wd { flex-direction:column; line-height:1.1; gap:3px; height:44px; }
-.wd em { font-style:normal; font-size:9px; font-weight:700; color:var(--sub); letter-spacing:.3px; }
-.wd em b { color:#E0742C; font-weight:700; }
-.wd.view em, .wd.view em b { color:#fff; }
+.wd em { font-style:normal; font-size:9.5px; font-weight:700; color:var(--sub); letter-spacing:.3px; }
+.wd.view em { color:#fff; }
 .wd.today { border-color:var(--acc); }
+.wkstrip { padding-top:7px; }
+.tbadge { position:absolute; top:-8px; left:50%; transform:translateX(-50%); background:#E0742C; color:#fff; font-size:8.5px; font-weight:700; padding:1.5px 7px; border-radius:99px; letter-spacing:.5px; white-space:nowrap; }
 .flame-card { background:linear-gradient(135deg,#FF9A3D22,#FF5A3D11); border:1.5px solid var(--flame); border-radius:18px; padding:13px 16px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
 .flame-card .fbig { font-size:34px; filter:drop-shadow(0 2px 6px #FF9A3D66); }
 .flame-card b { font-family:'Jua',sans-serif; font-size:18px; font-weight:400; }
@@ -125,7 +126,7 @@ main { width:100%; max-width:560px; }
     과제 — 마감 있는 숙제 관리
     <svg class="svgi chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </a>
-  <div style="text-align:center; font-size:10.5px; color:var(--line); margin-top:14px;">v2026-09-04.3</div>
+  <div style="text-align:center; font-size:10.5px; color:var(--line); margin-top:14px;">v2026-09-04.4</div>
 </main>
 <div class="toast" id="toast"></div>
 
@@ -245,7 +246,7 @@ function render(){
     const dd=addDays(ws,i);
     const cls=['wd',i===5?'sat':'',i===6?'sun':'',dd===viewDate?'view':'',dd===TODAY()?'today':''].filter(Boolean).join(' ');
     const dnum=+dd.slice(8);
-    return `<button class="${cls}" data-d="${dd}" aria-label="${dd}">${DOWN[i]}<em>${dnum}${dd===TODAY()?' <b>오늘</b>':''}</em></button>`;
+    return `<button class="${cls}" data-d="${dd}" aria-label="${dd}">${dd===TODAY()?'<span class="tbadge">오늘</span>':''}${DOWN[i]}<em>${dnum}</em></button>`;
   }).join('');
   const tagTxt=isToday?'':(viewDate===YESTER()?' · 어제':' · 보기 전용');
   $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${tagTxt}`;
