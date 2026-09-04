@@ -26,6 +26,12 @@ main { width:100%; max-width:560px; }
 .daychips { margin-left:auto; display:flex; gap:6px; }
 .daychip { border:1.5px solid var(--line); background:var(--card); color:var(--sub); border-radius:99px; padding:5px 13px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
 .daychip.on { background:var(--acc); border-color:var(--acc); color:#fff; }
+.wkstrip { display:flex; gap:5px; align-items:center; margin:0 0 14px; }
+.wnav { width:32px; height:38px; border:1.5px solid var(--line); background:var(--card); border-radius:10px; color:var(--sub); font-size:12px; cursor:pointer; flex:0 0 32px; }
+.wd { flex:1; height:38px; border:1.5px solid var(--line); background:var(--card); border-radius:10px; font-size:13px; font-weight:700; color:var(--sub); cursor:pointer; font-family:inherit; position:relative; display:flex; align-items:center; justify-content:center; }
+.wd.sat { color:#2f7fd1; } .wd.sun { color:#d05555; }
+.wd.view { background:var(--acc); border-color:var(--acc); color:#fff; }
+.wd.today::after { content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%); width:5px; height:5px; border-radius:99px; background:var(--gold); }
 .flame-card { background:linear-gradient(135deg,#FF9A3D22,#FF5A3D11); border:1.5px solid var(--flame); border-radius:18px; padding:13px 16px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
 .flame-card .fbig { font-size:34px; filter:drop-shadow(0 2px 6px #FF9A3D66); }
 .flame-card b { font-family:'Jua',sans-serif; font-size:18px; font-weight:400; }
@@ -81,10 +87,14 @@ main { width:100%; max-width:560px; }
   <div class="dline">
     <span id="dateLine">–</span>
     <span class="daychips">
-      <button class="daychip" id="dayPrev" aria-label="이전 날">◀</button>
       <button class="daychip on" id="chipToday">오늘</button>
-      <button class="daychip" id="dayNext" aria-label="다음 날">▶</button>
     </span>
+  </div>
+
+  <div class="wkstrip">
+    <button class="wnav" id="dayPrev" aria-label="이전 날">◀</button>
+    <div style="display:flex;gap:5px;flex:1" id="wkDays"></div>
+    <button class="wnav" id="dayNext" aria-label="다음 날">▶</button>
   </div>
 
   <div class="flame-card" id="flameCard" style="display:none">
@@ -219,6 +229,12 @@ async function loadStars(){
 function render(){
   const isToday=viewDate===TODAY();
   const d=new Date(viewDate+'T00:00:00');
+  const ws=ymd(mondayOf(new Date(viewDate+'T00:00:00')));
+  $('wkDays').innerHTML=Array.from({length:7},(_,i)=>{
+    const dd=addDays(ws,i);
+    const cls=['wd',i===5?'sat':'',i===6?'sun':'',dd===viewDate?'view':'',dd===TODAY()?'today':''].filter(Boolean).join(' ');
+    return `<button class="${cls}" data-d="${dd}" aria-label="${dd}">${DOWN[i]}</button>`;
+  }).join('');
   const tagTxt=isToday?'':(viewDate===YESTER()?' · 어제':' · 보기 전용');
   $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${tagTxt}`;
   $('chipToday').classList.toggle('on',isToday);
@@ -274,6 +290,7 @@ $('list').addEventListener('click',e=>{
 });
 $('chipToday').onclick=()=>{ if(viewDate!==TODAY()){ viewDate=TODAY(); loadDay(); } };
 $('dayPrev').onclick=()=>{ viewDate=addDays(viewDate,-1); loadDay(); };
+$('wkDays').addEventListener('click',e=>{ const b=e.target.closest('.wd'); if(!b||b.dataset.d===viewDate)return; viewDate=b.dataset.d; loadDay(); });
 $('dayNext').onclick=()=>{ viewDate=addDays(viewDate,1); loadDay(); };
 
 // 부팅
