@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>오늘</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon-home.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F2F8FD">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root { --bg:#F2F8FD; --card:#FFFFFF; --ink:#22303C; --sub:#64748B; --line:#D8E6F2; --acc:#1E90FF; --ok:#2E9E5B; --gold:#C99A16; --flame:#FF9A3D; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; } }
+:root[data-theme="dark"] { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:18px 16px 60px; display:flex; flex-direction:column; align-items:center; }
+.header { width:100%; max-width:560px; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.hbtn { width:40px; height:40px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 40px; text-decoration:none; }
+.hbtn:active { transform:scale(.95); }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:28px; margin:0; flex:1; }
+.svgi { width:20px; height:20px; }
+main { width:100%; max-width:560px; }
+.greet { font-family:'Jua',sans-serif; font-size:22px; margin:2px 0 3px; }
+.dline { font-size:13px; color:var(--sub); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.daychips { margin-left:auto; display:flex; gap:6px; }
+.daychip { border:1.5px solid var(--line); background:var(--card); color:var(--sub); border-radius:99px; padding:5px 13px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+.daychip.on { background:var(--acc); border-color:var(--acc); color:#fff; }
+.flame-card { background:linear-gradient(135deg,#FF9A3D22,#FF5A3D11); border:1.5px solid var(--flame); border-radius:18px; padding:13px 16px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
+.flame-card .fbig { font-size:34px; filter:drop-shadow(0 2px 6px #FF9A3D66); }
+.flame-card b { font-family:'Jua',sans-serif; font-size:18px; font-weight:400; }
+.flame-card .fsub { font-size:11.5px; color:var(--sub); margin-top:2px; }
+.prog-row { display:flex; align-items:center; gap:10px; font-size:12.5px; font-weight:700; color:var(--sub); margin:2px 0 4px; }
+.prog-row .pct { color:var(--acc); font-size:15px; font-family:'Jua',sans-serif; font-weight:400; }
+.prog-row .pct.full { color:var(--ok); }
+.pbar { height:9px; border-radius:99px; background:var(--line); overflow:hidden; margin:4px 0 18px; }
+.pbar i { display:block; height:100%; width:0%; background:var(--acc); border-radius:99px; transition:width .35s; }
+.pbar i.full { background:var(--ok); }
+.now-mark { display:flex; align-items:center; gap:8px; margin:12px 0 10px; }
+.now-mark span.l { flex:1; height:2px; background:var(--acc); border-radius:99px; }
+.now-mark span.t { font-size:11.5px; font-weight:700; color:var(--acc); white-space:nowrap; }
+.routine { display:flex; align-items:center; gap:11px; border:1.5px dashed var(--line); border-radius:14px; padding:11px 14px; margin-bottom:8px; color:var(--sub); font-size:13.5px; background:transparent; }
+.routine .dot { width:9px; height:9px; border-radius:99px; flex:0 0 9px; opacity:.55; }
+.routine b { color:var(--ink); font-weight:700; opacity:.75; }
+.routine .tm { margin-left:auto; font-size:11.5px; white-space:nowrap; }
+.todo { display:flex; align-items:center; gap:11px; background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:12px 14px; margin-bottom:8px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.todo:active { transform:scale(.985); }
+.todo .cb { width:27px; height:27px; border-radius:99px; border:2px solid var(--line); flex:0 0 27px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:700; transition:background .15s; }
+.todo .tx { flex:1; font-size:14.5px; font-weight:700; line-height:1.4; min-width:0; }
+.todo .tx small { display:block; font-size:11.5px; color:var(--sub); font-weight:500; }
+.todo .dot { width:9px; height:9px; border-radius:99px; flex:0 0 9px; }
+.todo.done { border-color:var(--ok); }
+.todo.done .cb { background:var(--ok); border-color:var(--ok); }
+.todo.done .tx { color:var(--sub); text-decoration:line-through; text-decoration-thickness:1.5px; }
+.todo.lock { cursor:default; opacity:.85; }
+.sect { font-size:12px; font-weight:700; color:var(--sub); margin:16px 0 8px; }
+.empty { background:var(--card); border:1.5px solid var(--line); border-radius:18px; padding:34px 18px; text-align:center; }
+.empty b { font-family:'Jua',sans-serif; font-weight:400; font-size:17px; display:block; margin-bottom:6px; }
+.empty p { font-size:13px; color:var(--sub); margin:0 0 16px; }
+.empty a { display:inline-block; background:var(--acc); color:#fff; border-radius:99px; padding:10px 20px; font-size:13.5px; font-weight:700; text-decoration:none; }
+.plink { display:flex; align-items:center; gap:10px; margin-top:18px; background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:13px 16px; text-decoration:none; color:var(--ink); font-size:13.5px; font-weight:700; }
+.plink svg { color:var(--acc); }
+.plink .chev { margin-left:auto; color:var(--sub); }
+.toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px); background:#1f2937; color:#fff; border-radius:12px; padding:11px 16px; font-size:13px; opacity:0; pointer-events:none; transition:.2s; z-index:99; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.skel { color:var(--sub); font-size:13px; text-align:center; padding:30px 0; }
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
+
+<div class="header">
+  <button class="hbtn" onclick="history.back()" aria-label="뒤로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <h1>오늘</h1>
+  <a href="planner-print.html" class="hbtn" title="주간 플래너"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="9.5" x2="21" y2="9.5"/></svg></a>
+  <a href="index.html" class="hbtn" title="처음으로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+</div>
+
+<main>
+  <div class="greet" id="greet">안녕!</div>
+  <div class="dline">
+    <span id="dateLine">–</span>
+    <span class="daychips">
+      <button class="daychip" id="chipYesterday">어제</button>
+      <button class="daychip on" id="chipToday">오늘</button>
+    </span>
+  </div>
+
+  <div class="flame-card" id="flameCard" style="display:none">
+    <span class="fbig" id="flameIcon">🔥</span>
+    <span style="flex:1">
+      <b id="flameTitle">–</b>
+      <div class="fsub" id="flameSub"></div>
+    </span>
+  </div>
+
+  <div class="prog-row"><span id="progLabel">–</span><span class="pct" id="progPct" style="margin-left:auto"></span></div>
+  <div class="pbar"><i id="progBar"></i></div>
+
+  <div id="list"><div class="skel">불러오는 중…</div></div>
+
+  <a class="plink" href="planner-print.html">
+    <svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="9.5" x2="21" y2="9.5"/></svg>
+    주간 계획표에서 이번 주 전체 보기
+    <svg class="svgi chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </a>
+</main>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const toMin = t => { const [h,m]=String(t).split(':').map(Number); return h*60+m; };
+function mondayOf(d){ const x=new Date(d), day=x.getDay(); x.setDate(x.getDate()+(day===0?-6:1-day)); x.setHours(0,0,0,0); return x; }
+function addDays(dstr,n){ const d=new Date(dstr+'T00:00:00'); d.setDate(d.getDate()+n); return ymd(d); }
+function kindOf(t){ return t && t.kind==='routine' ? 'routine' : 'todo'; }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]||c)); }
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove('show'),2600); }
+
+let uid=null, viewDate=ymd(new Date()), weekTasks=[], dayChecks={}, streakDays=null, tickTimer=null;
+const TODAY=()=>ymd(new Date()), YESTER=()=>addDays(TODAY(),-1);
+
+function dow(dstr){ const d=new Date(dstr+'T00:00:00'); return d.getDay()===0?6:d.getDay()-1; } // 월=0…일=6
+const DOWN=['월','화','수','목','금','토','일'];
+
+async function loadDay(){
+  $('list').innerHTML='<div class="skel">불러오는 중…</div>';
+  const ws=ymd(mondayOf(new Date(viewDate+'T00:00:00')));
+  try{
+    const [wSnap,cSnap]=await Promise.all([
+      db.ref(`userPlanWeeks/${uid}/${ws}`).once('value'),
+      db.ref(`userPlanChecks/${uid}/${viewDate}`).once('value')
+    ]);
+    const v=wSnap.val()||{};
+    weekTasks=v.tasks||[];
+    dayChecks=cSnap.val()||{};
+    render();
+  }catch(e){
+    console.error(e);
+    $('list').innerHTML='<div class="skel">불러오지 못했어요. 인터넷 연결을 확인해 주세요.</div>';
+  }
+}
+
+async function loadStreak(){
+  try{
+    const from=addDays(TODAY(),-60);
+    const s=await db.ref(`userPlanChecks/${uid}`).orderByKey().startAt(from).endAt(TODAY()).once('value');
+    const has=s.val()||{};
+    let n=0, d=TODAY();
+    if(!has[d]||!Object.keys(has[d]).length) d=addDays(d,-1); // 오늘 아직 0개면 어제부터 소급 계산
+    while(has[d]&&Object.keys(has[d]).length){ n++; d=addDays(d,-1); }
+    streakDays=n;
+    renderFlame();
+  }catch(e){ /* 스트릭은 부가 정보 — 실패해도 화면 유지 */ }
+}
+
+function renderFlame(){
+  const card=$('flameCard');
+  if(streakDays===null){ card.style.display='none'; return; }
+  card.style.display='';
+  const todayHasCheck=viewDate===TODAY()&&Object.keys(dayChecks).length>0;
+  if(streakDays<=0){
+    $('flameIcon').style.filter='grayscale(1) opacity(.6)';
+    $('flameTitle').textContent='오늘부터 시작!';
+    $('flameSub').textContent='1개만 완료하면 불꽃이 켜져요';
+  }else{
+    $('flameIcon').style.filter='';
+    $('flameTitle').textContent=`${streakDays}일째 불타는 중!`;
+    $('flameSub').textContent=todayHasCheck?'오늘 몫은 완료 — 불꽃이 이어졌어요':'오늘 1개만 완료하면 불꽃이 이어져요';
+  }
+}
+
+function nowMin(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+
+function render(){
+  const isToday=viewDate===TODAY();
+  const d=new Date(viewDate+'T00:00:00');
+  $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${isToday?'':' · 어제'}`;
+  $('chipToday').classList.toggle('on',isToday);
+  $('chipYesterday').classList.toggle('on',!isToday);
+
+  const di=dow(viewDate);
+  const items=weekTasks.filter(t=>(t.days||[]).includes(di)).sort((a,b)=>toMin(a.start)-toMin(b.start));
+  const todos=items.filter(t=>kindOf(t)==='todo');
+  const doneN=todos.filter(t=>dayChecks[t.id]).length;
+  const pct=todos.length?Math.round(doneN/todos.length*100):null;
+
+  $('progLabel').textContent=todos.length?`할 일 ${doneN} / ${todos.length} 완료`:'오늘은 할 일이 없어요';
+  $('progPct').textContent=pct===null?'':pct+'%';
+  $('progPct').classList.toggle('full',pct===100);
+  $('progBar').style.width=(pct||0)+'%';
+  $('progBar').classList.toggle('full',pct===100);
+
+  if(!items.length){
+    $('list').innerHTML=`<div class="empty"><b>${isToday?'오늘':'어제'}은 계획이 비어 있어요</b><p>주간 계획표에서 일정을 담아 보세요.</p><a href="planner-print.html">계획 세우러 가기</a></div>`;
+    renderFlame();
+    return;
+  }
+
+  const nm=nowMin();
+  let html='', markerDone=!isToday;
+  for(const t of items){
+    if(!markerDone&&toMin(t.end)>nm){
+      const cur=toMin(t.start)<=nm;
+      html+=`<div class="now-mark"><span class="l"></span><span class="t">${cur?`지금은 ${esc(t.title)} 시간`:`다음: ${esc(t.title)} ${t.start}`}</span><span class="l"></span></div>`;
+      markerDone=true;
+    }
+    if(kindOf(t)==='routine'){
+      html+=`<div class="routine"><span class="dot" style="background:${esc(t.color||'#d8d4cf')}"></span><b>${esc(t.title)}</b><span class="tm">${t.start}~${t.end}</span></div>`;
+    }else{
+      const done=!!dayChecks[t.id];
+      html+=`<div class="todo${done?' done':''}" data-tid="${esc(t.id)}" role="checkbox" aria-checked="${done}" tabindex="0"><span class="cb">${done?'✓':''}</span><span class="tx">${esc(t.title)}<small>${t.start}~${t.end}</small></span><span class="dot" style="background:${esc(t.color||'#d8d4cf')}"></span></div>`;
+    }
+  }
+  if(!markerDone&&isToday) html+=`<div class="now-mark"><span class="l"></span><span class="t">오늘 일정 끝 — 수고했어!</span><span class="l"></span></div>`;
+  $('list').innerHTML=html;
+  renderFlame();
+}
+
+function canEdit(){ return viewDate===TODAY()||viewDate===YESTER(); }
+
+$('list').addEventListener('click',e=>{
+  const el=e.target.closest('.todo'); if(!el)return;
+  if(!canEdit()){ toast('지난 날짜는 체크할 수 없어요.'); return; }
+  const tid=el.dataset.tid;
+  const ref=db.ref(`userPlanChecks/${uid}/${viewDate}/${tid}`);
+  if(dayChecks[tid]){ delete dayChecks[tid]; ref.remove().catch(()=>{}); }
+  else{ dayChecks[tid]=Date.now(); ref.set(firebase.database.ServerValue.TIMESTAMP).catch(()=>{}); }
+  render(); loadStreak();
+});
+$('chipToday').onclick=()=>{ if(viewDate!==TODAY()){ viewDate=TODAY(); loadDay(); } };
+$('chipYesterday').onclick=()=>{ if(viewDate!==YESTER()){ viewDate=YESTER(); loadDay(); } };
+
+// 부팅
+const nick=localStorage.getItem('nickname')||localStorage.getItem('username');
+if(nick)$('greet').textContent=`안녕, ${nick}!`;
+if(!localStorage.getItem('currentUser')){
+  window.location.href='login.html';
+}else{
+  auth.onAuthStateChanged(user=>{
+    if(!user){ window.location.href='login.html'; return; }
+    uid=user.uid;
+    loadDay(); loadStreak();
+    tickTimer=setInterval(()=>{ if(viewDate===TODAY())render(); },60000);
+  });
+}
+</script>
+</body>
+</html>
