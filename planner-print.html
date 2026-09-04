@@ -103,6 +103,15 @@ body, button, input, select, textarea,
 .export-menu button:hover{background:#f4f2ee}
 @media print{.imgoverlay{display:none!important}}
 
+/* V14 일과·할일 구분 */
+.kindseg{display:flex;border:1px solid #d7d3cc;border-radius:10px;overflow:hidden;width:100%}
+.kindseg button{flex:1;border:0;background:#fff;padding:9px 6px;font-size:12.5px;cursor:pointer}
+.kindseg button.active{background:#1d1d1d;color:#fff}
+.day-pct{margin-left:auto;font-size:14px;font-weight:700;color:#1E90FF;font-family:'NanumSquare',sans-serif}
+.day-pct.full{color:#2E9E5B}
+.event.rt{border-style:dashed;opacity:.92}
+.kbadge{display:inline-block;font-size:9px;border:1px solid #c9c4bb;border-radius:6px;padding:0 4px;margin-right:3px;color:#777;vertical-align:1px}
+
 /* V12 export consistency */
 .sheet,.plan-head,.landscape-grid,.day-summary,.summary-box,.timeline-labels,.memo,.memo textarea{
   background-color:#fff !important;
@@ -112,7 +121,7 @@ body, button, input, select, textarea,
 }
 </style></head><body>
 <div class="app"><div class="toolbar"><div class="toolbar-top"><div class="brand">Halo Study Planner</div><div class="controls"><div class="weeknav"><button class="wbtn" id="prevWeekBtn" aria-label="이전 주">◀</button><div class="field"><label>시작 월요일</label><input type="date" id="weekStart"></div><button class="wbtn" id="nextWeekBtn" aria-label="다음 주">▶</button><button class="btn secondary" id="thisWeekBtn">이번 주</button></div><span class="sync" id="syncState"><span class="dot"></span><span id="syncTxt">연결 중…</span></span><button class="btn secondary" id="panelBtn">입력 패널 접기</button><div class="export-wrap"><button class="btn secondary" id="exportBtn">내보내기 ▾</button><div class="export-menu" id="exportMenu"><button id="pngBtn">PNG로 내보내기</button><button id="pdfBtn">PDF로 내보내기</button></div></div><button class="btn danger" id="resetBtn">이번 주 삭제</button></div></div></div>
-<div class="workspace"><aside class="panel"><h2 id="formTitle">일정 추가</h2><div class="form-grid"><div class="form-group full"><label>일정명</label><input id="titleInput" maxlength="30" placeholder="예: 수학학원"></div><div class="form-group"><label>시작시간</label><div class="time-pick"><select id="startHour"></select><span>:</span><select id="startMinute"></select></div></div><div class="form-group"><label>종료시간</label><div class="time-pick"><select id="endHour"></select><span>:</span><select id="endMinute"></select></div></div><div class="form-group full"><label>반복 요일</label><div class="days" id="dayChecks"></div></div><div class="form-group full"><label>색상 선택 · 10가지 중 하나</label><div class="palette" id="palette"></div></div><div class="form-group full"><label>MEMO</label><textarea id="memoInput" rows="3" placeholder="한 주 메모를 적어주세요"></textarea></div></div><div class="form-actions"><button class="btn" id="saveBtn">일정 추가</button><button class="btn secondary" id="cancelEditBtn" style="display:none">수정 취소</button></div><p class="help">07:00~24:00 · 5분 단위 입력 · 같은 요일에 기존 일정과 겹치면 등록되지 않습니다.</p><div class="list"><div class="list-head"><strong>등록된 일정</strong><span id="countLabel"></span></div><div class="task-list" id="taskList"></div></div><div class="list"><div class="list-head"><strong>자주 쓰는 일정</strong><span id="libCount"></span></div><div class="task-list" id="libList"></div></div></aside><main class="preview-wrap"><div id="sheet" class="sheet landscape"></div><div class="emptywk" id="emptyWk"><h3 id="emptyTitle">이 주는 아직 비어 있어요</h3><p>새로운 한 주를 어떻게 시작할까요? 과거 주는 체크 기록과 함께 그대로 보관됩니다.</p><div class="choices"><button class="choice rec" id="copyPrevBtn"><span class="big">지난주 복사</span><span class="sm">가장 최근 주의 일정을 그대로 가져오기</span></button><button class="choice" id="fromLibBtn"><span class="big">자주 쓰는 일정에서</span><span class="sm">서랍에서 골라 담기</span></button><button class="choice" id="emptyStartBtn"><span class="big">빈 주로 시작</span><span class="sm">처음부터 직접 입력</span></button></div></div></main></div></div><div class="toast" id="toast"></div>
+<div class="workspace"><aside class="panel"><h2 id="formTitle">일정 추가</h2><div class="form-grid"><div class="form-group full"><label>종류</label><div class="kindseg" id="kindSeg"><button type="button" data-kind="todo" class="active">할 일 · 체크 대상</button><button type="button" data-kind="routine">일과 · 표시만</button></div></div><div class="form-group full"><label>일정명</label><input id="titleInput" maxlength="30" placeholder="예: 수학학원"></div><div class="form-group"><label>시작시간</label><div class="time-pick"><select id="startHour"></select><span>:</span><select id="startMinute"></select></div></div><div class="form-group"><label>종료시간</label><div class="time-pick"><select id="endHour"></select><span>:</span><select id="endMinute"></select></div></div><div class="form-group full"><label>반복 요일</label><div class="days" id="dayChecks"></div></div><div class="form-group full"><label>색상 선택 · 10가지 중 하나</label><div class="palette" id="palette"></div></div><div class="form-group full"><label>MEMO</label><textarea id="memoInput" rows="3" placeholder="한 주 메모를 적어주세요"></textarea></div></div><div class="form-actions"><button class="btn" id="saveBtn">일정 추가</button><button class="btn secondary" id="cancelEditBtn" style="display:none">수정 취소</button></div><p class="help">07:00~24:00 · 5분 단위 입력 · 같은 요일에 기존 일정과 겹치면 등록되지 않습니다.</p><div class="list"><div class="list-head"><strong>등록된 일정</strong><span id="countLabel"></span></div><div class="task-list" id="taskList"></div></div><div class="list"><div class="list-head"><strong>자주 쓰는 일정</strong><span id="libCount"></span></div><div class="task-list" id="libList"></div></div></aside><main class="preview-wrap"><div id="sheet" class="sheet landscape"></div><div class="emptywk" id="emptyWk"><h3 id="emptyTitle">이 주는 아직 비어 있어요</h3><p>새로운 한 주를 어떻게 시작할까요? 과거 주는 체크 기록과 함께 그대로 보관됩니다.</p><div class="choices"><button class="choice rec" id="copyPrevBtn"><span class="big">지난주 복사</span><span class="sm">가장 최근 주의 일정을 그대로 가져오기</span></button><button class="choice" id="fromLibBtn"><span class="big">자주 쓰는 일정에서</span><span class="sm">서랍에서 골라 담기</span></button><button class="choice" id="emptyStartBtn"><span class="big">빈 주로 시작</span><span class="sm">처음부터 직접 입력</span></button></div></div></main></div></div><div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
@@ -151,6 +160,13 @@ function setSync(txt,ok){const el=$('syncState');if(!el)return;$('syncTxt').text
 function isDone(day,id){const d=ymd(dateFor(day));return !!(state.checks[d]&&state.checks[d][id])}
 function mixWhite(hex,pct){const n=parseInt(String(hex).replace('#',''),16);if(isNaN(n))return hex;const f=c=>Math.round((c*pct+255*(100-pct))/100);return `rgb(${f(n>>16&255)},${f(n>>8&255)},${f(n&255)})`}
 function strokeVars(c){return `--c:${c};--c72:${mixWhite(c,72)};--c88:${mixWhite(c,88)};--c62:${mixWhite(c,62)}`}
+function kindOf(t){return t&&t.kind==='routine'?'routine':'todo'}
+let formKind='todo';
+function setFormKind(k){formKind=k;document.querySelectorAll('#kindSeg button').forEach(b=>b.classList.toggle('active',b.dataset.kind===k))}
+const RT_KW=['학교','태권도','피아노','체스','펜싱','마크','코딩','우쿨렐레','돌봄','식사','샤워','간식','휴식','학원','등교','하교','밥','이동','수영','잠'];
+const TD_KW=['독서','읽기','책','공부','문제','학습','숙제','신문','리딩','수학','국어','영어','과학','사회','한끝','브릭스','일기','쓰기','단어','연산'];
+function guessKind(title){const t=String(title||'');if(TD_KW.some(k=>t.includes(k)))return 'todo';if(RT_KW.some(k=>t.includes(k)))return 'routine';return 'todo'}
+function classifyTasks(arr){let n=0;for(const t of arr||[]){if(!t.kind){t.kind=guessKind(t.title);n++}}return n}
 
 /* ── 오프라인 캐시 (현재 주 1칸) ── */
 function cachePut(){try{localStorage.setItem(CACHE,JSON.stringify({ws:state.weekStart,memo:state.memo,tasks:state.tasks,checks:state.checks,library:state.library}))}catch(e){}}
@@ -199,7 +215,7 @@ async function loadWeek(){
     ]);
     state.checks=c;
     if(w.exists()){
-      const v=w.val();state.memo=v.memo||'';state.tasks=v.tasks||[];
+      const v=w.val();state.memo=v.memo||'';state.tasks=v.tasks||[];if(classifyTasks(state.tasks))persistWeek();
     }else{
       state.memo='';state.tasks=[];
       const prev=await db.ref(`userPlanWeeks/${uid}`).orderByKey().endAt(addDays(state.weekStart,-1)).limitToLast(1).once('value');
@@ -242,7 +258,7 @@ async function migrateIfNeeded(){
   if(wkS.exists()||libS.exists()){localStorage.setItem(MIGRATED,'skip-existing');return}
   const who=localStorage.getItem('nickname')||localStorage.getItem('username')||'현재 계정';
   if(!confirm(`이 기기에 저장된 기존 플래너 데이터가 있어요.\n${who} 계정으로 가져올까요?`)){localStorage.setItem(MIGRATED,'declined');return}
-  const fix=t=>({id:newId(),title:t.title,start:t.start,end:t.end,days:t.days||[],color:t.color||COLORS[0]});
+  const fix=t=>({id:newId(),title:t.title,start:t.start,end:t.end,days:t.days||[],color:t.color||COLORS[0],kind:guessKind(t.title)});
   const ws=legacy.weekStart||ymd(mondayOf(new Date()));
   const tasks=(legacy.tasks||[]).map(fix),library=(legacy.library||[]).map(fix);
   await db.ref(`userPlanWeeks/${uid}/${ws}`).set({memo:legacy.memo||'',tasks,savedAt:firebase.database.ServerValue.TIMESTAMP});
@@ -266,18 +282,18 @@ function buildInputs(){$('dayChecks').innerHTML=DAYS.map((d,i)=>`<label class="d
 function selectedDays(){return [...document.querySelectorAll('#dayChecks input:checked')].map(x=>+x.value)}
 function selectedColor(){return document.querySelector('input[name=color]:checked')?.value||''}
 function findConflicts(days,start,end,excludeId=null){const hits=[];for(const d of days)for(const t of state.tasks){if(t.id===excludeId||!t.days.includes(d))continue;const a=toMin(t.start),b=toMin(t.end);if(start<b&&end>a)hits.push({day:d,task:t})}return hits}
-function resetForm(){editingId=null;$('formTitle').textContent='일정 추가';$('saveBtn').textContent='일정 추가';$('cancelEditBtn').style.display='none';$('titleInput').value='';document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=false);document.querySelectorAll('input[name=color]').forEach(x=>x.checked=false);setTimePick('start','16:00');setTimePick('end','17:00')}
-function upsertTask(){const wasEdit=!!editingId,title=$('titleInput').value.trim(),start=getTimePick('start'),end=getTimePick('end'),days=selectedDays(),color=selectedColor();if(!title)return toast('일정명을 입력해 주세요.');if(!start||!end)return toast('시작시간과 종료시간을 입력해 주세요.');const s=toMin(start),e=toMin(end);if(s<MIN||e>MAX||e<=s)return toast('07:00~24:00 범위에서 올바른 시간을 입력해 주세요.');if(s%5||e%5)return toast('시간은 5분 단위로 입력해 주세요.');if(!days.length)return toast('요일을 하나 이상 선택해 주세요.');if(!color)return toast('10가지 색상 중 하나를 선택해 주세요.');const hits=findConflicts(days,s,e,editingId);if(hits.length){const h=hits[0];return toast(`${DAYS[h.day][0]}요일 ${h.task.start}~${h.task.end} ‘${h.task.title}’ 일정과 겹칩니다.`)}if(editingId){Object.assign(state.tasks.find(x=>x.id===editingId),{title,start,end,days,color})}else state.tasks.push({id:newId(),title,start,end,days,color});saveToLibrary({title,start,end,days,color});state.tasks.sort((a,b)=>toMin(a.start)-toMin(b.start)||a.title.localeCompare(b.title));persistWeek();persistLibrary();resetForm();render();toast(wasEdit?'일정을 수정했습니다.':'일정을 추가했습니다.')}
-function editTask(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;editingId=id;$('formTitle').textContent='일정 수정';$('saveBtn').textContent='수정 저장';$('cancelEditBtn').style.display='block';$('titleInput').value=t.title;setTimePick('start',t.start);setTimePick('end',t.end);document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=t.days.includes(+x.value));document.querySelectorAll('input[name=color]').forEach(x=>x.checked=x.value===t.color)}
-function copyTask(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;editingId=null;$('formTitle').textContent='일정 복사';$('saveBtn').textContent='복사 일정 추가';$('cancelEditBtn').style.display='block';$('titleInput').value=t.title;setTimePick('start',t.start);setTimePick('end',t.end);document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=t.days.includes(+x.value));document.querySelectorAll('input[name=color]').forEach(x=>x.checked=x.value===t.color);toast('복사할 일정을 불러왔습니다. 요일이나 시간을 바꾼 뒤 추가해 주세요.')}
+function resetForm(){editingId=null;setFormKind('todo');$('formTitle').textContent='일정 추가';$('saveBtn').textContent='일정 추가';$('cancelEditBtn').style.display='none';$('titleInput').value='';document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=false);document.querySelectorAll('input[name=color]').forEach(x=>x.checked=false);setTimePick('start','16:00');setTimePick('end','17:00')}
+function upsertTask(){const wasEdit=!!editingId,title=$('titleInput').value.trim(),start=getTimePick('start'),end=getTimePick('end'),days=selectedDays(),color=selectedColor();if(!title)return toast('일정명을 입력해 주세요.');if(!start||!end)return toast('시작시간과 종료시간을 입력해 주세요.');const s=toMin(start),e=toMin(end);if(s<MIN||e>MAX||e<=s)return toast('07:00~24:00 범위에서 올바른 시간을 입력해 주세요.');if(s%5||e%5)return toast('시간은 5분 단위로 입력해 주세요.');if(!days.length)return toast('요일을 하나 이상 선택해 주세요.');if(!color)return toast('10가지 색상 중 하나를 선택해 주세요.');const hits=findConflicts(days,s,e,editingId);if(hits.length){const h=hits[0];return toast(`${DAYS[h.day][0]}요일 ${h.task.start}~${h.task.end} ‘${h.task.title}’ 일정과 겹칩니다.`)}if(editingId){Object.assign(state.tasks.find(x=>x.id===editingId),{title,start,end,days,color,kind:formKind})}else state.tasks.push({id:newId(),title,start,end,days,color,kind:formKind});saveToLibrary({title,start,end,days,color,kind:formKind});state.tasks.sort((a,b)=>toMin(a.start)-toMin(b.start)||a.title.localeCompare(b.title));persistWeek();persistLibrary();resetForm();render();toast(wasEdit?'일정을 수정했습니다.':'일정을 추가했습니다.')}
+function editTask(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;editingId=id;$('formTitle').textContent='일정 수정';$('saveBtn').textContent='수정 저장';$('cancelEditBtn').style.display='block';$('titleInput').value=t.title;setFormKind(kindOf(t));setTimePick('start',t.start);setTimePick('end',t.end);document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=t.days.includes(+x.value));document.querySelectorAll('input[name=color]').forEach(x=>x.checked=x.value===t.color)}
+function copyTask(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;editingId=null;$('formTitle').textContent='일정 복사';$('saveBtn').textContent='복사 일정 추가';$('cancelEditBtn').style.display='block';$('titleInput').value=t.title;setFormKind(kindOf(t));setTimePick('start',t.start);setTimePick('end',t.end);document.querySelectorAll('#dayChecks input').forEach(x=>x.checked=t.days.includes(+x.value));document.querySelectorAll('input[name=color]').forEach(x=>x.checked=x.value===t.color);toast('복사할 일정을 불러왔습니다. 요일이나 시간을 바꾼 뒤 추가해 주세요.')}
 function delTask(id){state.tasks=state.tasks.filter(x=>x.id!==id);persistWeek();if(editingId===id)resetForm();render()}
 
 /* ── 자주 쓰는 일정 ── */
-function saveToLibrary(t){if(!Array.isArray(state.library))state.library=[];const ex=state.library.find(x=>x.title===t.title);if(ex)Object.assign(ex,{title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color});else state.library.push({id:newId(),title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color})}
-function addFromLibrary(id){const t=(state.library||[]).find(x=>x.id===id);if(!t)return;const s=toMin(t.start),e=toMin(t.end);const hits=findConflicts(t.days,s,e);if(hits.length){const h=hits[0];return toast(`${DAYS[h.day][0]}요일 ${h.task.start}~${h.task.end} ‘${h.task.title}’ 일정과 겹칩니다.`)}state.tasks.push({id:newId(),title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color});state.tasks.sort((a,b)=>toMin(a.start)-toMin(b.start)||a.title.localeCompare(b.title));persistWeek();render();toast('자주 쓰는 일정에서 추가했습니다.')}
+function saveToLibrary(t){if(!Array.isArray(state.library))state.library=[];const ex=state.library.find(x=>x.title===t.title);if(ex)Object.assign(ex,{title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color,kind:kindOf(t)});else state.library.push({id:newId(),title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color,kind:kindOf(t)})}
+function addFromLibrary(id){const t=(state.library||[]).find(x=>x.id===id);if(!t)return;const s=toMin(t.start),e=toMin(t.end);const hits=findConflicts(t.days,s,e);if(hits.length){const h=hits[0];return toast(`${DAYS[h.day][0]}요일 ${h.task.start}~${h.task.end} ‘${h.task.title}’ 일정과 겹칩니다.`)}state.tasks.push({id:newId(),title:t.title,start:t.start,end:t.end,days:[...t.days],color:t.color,kind:kindOf(t)});state.tasks.sort((a,b)=>toMin(a.start)-toMin(b.start)||a.title.localeCompare(b.title));persistWeek();render();toast('자주 쓰는 일정에서 추가했습니다.')}
 function removeFromLibrary(id){state.library=(state.library||[]).filter(x=>x.id!==id);persistLibrary();cachePut();render()}
 function renderLibrary(){const box=$('libList');if(!box)return;const lib=state.library||[];$('libCount').textContent=lib.length+'개';if(!lib.length){box.innerHTML='<div style="font-size:12px;color:#999;padding:10px 2px">일정을 추가하면 자동으로 모입니다.</div>';return}box.innerHTML=lib.map(t=>`<div class="task-item"><span class="dot" style="background:${t.color}"></span><div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${t.start}~${t.end} · ${t.days.map(d=>DAYS[d][0]).join('·')}</div></div><div class="mini-actions"><button onclick="addFromLibrary('${t.id}')">이번 주에</button><button onclick="removeFromLibrary('${t.id}')">비우기</button></div></div>`).join('')}
-function renderTaskList(){const box=$('taskList');$('countLabel').textContent=state.tasks.length+'개';if(!state.tasks.length){box.innerHTML='<div style="font-size:12px;color:#999;padding:10px 2px">아직 등록된 일정이 없어요.</div>';return}box.innerHTML=state.tasks.map(t=>`<div class="task-item"><span class="dot" style="background:${t.color}"></span><div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${t.start}~${t.end} · ${t.days.map(d=>DAYS[d][0]).join('·')}</div></div><div class="mini-actions"><button onclick="editTask('${t.id}')">수정</button><button onclick="copyTask('${t.id}')">복사</button><button onclick="delTask('${t.id}')">삭제</button></div></div>`).join('')}
+function renderTaskList(){const box=$('taskList');$('countLabel').textContent=state.tasks.length+'개';if(!state.tasks.length){box.innerHTML='<div style="font-size:12px;color:#999;padding:10px 2px">아직 등록된 일정이 없어요.</div>';return}box.innerHTML=state.tasks.map(t=>`<div class="task-item"><span class="dot" style="background:${t.color}"></span><div><div class="task-title">${esc(t.title)}</div><div class="task-meta"><span class="kbadge">${kindOf(t)==='routine'?'일과':'할 일'}</span>${t.start}~${t.end} · ${t.days.map(d=>DAYS[d][0]).join('·')}</div></div><div class="mini-actions"><button onclick="editTask('${t.id}')">수정</button><button onclick="copyTask('${t.id}')">복사</button><button onclick="delTask('${t.id}')">삭제</button></div></div>`).join('')}
 
 /* ── 시트 렌더 ── */
 function monthStrip(){const m=new Date(state.weekStart+'T00:00:00').getMonth()+1;return `<div class="months">${Array.from({length:12},(_,i)=>`<span class="${i+1===m?'current':''}">${i+1}</span>`).join('')}</div>`}
@@ -286,7 +302,7 @@ function header(){return `<div class="plan-head"><div><div class="plan-title">WE
 function dayTasks(i){return state.tasks.filter(t=>t.days.includes(i)).sort((a,b)=>toMin(a.start)-toMin(b.start))}
 function shortTime(t){const [h,m]=t.split(':').map(Number);return m?`${h}시 ${m}분`:`${h}시`}
 function todayIdx(){const t=ymd(new Date());for(let i=0;i<7;i++)if(ymd(dateFor(i))===t)return i;return -1}
-function summaryHTML(i){return dayTasks(i).map(t=>{const done=isDone(i,t.id);return `<div class="summary-line${done?' done':''}" data-day="${i}" data-tid="${t.id}" style="${strokeVars(t.color)}" role="checkbox" aria-checked="${done}"><span class="summary-text">${esc(t.title)} ${shortTime(t.start)}</span><span class="summary-check">${done?'✓':''}</span></div>`}).join('')}
+function summaryHTML(i){return dayTasks(i).filter(t=>kindOf(t)==='todo').map(t=>{const done=isDone(i,t.id);return `<div class="summary-line${done?' done':''}" data-day="${i}" data-tid="${t.id}" style="${strokeVars(t.color)}" role="checkbox" aria-checked="${done}"><span class="summary-text">${esc(t.title)} ${shortTime(t.start)}</span><span class="summary-check">${done?'✓':''}</span></div>`}).join('')}
 function gridCellsHTML(){
   return '<div class="grid-cells" aria-hidden="true">'+
     Array.from({length:102},()=>'<span class="grid-cell"></span>').join('')+
@@ -298,7 +314,8 @@ function eventVertical(t,day){
   // 시작은 해당 10분 칸의 시작으로, 종료는 해당 10분 칸의 끝으로 시각화한다.
   const vs=Math.max(MIN,Math.floor(s/10)*10);
   const ve=Math.min(MAX,Math.ceil(e/10)*10);
-  const done=isDone(day,t.id);
+  const done=kindOf(t)==='todo'&&isDone(day,t.id);
+  const rt=kindOf(t)==='routine';
   const parts=[];
   let first=true;
   for(let h=7;h<24;h++){
@@ -311,12 +328,12 @@ function eventVertical(t,day){
     const width=((c2-c1)/6)*100;
     const top=(h-7)*28;
     const label=first?`<span>${esc(t.title)}${done?' ✓':''}</span>`:'';
-    parts.push(`<div class="event${done?' done':''}" title="${esc(t.title)} ${t.start}~${t.end}" style="top:${top}px;height:28px;left:${left}%;width:${width}%;background:${t.color}">${label}</div>`);
+    parts.push(`<div class="event${done?' done':''}${rt?' rt':''}" title="${esc(t.title)} ${t.start}~${t.end}" style="top:${top}px;height:28px;left:${left}%;width:${width}%;background:${t.color}">${label}</div>`);
     first=false;
   }
   return parts.join('');
 }
-function landscape(){const ti=todayIdx();let out='<div class="landscape-grid"><div class="summary-spacer"></div>';for(let i=0;i<7;i++){const d=dateFor(i);out+=`<div class="day-summary${i===ti?' today':''}"><div class="day-label${i===ti?' today':''}"><span class="date-box ${i===5?'sat':i===6?'sun':''}">${d.getDate()}</span>${DAYS[i][1]}${i===ti?'<span class="today-tag">오늘</span>':''}</div><div class="summary-box">${summaryHTML(i)}</div></div>`}out+='<div class="timeline-labels">';for(let h=7;h<=24;h++){const y=(h*60-MIN)/RANGE*100;out+=`<span class="time-label" style="top:${y}%">${pad(h)}</span>`}out+='</div>';for(let i=0;i<7;i++)out+=`<div class="day-timeline${i===ti?' today':''}">${gridCellsHTML()}${dayTasks(i).map(t=>eventVertical(t,i)).join('')}</div>`;return header()+out+'<div class="grid-note" style="grid-column:2 / -1">모눈 1칸 = 10분 · 요약칸의 □를 누르면 완료 체크됩니다.</div></div>'}
+function landscape(){const ti=todayIdx();let out='<div class="landscape-grid"><div class="summary-spacer"></div>';for(let i=0;i<7;i++){const d=dateFor(i);const tds=dayTasks(i).filter(t=>kindOf(t)==='todo');const dn=tds.filter(t=>isDone(i,t.id)).length;const pct=tds.length?Math.round(dn/tds.length*100):null;out+=`<div class="day-summary${i===ti?' today':''}"><div class="day-label${i===ti?' today':''}"><span class="date-box ${i===5?'sat':i===6?'sun':''}">${d.getDate()}</span>${DAYS[i][1]}${i===ti?'<span class="today-tag">오늘</span>':''}${pct===null?'':`<span class="day-pct${pct===100?' full':''}">${pct}%</span>`}</div><div class="summary-box">${summaryHTML(i)}</div></div>`}out+='<div class="timeline-labels">';for(let h=7;h<=24;h++){const y=(h*60-MIN)/RANGE*100;out+=`<span class="time-label" style="top:${y}%">${pad(h)}</span>`}out+='</div>';for(let i=0;i<7;i++)out+=`<div class="day-timeline${i===ti?' today':''}">${gridCellsHTML()}${dayTasks(i).map(t=>eventVertical(t,i)).join('')}</div>`;return header()+out+'<div class="grid-note" style="grid-column:2 / -1">모눈 1칸 = 10분 · 요약칸의 □를 누르면 완료 체크됩니다.</div></div>'}
 function bindMemo(){const m=$('memoOnSheet');if(m)m.addEventListener('input',e=>{state.memo=e.target.value;$('memoInput').value=state.memo;scheduleMemoSave()})}
 function scheduleMemoSave(){cachePut();clearTimeout(memoTimer);memoTimer=setTimeout(persistWeek,700)}
 function fitPreview(){
@@ -348,6 +365,7 @@ $('copyPrevBtn').onclick=copyPrevWeek;
 $('fromLibBtn').onclick=()=>{hideChooser();persistWeek();render();toast('왼쪽 "자주 쓰는 일정"에서 [이번 주에] 버튼으로 담아주세요.')};
 $('emptyStartBtn').onclick=()=>{hideChooser();persistWeek();render()};
 $('saveBtn').onclick=upsertTask;$('cancelEditBtn').onclick=resetForm;
+document.querySelectorAll('#kindSeg button').forEach(b=>b.onclick=()=>setFormKind(b.dataset.kind));
 $('memoInput').addEventListener('input',e=>{state.memo=e.target.value;scheduleMemoSave();const m=$('memoOnSheet');if(m)m.value=state.memo});
 $('resetBtn').onclick=async()=>{if(!confirm('이번 주 계획과 체크, MEMO를 삭제할까요?\n삭제 후 [지난주 복사] 등으로 새로 시작할 수 있어요. (자주 쓰는 일정과 다른 주는 유지됩니다)'))return;state.tasks=[];state.memo='';state.checks={};if(uid){for(let i=0;i<7;i++)db.ref(`userPlanChecks/${uid}/${ymd(dateFor(i))}`).remove().catch(()=>{});try{await db.ref(`userPlanWeeks/${uid}/${state.weekStart}`).remove()}catch(e){}}cachePut();resetForm();loadWeek()};
 
@@ -445,6 +463,7 @@ if(!localStorage.getItem('currentUser')){
     try{
       const libS=await db.ref(`userPlanLibrary/${uid}`).once('value');
       state.library=libS.val()||[];
+      if(classifyTasks(state.library))persistLibrary();
       await migrateIfNeeded();
       await loadWeek();
       const who=localStorage.getItem('nickname')||localStorage.getItem('username')||'';
