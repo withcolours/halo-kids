@@ -31,7 +31,10 @@ main { width:100%; max-width:560px; }
 .wd { flex:1; height:38px; border:1.5px solid var(--line); background:var(--card); border-radius:10px; font-size:13px; font-weight:700; color:var(--sub); cursor:pointer; font-family:inherit; position:relative; display:flex; align-items:center; justify-content:center; }
 .wd.sat { color:#2f7fd1; } .wd.sun { color:#d05555; }
 .wd.view { background:var(--acc); border-color:var(--acc); color:#fff; }
-.wd.today::after { content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%); width:5px; height:5px; border-radius:99px; background:var(--gold); }
+.wd { flex-direction:column; line-height:1.15; gap:0; }
+.wd em { font-style:normal; font-size:8.5px; font-weight:700; color:var(--warn, #E0742C); letter-spacing:.5px; }
+.wd.view em { color:#fff; }
+.wd.today { border-color:var(--acc); }
 .flame-card { background:linear-gradient(135deg,#FF9A3D22,#FF5A3D11); border:1.5px solid var(--flame); border-radius:18px; padding:13px 16px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
 .flame-card .fbig { font-size:34px; filter:drop-shadow(0 2px 6px #FF9A3D66); }
 .flame-card b { font-family:'Jua',sans-serif; font-size:18px; font-weight:400; }
@@ -239,7 +242,7 @@ function render(){
   $('wkDays').innerHTML=Array.from({length:7},(_,i)=>{
     const dd=addDays(ws,i);
     const cls=['wd',i===5?'sat':'',i===6?'sun':'',dd===viewDate?'view':'',dd===TODAY()?'today':''].filter(Boolean).join(' ');
-    return `<button class="${cls}" data-d="${dd}" aria-label="${dd}">${DOWN[i]}</button>`;
+    return `<button class="${cls}" data-d="${dd}" aria-label="${dd}">${DOWN[i]}${dd===TODAY()?'<em>오늘</em>':''}</button>`;
   }).join('');
   const tagTxt=isToday?'':(viewDate===YESTER()?' · 어제':' · 보기 전용');
   $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${tagTxt}`;
