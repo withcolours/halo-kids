@@ -81,8 +81,9 @@ main { width:100%; max-width:560px; }
   <div class="dline">
     <span id="dateLine">–</span>
     <span class="daychips">
-      <button class="daychip" id="chipYesterday">어제</button>
+      <button class="daychip" id="dayPrev" aria-label="이전 날">◀</button>
       <button class="daychip on" id="chipToday">오늘</button>
+      <button class="daychip" id="dayNext" aria-label="다음 날">▶</button>
     </span>
   </div>
 
@@ -192,9 +193,9 @@ function nowMin(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
 function render(){
   const isToday=viewDate===TODAY();
   const d=new Date(viewDate+'T00:00:00');
-  $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${isToday?'':' · 어제'}`;
+  const tagTxt=isToday?'':(viewDate===YESTER()?' · 어제':' · 보기 전용');
+  $('dateLine').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 ${DOWN[dow(viewDate)]}요일${tagTxt}`;
   $('chipToday').classList.toggle('on',isToday);
-  $('chipYesterday').classList.toggle('on',!isToday);
 
   const di=dow(viewDate);
   const items=weekTasks.filter(t=>(t.days||[]).includes(di)).sort((a,b)=>toMin(a.start)-toMin(b.start));
@@ -238,7 +239,7 @@ function canEdit(){ return viewDate===TODAY()||viewDate===YESTER(); }
 
 $('list').addEventListener('click',e=>{
   const el=e.target.closest('.todo'); if(!el)return;
-  if(!canEdit()){ toast('지난 날짜는 체크할 수 없어요.'); return; }
+  if(!canEdit()){ toast(viewDate>TODAY()?'아직 오지 않은 날은 미리 체크할 수 없어요.':'지난 날짜는 체크할 수 없어요. (어제까지만 가능)'); return; }
   const tid=el.dataset.tid;
   const ref=db.ref(`userPlanChecks/${uid}/${viewDate}/${tid}`);
   if(dayChecks[tid]){ delete dayChecks[tid]; ref.remove().catch(()=>{}); }
@@ -246,7 +247,8 @@ $('list').addEventListener('click',e=>{
   render(); loadStreak();
 });
 $('chipToday').onclick=()=>{ if(viewDate!==TODAY()){ viewDate=TODAY(); loadDay(); } };
-$('chipYesterday').onclick=()=>{ if(viewDate!==YESTER()){ viewDate=YESTER(); loadDay(); } };
+$('dayPrev').onclick=()=>{ viewDate=addDays(viewDate,-1); loadDay(); };
+$('dayNext').onclick=()=>{ viewDate=addDays(viewDate,1); loadDay(); };
 
 // 부팅
 const nick=localStorage.getItem('nickname')||localStorage.getItem('username');
