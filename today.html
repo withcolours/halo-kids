@@ -258,7 +258,7 @@ function render(){
   $('progBar').classList.toggle('full',pct===100);
 
   if(!items.length){
-    $('list').innerHTML=`<div class="empty"><b>${isToday?'오늘':'어제'}은 계획이 비어 있어요</b><p>주간 계획표에서 일정을 담아 보세요.</p><a href="planner-print.html">계획 세우러 가기</a></div>`;
+    $('list').innerHTML=`<div class="empty"><b>${isToday?'오늘은':(viewDate===YESTER()?'어제는':'이 날은')} 계획이 비어 있어요</b><p>주간 계획표에서 일정을 담아 보세요.</p><a href="planner-print.html">계획 세우러 가기</a></div>`;
     renderFlame();
     return;
   }
