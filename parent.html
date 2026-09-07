@@ -227,6 +227,7 @@ function render(){
         <div class="stat"><div class="v gold">⭐ ${c.game.balance}</div><div class="l">별 잔고</div></div>
       </div>
       <a class="planbtn" href="planner-print.html?child=${encodeURIComponent(cuid)}">${svgCal()} 주간 계획 보기</a>
+      <button class="planbtn vsw" data-cu="${cuid}" data-nm="${esc(c.profile.nickname||c.profile.username||'아이')}" style="cursor:pointer;font-family:inherit">${svgCal()} 이 아이로 전환</button>
     </div>`;
   }
   // 승인 대기
@@ -296,6 +297,12 @@ if(!localStorage.getItem('currentUser')){
     }
   });
 }
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.vsw'); if(!b)return;
+  localStorage.setItem('viewChild',JSON.stringify({uid:b.dataset.cu,name:b.dataset.nm}));
+  location.href='today.html';
+});
 </script>
 </body>
 </html>

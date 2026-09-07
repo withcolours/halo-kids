@@ -96,10 +96,22 @@ window.addEventListener('load', () => {
     const age = u.birthYear ? `${u.birthYear} (${currentYear - u.birthYear}세)` : '-';
     const role = u.role === 'admin'
       ? '<span class="badge" style="background:#1E90FF">admin</span>'
-      : '<span class="badge" style="background:#8A8378">child</span>';
+      : `<select class="roleSel" data-uid="${uid}" style="border:1px solid #d7d3cc;border-radius:8px;padding:4px 6px;font-size:12px;font-family:inherit">
+           <option value="child"${u.role!=='parent'?' selected':''}>아이</option>
+           <option value="parent"${u.role==='parent'?' selected':''}>부모</option>
+         </select>`;
     return `<tr><td><b>${u.username || uid}</b></td><td>${u.nickname || '<span class="muted">-</span>'}</td><td>${age}</td><td>${role}</td><td>책 ${books} · 영상 ${otts}</td><td class="muted">${fmt(u.createdAt)}</td></tr>`;
   });
   document.getElementById('usersBody').innerHTML = rows.join('');
+  document.querySelectorAll('.roleSel').forEach(sel => {
+    sel.onchange = async () => {
+      const target = sel.dataset.uid;
+      const want = sel.value;
+      if (!confirm(`이 사용자의 역할을 '${want==='parent'?'부모':'아이'}'로 바꿀까요?`)) { sel.value = want==='parent'?'child':'parent'; return; }
+      try { await db.ref(`users/${target}/role`).set(want); alert('변경했습니다'); }
+      catch(e) { alert('변경 실패: ' + (e.code||e.message)); }
+    };
+  });
   document.getElementById('usersLoading').style.display = 'none';
   document.getElementById('usersTable').style.display = '';
 

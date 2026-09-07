@@ -4,7 +4,7 @@
       ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
       "$uid": {
         ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
-        ".write": "auth != null && auth.uid === $uid && (newData.child('role').val() === data.child('role').val() || (!data.child('role').exists() && newData.child('role').val() === 'child') || newData.child('role').val() === 'child' || (newData.child('role').val() === 'parent' && newData.child('birthYear').val() !== null && newData.child('birthYear').val() <= 2007))"
+        ".write": "auth != null && ((auth.uid === $uid && (newData.child('role').val() === data.child('role').val() || (!data.child('role').exists() && newData.child('role').val() === 'child'))) || (root.child('users').child(auth.uid).child('role').val() === 'admin' && auth.uid !== $uid && (newData.child('role').val() === 'child' || newData.child('role').val() === 'parent' || newData.child('role').val() === data.child('role').val())))"
       }
     },
     "usernames": {

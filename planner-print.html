@@ -178,7 +178,7 @@ const COLORS=['#cdbaf5','#d7c6e9','#bfd5ec','#c7e3d3','#d4dfbe','#f2dda0','#f2c7
 const DAYS=[['월','MON'],['화','TUE'],['수','WED'],['목','THU'],['금','FRI'],['토','SAT'],['일','SUN']];
 const MIN=420,MAX=1440,RANGE=1020;
 const CACHE='halokids_pp_cache_v1',LEGACY='halokids_weekly_grid_v1',MIGRATED='halokids_pp_migrated';
-const CHILD=new URLSearchParams(location.search).get('child');
+const CHILD=new URLSearchParams(location.search).get('child')||(function(){try{return (JSON.parse(localStorage.getItem('viewChild')||'null')||{}).uid||null}catch(e){return null}})();
 let uid=null,myUid=null,state={weekStart:'',memo:'',tasks:[],library:[],checks:{}},editingId=null,memoTimer=null;
 const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
 

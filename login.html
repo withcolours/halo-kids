@@ -347,7 +347,7 @@ async function handleLogin() {
 
     // localStorage에 저장
     localStorage.setItem('currentUser', userCred.user.uid);
-    localStorage.setItem('username', username); localStorage.removeItem('nickname');
+    localStorage.setItem('username', username); localStorage.removeItem('nickname'); localStorage.removeItem('viewChild'); localStorage.removeItem('viewChild');
     db.ref(`usernames/${username}`).set(userCred.user.uid).catch(()=>{});
 
     // 닉네임을 미리 캐시해 index 아바타가 첫 페인트부터 올바른 글자로 뜨게 한다
@@ -429,7 +429,7 @@ async function handleSignup() {
 
     // localStorage에 저장
     localStorage.setItem('currentUser', uid);
-    localStorage.setItem('username', username); localStorage.removeItem('nickname');
+    localStorage.setItem('username', username); localStorage.removeItem('nickname'); localStorage.removeItem('viewChild'); localStorage.removeItem('viewChild');
     db.ref(`usernames/${username}`).set(uid).catch(()=>{});
 
     // index.html로 리다이렉트

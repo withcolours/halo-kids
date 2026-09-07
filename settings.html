@@ -170,7 +170,7 @@ async function handleLogout() {
 
     await auth.signOut();
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('username'); localStorage.removeItem('nickname');
+    localStorage.removeItem('username'); localStorage.removeItem('nickname'); localStorage.removeItem('viewChild');
     window.location.href = 'login.html';
   } catch (error) {
     alert('로그아웃 실패했습니다');

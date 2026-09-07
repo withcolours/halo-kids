@@ -199,7 +199,7 @@ const SEED = [
   { title:'서점에서 아무 책 1권', star:8, icon:'book' }
 ];
 
-let uid=null, isAdmin=false, earned=0, spent=0, expired=0, bal=0, rewards={}, reds={};
+let uid=null, myUid=null, isAdmin=false, earned=0, spent=0, expired=0, bal=0, rewards={}, reds={};
 
 
 function balance(){ return bal; }
@@ -265,7 +265,7 @@ async function loadAdmin(){
         for(const [id,r] of Object.entries(items))
           if(r.status==='requested')rows.push({u,id,r,name:(users[u]&&(users[u].nickname||users[u].username))||u.slice(0,6)});
     }else{
-      const kidsS=await db.ref(`parents/${uid}`).once('value');
+      const kidsS=await db.ref(`parents/${myUid}`).once('value');
       const kids=Object.keys(kidsS.val()||{});
       if(!kids.length)return;
       for(const cu of kids){
@@ -322,10 +322,21 @@ if(!localStorage.getItem('currentUser')){
 }else{
   auth.onAuthStateChanged(async user=>{
     if(!user){ window.location.href='login.html'; return; }
-    uid=user.uid;
+    myUid=user.uid; uid=myUid;
+    try{
+      const vc=JSON.parse(localStorage.getItem('viewChild')||'null');
+      if(vc&&vc.uid){
+        uid=vc.uid;
+        const bar=document.createElement('div');
+        bar.style.cssText='background:#E0742C18;border:1.5px solid #E0742C;border-radius:14px;padding:9px 14px;margin-bottom:12px;font-size:12.5px;font-weight:700;color:#E0742C;display:flex;align-items:center;gap:8px';
+        bar.innerHTML=`<span style="flex:1">${vc.name} 보기 모드 (부모)</span><button id="vcOff" style="border:1.5px solid #E0742C;background:transparent;color:#E0742C;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">내 계정으로</button>`;
+        document.querySelector('main').prepend(bar);
+        document.getElementById('vcOff').onclick=()=>{localStorage.removeItem('viewChild');location.reload();};
+      }
+    }catch(e){}
     try{
       const [me,rw,rd]=await Promise.all([
-        db.ref(`users/${uid}`).once('value'),
+        db.ref(`users/${myUid}`).once('value'),
         db.ref(`rewards/${uid}`).once('value'),
         db.ref(`redemptions/${uid}`).once('value')
       ]);

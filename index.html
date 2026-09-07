@@ -163,7 +163,7 @@ const db = firebase.database();
 
 // 아바타 글자 + 계정 정보 + 관리자 메뉴
 firebase.auth().onAuthStateChanged(async (fbUser) => {
-  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); localStorage.removeItem('nickname'); window.location.href = 'login.html'; return; }
+  if (!fbUser) { localStorage.removeItem('currentUser'); localStorage.removeItem('username'); localStorage.removeItem('nickname'); localStorage.removeItem('viewChild'); window.location.href = 'login.html'; return; }
   const uid = fbUser.uid;
   const username = localStorage.getItem('username') || '';
   // 첫 페인트는 위 인라인 스크립트가 캐시(nickname)로 이미 그렸으므로,
@@ -182,6 +182,31 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
     if (me.role === 'admin' || me.role === 'parent') {
       document.getElementById('parentItem').style.display = '';
       if (window.feather) feather.replace();
+    }
+    if (me.role === 'admin' || me.role === 'parent') {
+      try {
+        const ks = await db.ref(`parents/${uid}`).once('value');
+        const kids = Object.keys(ks.val() || {});
+        const dd = document.getElementById('dropdown');
+        const logoutBtn = dd.querySelector('.dd-item.danger');
+        let vc = null; try { vc = JSON.parse(localStorage.getItem('viewChild')||'null'); } catch(e) {}
+        if (vc && vc.uid) {
+          const b = document.createElement('button'); b.className = 'dd-item';
+          b.innerHTML = '<svg data-feather="corner-up-left"></svg>내 계정으로 (' + vc.name + ' 보기 중)';
+          b.onclick = () => { localStorage.removeItem('viewChild'); location.reload(); };
+          dd.insertBefore(b, logoutBtn);
+        } else {
+          for (const cu of kids) {
+            const u2 = (await db.ref(`users/${cu}`).once('value')).val() || {};
+            const nm = u2.nickname || u2.username || cu.slice(0,6);
+            const b = document.createElement('button'); b.className = 'dd-item';
+            b.innerHTML = '<svg data-feather="eye"></svg>' + nm + ' 보기';
+            b.onclick = () => { localStorage.setItem('viewChild', JSON.stringify({uid:cu, name:nm})); location.href = 'today.html'; };
+            dd.insertBefore(b, logoutBtn);
+          }
+        }
+        if (window.feather) feather.replace();
+      } catch(e) {}
     }
     if (me.role === 'admin') {
       document.getElementById('adminItem').style.display = '';
@@ -203,7 +228,7 @@ async function handleLogout() {
     await auth.signOut();
   } catch (e) { /* 오류여도 로컬 세션은 정리 */ }
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('username'); localStorage.removeItem('nickname');
+  localStorage.removeItem('username'); localStorage.removeItem('nickname'); localStorage.removeItem('viewChild');
   window.location.href = 'login.html';
 }
 </script>
