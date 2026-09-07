@@ -178,7 +178,8 @@ const COLORS=['#cdbaf5','#d7c6e9','#bfd5ec','#c7e3d3','#d4dfbe','#f2dda0','#f2c7
 const DAYS=[['월','MON'],['화','TUE'],['수','WED'],['목','THU'],['금','FRI'],['토','SAT'],['일','SUN']];
 const MIN=420,MAX=1440,RANGE=1020;
 const CACHE='halokids_pp_cache_v1',LEGACY='halokids_weekly_grid_v1',MIGRATED='halokids_pp_migrated';
-let uid=null,state={weekStart:'',memo:'',tasks:[],library:[],checks:{}},editingId=null,memoTimer=null;
+const CHILD=new URLSearchParams(location.search).get('child');
+let uid=null,myUid=null,state={weekStart:'',memo:'',tasks:[],library:[],checks:{}},editingId=null,memoTimer=null;
 const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
 
 function toMin(t){const [h,m]=t.split(':').map(Number);return h*60+m}
@@ -202,8 +203,8 @@ function guessKind(title){const t=String(title||'');if(TD_KW.some(k=>t.includes(
 function classifyTasks(arr){let n=0;for(const t of arr||[]){if(!t.kind){t.kind=guessKind(t.title);n++}}return n}
 
 /* ── 오프라인 캐시 (현재 주 1칸) ── */
-function cachePut(){try{localStorage.setItem(CACHE,JSON.stringify({ws:state.weekStart,memo:state.memo,tasks:state.tasks,checks:state.checks,library:state.library}))}catch(e){}}
-function cacheGet(){try{return JSON.parse(localStorage.getItem(CACHE))}catch(e){return null}}
+function cachePut(){if(CHILD)return;try{localStorage.setItem(CACHE,JSON.stringify({ws:state.weekStart,memo:state.memo,tasks:state.tasks,checks:state.checks,library:state.library}))}catch(e){}}
+function cacheGet(){if(CHILD)return null;try{return JSON.parse(localStorage.getItem(CACHE))}catch(e){return null}}
 
 /* ── Firebase 저장 ── */
 function persistWeek(){
@@ -280,6 +281,7 @@ async function copyPrevWeek(){
 
 /* ── 기존 localStorage 데이터 1회 이관 ── */
 async function migrateIfNeeded(){
+  if(CHILD)return;
   if(localStorage.getItem(MIGRATED))return;
   let legacy=null;try{legacy=JSON.parse(localStorage.getItem(LEGACY))}catch(e){}
   const has=legacy&&(((legacy.tasks||[]).length)||((legacy.library||[]).length));
@@ -493,14 +495,29 @@ if(!localStorage.getItem('currentUser')){
 }else{
   auth.onAuthStateChanged(async user=>{
     if(!user){window.location.href='login.html';return}
-    uid=user.uid;
+    myUid=user.uid;
+    uid=CHILD||myUid;
+    let childName='';
+    if(CHILD){
+      try{
+        const cu=(await db.ref(`users/${CHILD}`).once('value')).val();
+        if(!cu)throw new Error('no-user');
+        childName=cu.nickname||cu.username||'아이';
+        document.title=childName+'의 주간 계획표';
+        document.querySelector('.brand').insertAdjacentHTML('beforeend',
+          ` <span style="font-size:12px;font-weight:700;color:#E0742C;border:1.5px solid #E0742C;border-radius:99px;padding:2px 9px;vertical-align:2px">${childName}의 계획 · 부모 모드</span>`);
+      }catch(e){
+        alert('이 아이의 계획을 볼 권한이 없어요. 프로필에서 아이 연결과 보안 규칙 게시를 확인해 주세요.');
+        location.href='planner-print.html'; return;
+      }
+    }
     try{
       const libS=await db.ref(`userPlanLibrary/${uid}`).once('value');
       state.library=libS.val()||[];
       if(classifyTasks(state.library))persistLibrary();
       await migrateIfNeeded();
       await loadWeek();
-      const who=localStorage.getItem('nickname')||localStorage.getItem('username')||'';
+      const who=CHILD?childName+' · 부모 모드':(localStorage.getItem('nickname')||localStorage.getItem('username')||'');
       setSync((who?who+' · ':'')+'자동 저장됨',true);
     }catch(e){
       setSync('연결 실패',false);
