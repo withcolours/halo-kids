@@ -256,14 +256,25 @@ function renderReqs(){
 }
 
 async function loadAdmin(){
-  if(!isAdmin)return;
+  let rows=[];
   try{
-    const [rS,uS]=await Promise.all([db.ref('redemptions').once('value'),db.ref('users').once('value')]);
-    const all=rS.val()||{}, users=uS.val()||{};
-    const rows=[];
-    for(const [u,items] of Object.entries(all))
-      for(const [id,r] of Object.entries(items))
-        if(r.status==='requested')rows.push({u,id,r,name:(users[u]&&(users[u].nickname||users[u].username))||u.slice(0,6)});
+    if(isAdmin){
+      const [rS,uS]=await Promise.all([db.ref('redemptions').once('value'),db.ref('users').once('value')]);
+      const all=rS.val()||{}, users=uS.val()||{};
+      for(const [u,items] of Object.entries(all))
+        for(const [id,r] of Object.entries(items))
+          if(r.status==='requested')rows.push({u,id,r,name:(users[u]&&(users[u].nickname||users[u].username))||u.slice(0,6)});
+    }else{
+      const kidsS=await db.ref(`parents/${uid}`).once('value');
+      const kids=Object.keys(kidsS.val()||{});
+      if(!kids.length)return;
+      for(const cu of kids){
+        const [rS,uS]=await Promise.all([db.ref(`redemptions/${cu}`).once('value'),db.ref(`users/${cu}`).once('value')]);
+        const items=rS.val()||{}, u2=uS.val()||{};
+        for(const [id,r] of Object.entries(items))
+          if(r.status==='requested')rows.push({u:cu,id,r,name:u2.nickname||u2.username||cu.slice(0,6)});
+      }
+    }
     $('adminWrap').style.display='';
     $('adminList').innerHTML=rows.length?rows.map(x=>
       `<div class="item"><span class="tx"><div class="tt">${esc(x.name)} · ${esc(x.r.title)}</div><div class="st">⭐ ${x.r.star}</div></span>

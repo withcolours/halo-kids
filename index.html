@@ -67,6 +67,7 @@ a.card:active { transform:scale(.98); }
     <a class="dd-item" href="profile.html"><svg data-feather="user"></svg>프로필</a>
     <button class="dd-item" onclick="event.stopPropagation(); toggleTheme()"><svg data-feather="moon" id="ddThemeIcon"></svg><span id="ddThemeLabel">어두운 테마로</span></button>
     <a class="dd-item" href="settings.html"><svg data-feather="settings"></svg>설정</a>
+    <a class="dd-item" href="parent.html" id="parentItem" style="display:none"><svg data-feather="users"></svg>부모 홈</a>
     <a class="dd-item" href="admin.html" id="adminItem" style="display:none"><svg data-feather="shield"></svg>관리</a>
     <button class="dd-item danger dd-sep" onclick="handleLogout()"><svg data-feather="log-out"></svg>로그아웃</button>
   </div>
@@ -178,6 +179,10 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
     document.getElementById('ddName').textContent = name;
     document.getElementById('menuBtn').textContent = name[0].toUpperCase();
     localStorage.setItem('nickname', name);
+    if (me.role === 'admin' || me.role === 'parent') {
+      document.getElementById('parentItem').style.display = '';
+      if (window.feather) feather.replace();
+    }
     if (me.role === 'admin') {
       document.getElementById('adminItem').style.display = '';
       if (window.feather) feather.replace();

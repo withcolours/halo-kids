@@ -62,6 +62,25 @@ input:focus, select:focus { outline:none; border-color:var(--acc); }
     <input type="number" id="age" placeholder="9" min="3" max="18" readonly style="background:var(--line); cursor:not-allowed;">
   </div>
 
+  <div class="form-group">
+    <label>역할</label>
+    <select id="role">
+      <option value="child">아이</option>
+      <option value="parent">부모</option>
+    </select>
+    <div style="font-size:12px;color:var(--sub);margin-top:5px" id="roleHint">부모 역할은 생년이 2007년 이전일 때 선택할 수 있어요</div>
+  </div>
+
+  <div class="form-group" id="linkWrap" style="display:none">
+    <label>아이 계정 연결</label>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="childName" placeholder="아이 아이디 입력" autocapitalize="none" autocorrect="off" style="flex:1">
+      <button type="button" onclick="linkChild()" style="border:none;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;padding:0 18px;font-family:inherit;cursor:pointer">연결</button>
+    </div>
+    <div id="childList" style="margin-top:8px"></div>
+    <div style="font-size:12px;color:var(--sub);margin-top:4px">연결하면 아이의 계획을 보고 수정할 수 있어요 (체크는 아이만) · <a href="parent.html" style="color:var(--acc)">부모 홈 열기</a></div>
+  </div>
+
   <div class="btn-group">
     <button class="btn-save" onclick="saveProfile()">저장</button>
     <button class="btn-cancel" onclick="goBack()">취소</button>
@@ -113,7 +132,13 @@ window.addEventListener('load', async () => {
       const currentYear = new Date().getFullYear();
       document.getElementById('age').value = currentYear - user.birthYear;
     }
+    document.getElementById('role').value = (user.role==='parent'||user.role==='admin') ? 'parent' : 'child';
+    if (user.role==='admin') document.getElementById('role').disabled = true; // 관리자는 그대로
   }
+  gateRole();
+  // usernames 인덱스 백필 (기존 계정 자기치유)
+  if (username) db.ref(`usernames/${username}`).set(userId).catch(()=>{});
+  loadChildren();
 
   feather.replace();
   });
@@ -123,13 +148,14 @@ window.addEventListener('load', async () => {
 (() => {
   const sel = document.getElementById('birthYear');
   const thisYear = new Date().getFullYear();
-  for (let y = thisYear; y >= thisYear - 30; y--) {
+  for (let y = thisYear; y >= 1970; y--) {
     const o = document.createElement('option');
     o.value = y; o.textContent = y + '년';
     sel.appendChild(o);
   }
   sel.addEventListener('change', () => {
     document.getElementById('age').value = sel.value ? (thisYear - parseInt(sel.value)) : '';
+    gateRole();
   });
 })();
 
@@ -138,10 +164,18 @@ async function saveProfile() {
   const nickname = document.getElementById('nickname').value;
   const birthYear = parseInt(document.getElementById('birthYear').value) || null;
 
-  await db.ref(`users/${userId}`).update({
-    nickname: nickname,
-    birthYear: birthYear
-  });
+  const roleSel = document.getElementById('role');
+  const upd = { nickname: nickname, birthYear: birthYear };
+  if (!roleSel.disabled) {
+    const want = roleSel.value;
+    if (want === 'parent' && (!birthYear || birthYear > 2007)) {
+      document.getElementById('message').textContent = '부모 역할은 생년 2007년 이전만 가능해요';
+      return;
+    }
+    upd.role = want;
+  }
+  await db.ref(`users/${userId}`).update(upd);
+  gateRole();
 
   // 아바타 첫 페인트용 캐시도 함께 갱신
   if (nickname) localStorage.setItem('nickname', nickname);
@@ -160,6 +194,59 @@ async function saveProfile() {
 
 function goBack() {
   history.back();
+}
+
+function gateRole() {
+  const by = parseInt(document.getElementById('birthYear').value) || null;
+  const roleSel = document.getElementById('role');
+  const adult = by && by <= 2007;
+  if (!roleSel.disabled) {
+    [...roleSel.options].forEach(o => { if (o.value==='parent') o.disabled = !adult; });
+    if (!adult && roleSel.value==='parent') roleSel.value='child';
+  }
+  const isP = roleSel.value==='parent' || roleSel.disabled; // admin도 연결 UI 표시
+  document.getElementById('linkWrap').style.display = isP ? '' : 'none';
+}
+document.getElementById('role').addEventListener('change', gateRole);
+
+async function loadChildren() {
+  const userId = localStorage.getItem('currentUser');
+  const box = document.getElementById('childList');
+  try {
+    const s = await db.ref(`parents/${userId}`).once('value');
+    const kids = Object.keys(s.val() || {});
+    if (!kids.length) { box.innerHTML=''; return; }
+    const rows = await Promise.all(kids.map(async cu => {
+      const u = (await db.ref(`users/${cu}`).once('value')).val() || {};
+      return { cu, name: u.nickname || u.username || cu.slice(0,6) };
+    }));
+    box.innerHTML = rows.map(r =>
+      `<span style="display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--ok);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700;margin:0 6px 6px 0">${r.name}<button onclick="unlinkChild('${r.cu}')" style="border:none;background:none;color:var(--sub);cursor:pointer;font-size:13px;padding:0">✕</button></span>`
+    ).join('');
+  } catch(e) { box.innerHTML = '<span style="font-size:12px;color:var(--sub)">연결 목록을 불러오지 못했어요 (보안 규칙 게시 필요)</span>'; }
+}
+
+async function linkChild() {
+  const userId = localStorage.getItem('currentUser');
+  const name = document.getElementById('childName').value.trim().toLowerCase();
+  const msg = document.getElementById('message');
+  if (!name) { msg.textContent = '아이 아이디를 입력하세요'; return; }
+  if (name === localStorage.getItem('username')) { msg.textContent = '자기 자신은 연결할 수 없어요'; return; }
+  try {
+    const s = await db.ref(`usernames/${name}`).once('value');
+    const cu = s.val();
+    if (!cu) { msg.textContent = `'${name}' 계정을 찾을 수 없어요 — 아이 기기에서 한 번 로그인하면 검색돼요`; return; }
+    await db.ref(`parents/${userId}/${cu}`).set(true);
+    document.getElementById('childName').value='';
+    msg.textContent = '연결했어요!';
+    loadChildren();
+  } catch(e) { msg.textContent = '연결 실패: ' + (e.code||e.message); }
+}
+
+async function unlinkChild(cu) {
+  const userId = localStorage.getItem('currentUser');
+  if (!confirm('이 아이와의 연결을 해제할까요?')) return;
+  try { await db.ref(`parents/${userId}/${cu}`).remove(); loadChildren(); } catch(e) {}
 }
 </script>
 </body>
