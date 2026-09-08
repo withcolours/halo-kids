@@ -31,14 +31,16 @@
 - 카드가 분야별 탭에 cloneNode 복제됨 → 읽음 토글은 같은 data-book-id 전체 동기화. 필터 함수는 `window.__apply`로 노출
 
 ## 페이지 구성
-login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **planner-print**(주간 플래너 체크뷰 — Firebase 계정별 저장: `userPlanWeeks`/`userPlanChecks`/`userPlanLibrary`, 주별 스냅샷, 시트 위 라이브 체크(페인트 스트로크), 주 이동+빈 주 3택, localStorage는 오프라인 캐시·레거시 `halokids_weekly_grid_v1`은 최초 로그인 시 1회 이관) / planner(구모델 초안 — 그리드 모델로 재작업 예정)
+login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **week**(모바일 주간 계획 — 행×요일점, 점탭 체크, 바텀시트 추가·수정; 폰에서 planner-print 접속 시 자동 이 화면, ?paper=1 예외) / **today**(오늘 화면: 지금 마커·체크·%·불꽃·⭐) / **shop**(보상 상점: 파생 별 잔고·교환 신청·부모/관리자 승인) / **tasks**(과제 D-day) / **parent**(부모 홈: 아이 카드·승인·전환) / **planner-print**(주간 플래너 체크뷰 — Firebase 계정별 저장: `userPlanWeeks`/`userPlanChecks`/`userPlanLibrary`, 주별 스냅샷, 시트 위 라이브 체크(페인트 스트로크), 주 이동+빈 주 3택, localStorage는 오프라인 캐시·레거시 `halokids_weekly_grid_v1`은 최초 로그인 시 1회 이관) / planner(구모델 초안 — 그리드 모델로 재작업 예정)
 
 ## DB 구조
 - `users/{uid}`: username, nickname, birthYear, role(child|admin), createdAt, lastLogin
 - `userReadings/{uid}/{itemId}`: timestamp (`at-series-{no}`, `ott59-{no}` 등)
 - `userActivity/{uid}/{push}`: action, detail, timestamp
 - 플래너 체크뷰(라이브, 규칙 게시됨): `userPlanWeeks/{uid}/{주시작일}`(주별 스냅샷), `userPlanChecks/{uid}/{날짜}/{taskId}`, `userPlanLibrary/{uid}`
-- 플래너 Phase B 확장 예정: userTasks, userBooks, userStars, rewards, redemptions, usernames, parents ([docs/planner-spec.md](docs/planner-spec.md) — 확장 시 보안 규칙 재게시)
+- 라이브 노드(규칙 v4 게시됨): userTasks, rewards, redemptions, usernames(아이디→uid), parents/{부모uid}/{아이uid}. 별 잔고는 저장 없이 파생 계산(computeGame — today/shop/week에 동일 사본)
+- Phase B 잔여 노드: userBooks, readingLog
+- **역할 정책**: 가입 시 child 고정·본인 변경 불가, admin만 관리 화면에서 아이↔부모 변경(admin 부여는 콘솔). **아이 보기 전환**: localStorage `viewChild` — 오늘·주간·상점·과제에 적용, 대문 주황 표시
 
 ## 계정
 - `thdduddn` — **실사용 아이 계정** (영우, 2017년생) ← 2026-09-01 사용자 확정
