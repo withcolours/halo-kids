@@ -57,7 +57,12 @@ a.card:active { transform:scale(.98); }
   </svg>
   <h1>Halo <span style="color:var(--acc);">Kids!</span></h1>
   <button class="hbtn avatar" onclick="toggleMenu(event)" title="내 계정" id="menuBtn">?</button>
-  <script>(function(){var n=localStorage.getItem('nickname')||localStorage.getItem('username');if(n)document.getElementById('menuBtn').textContent=n[0].toUpperCase();})();</script>
+  <script>(function(){
+    var vc=null; try{vc=JSON.parse(localStorage.getItem('viewChild')||'null');}catch(e){}
+    var btn=document.getElementById('menuBtn');
+    if(vc&&vc.uid){ btn.textContent=(vc.name||'?')[0].toUpperCase(); btn.style.background='#E0742C'; btn.style.borderColor='#E0742C'; btn.title=vc.name+' 보기 모드'; }
+    else{ var n=localStorage.getItem('nickname')||localStorage.getItem('username'); if(n)btn.textContent=n[0].toUpperCase(); }
+  })();</script>
 
   <div class="dropdown" id="dropdown">
     <div style="padding:13px 16px; border-bottom:1px solid var(--line);">
@@ -74,6 +79,11 @@ a.card:active { transform:scale(.98); }
 </div>
 
 <p class="sub">오늘은 뭘 읽을까, 뭘 볼까? 골라 보세요!</p>
+<div id="vcBanner" style="display:none; width:100%; max-width:560px; background:#E0742C18; border:1.5px solid #E0742C; border-radius:14px; padding:10px 15px; margin:-8px 0 16px; font-size:13px; font-weight:700; color:#E0742C; align-items:center; gap:8px;">
+  <span style="flex:1" id="vcBannerTxt">보기 모드</span>
+  <button onclick="localStorage.removeItem('viewChild');location.reload();" style="border:1.5px solid #E0742C;background:transparent;color:#E0742C;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">내 계정으로</button>
+</div>
+<script>(function(){try{var vc=JSON.parse(localStorage.getItem('viewChild')||'null');if(vc&&vc.uid){var b=document.getElementById('vcBanner');b.style.display='flex';document.getElementById('vcBannerTxt').textContent=vc.name+' 보기 모드 — 오늘·주간 계획·상점·과제가 아이 계정으로 보여요';}}catch(e){}})();</script>
 
 <div class="menu">
   <a class="card" href="today.html?v=20260904">
