@@ -45,7 +45,7 @@ main { width:100%; max-width:600px; }
 .cell.none { color:var(--line); cursor:default; }
 .cell.plan { border:2px solid var(--line); }
 .cell.plan.tdy { border-color:var(--acc); }
-.cell.done { background:var(--ok); color:#fff; font-weight:700; }
+.cell.done { background:var(--ok); color:#fff; font-weight:700; font-size:16px; }
 .trow.rt { border-style:dashed; background:transparent; }
 .trow.rt .nm { color:var(--sub); }
 .trow.rt .cell { cursor:default; }
@@ -117,13 +117,14 @@ main { width:100%; max-width:600px; }
 <div class="header">
   <button class="hbtn" onclick="history.back()" aria-label="뒤로" style="width:40px;padding:0"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
   <h1>주간 계획</h1>
+  <a class="hbtn" id="paperLink" href="planner-print.html?paper=1" title="가로 보기(태블릿)">가로</a>
   <a href="index.html" class="hbtn" title="처음으로" style="width:40px;padding:0"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
 </div>
 
 <main>
-  <div class="modeToggle"><a href="today.html">일간</a><a href="week.html" class="on">주간</a></div>
   <div id="vbarWrap"></div>
   <div id="dedupWrap"></div>
+  <div class="modeToggle"><a href="today.html">일간</a><a href="week.html" class="on">주간</a></div>
   <div class="weekbar">
     <button class="wnav" id="prevW" aria-label="지난 주">◀</button>
     <button class="wlabel" id="wLabel" title="이번 주로">–</button>
@@ -642,8 +643,9 @@ if(!localStorage.getItem('currentUser')){
         const cu=(await db.ref(`users/${CHILD}`).once('value')).val();
         if(!cu)throw new Error('no-user');
         const nm=cu.nickname||cu.username||'아이';
-        $('vbarWrap').innerHTML=`<div class="vbar"><span>${esc(nm)}의 주간 계획 (부모 모드)</span><a href="planner-print.html?paper=1&child=${encodeURIComponent(CHILD)}" style="color:inherit;text-decoration:underline;font-weight:700;white-space:nowrap">종이로 보기</a><button id="vcOff2">내 계정으로</button></div>`;
+        $('vbarWrap').innerHTML=`<div class="vbar"><span>${esc(nm)}의 주간 계획 (부모 모드)</span><button id="vcOff2">내 계정으로</button></div>`;
         $('vcOff2').onclick=()=>{ localStorage.removeItem('viewChild'); location.href='week.html'; };
+        $('paperLink').href='planner-print.html?paper=1&child='+encodeURIComponent(CHILD);
       }catch(e){
         alert('이 아이의 계획을 볼 권한이 없어요.'); location.href='week.html'; return;
       }

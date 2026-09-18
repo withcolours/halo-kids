@@ -226,9 +226,11 @@ function persistLibrary(){
   if(!uid)return;
   db.ref(`userPlanLibrary/${uid}`).set(state.library).catch(()=>{});
 }
+function canCheck(date){ if(CHILD)return true; const t=ymd(new Date()); return date===t||date===addDays(t,-1); }
 function toggleCheck(day,taskId){
   if(!uid){toast('로그인 확인 중이에요. 잠시 후 다시 시도해 주세요.');return}
   const date=ymd(dateFor(day));
+  if(!canCheck(date)){toast('오늘·어제 일정만 체크할 수 있어요.');return}
   const ref=db.ref(`userPlanChecks/${uid}/${date}/${taskId}`);
   if(state.checks[date]&&state.checks[date][taskId]){
     delete state.checks[date][taskId];
