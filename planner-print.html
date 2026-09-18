@@ -341,7 +341,7 @@ function renderTaskList(){const box=$('taskList');$('countLabel').textContent=st
 function monthStrip(){const m=new Date(state.weekStart+'T00:00:00').getMonth()+1;return `<div class="months">${Array.from({length:12},(_,i)=>`<span class="${i+1===m?'current':''}">${i+1}</span>`).join('')}</div>`}
 function header(){return `<div class="plan-head"><div><div class="plan-title">WEEKLY PLAN</div>${monthStrip()}</div><div class="memo"><label>MEMO</label><textarea id="memoOnSheet">${esc(state.memo)}</textarea></div>
 </div>`}
-function dayTasks(i){return state.tasks.filter(t=>t.days.includes(i)).sort((a,b)=>toMin(a.start)-toMin(b.start))}
+function dayTasks(i){return state.tasks.filter(t=>t.days.includes(i)).map(t=>{const o=t.ov&&t.ov[i];return o?{...t,start:o.start,end:o.end}:t}).sort((a,b)=>toMin(a.start)-toMin(b.start))}
 function shortTime(t){const [h,m]=t.split(':').map(Number);return m?`${h}시 ${m}분`:`${h}시`}
 function todayIdx(){const t=ymd(new Date());for(let i=0;i<7;i++)if(ymd(dateFor(i))===t)return i;return -1}
 function summaryHTML(i){return dayTasks(i).filter(t=>kindOf(t)==='todo').map(t=>{const done=isDone(i,t.id);return `<div class="summary-line${done?' done':''}" data-day="${i}" data-tid="${t.id}" style="${strokeVars(t.color)}" role="checkbox" aria-checked="${done}"><span class="summary-text">${esc(t.title)} ${shortTime(t.start)}</span><span class="summary-check">${done?'✓':''}</span></div>`}).join('')}
