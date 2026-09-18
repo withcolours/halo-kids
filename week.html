@@ -107,6 +107,8 @@ main { width:100%; max-width:600px; }
 .skel { color:var(--sub); font-size:13px; text-align:center; padding:30px 0; }
 .vbar { background:#E0742C18; border:1.5px solid var(--warn); border-radius:13px; padding:9px 14px; margin-bottom:11px; font-size:12.5px; font-weight:700; color:var(--warn); display:flex; align-items:center; gap:8px; }
 .vbar button { border:1.5px solid var(--warn); background:transparent; color:var(--warn); border-radius:99px; padding:4px 12px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; margin-left:auto; }
+.vbar.info { background:#1E90FF14; border-color:var(--acc); color:var(--acc); }
+.vbar.info button { border-color:var(--acc); color:var(--acc); }
 </style>
 </head>
 <body>
@@ -121,6 +123,7 @@ main { width:100%; max-width:600px; }
 <main>
   <div class="modeToggle"><a href="today.html">일간</a><a href="week.html" class="on">주간</a></div>
   <div id="vbarWrap"></div>
+  <div id="dedupWrap"></div>
   <div class="weekbar">
     <button class="wnav" id="prevW" aria-label="지난 주">◀</button>
     <button class="wlabel" id="wLabel" title="이번 주로">–</button>
@@ -362,8 +365,61 @@ function rowHTML(t){
     <span class="nm" data-open="${esc(t.id)}"><span class="cdot" style="background:${esc(t.color||'#d8d4cf')}"></span><span class="nt">${esc(t.title)}<small>${timeTxt} · ${(t.days||[]).map(d=>DOWN[d]).join('·')}</small></span></span>
     ${cellsHTML(t)}</div>`;
 }
+function findMergeCandidates(){
+  const groups={};
+  for(const t of state.tasks){
+    const key=String(t.title||'').trim()+'|'+kindOf(t);
+    (groups[key]=groups[key]||[]).push(t);
+  }
+  const out=[];
+  for(const arr of Object.values(groups)){
+    if(arr.length<2)continue;
+    const seen=new Set(); let disjoint=true;
+    outer: for(const t of arr){ for(const d of (t.days||[])){ if(seen.has(d)){disjoint=false;break outer;} seen.add(d); } }
+    if(disjoint)out.push(arr);
+  }
+  return out;
+}
+async function mergeGroup(arr){
+  const survivor=arr.slice().sort((a,b)=>(b.days||[]).length-(a.days||[]).length||toMin(a.start)-toMin(b.start))[0];
+  const others=arr.filter(t=>t!==survivor);
+  const ov={...(survivor.ov||{})};
+  const days=new Set(survivor.days||[]);
+  for(const o of others){
+    for(const d of (o.days||[])){
+      days.add(d);
+      const [os,oe]=timeFor(o,d);
+      if(os!==survivor.start||oe!==survivor.end)ov[d]={start:os,end:oe};
+      const date=addDays(state.weekStart,d);
+      if(state.checks[date]&&state.checks[date][o.id]!==undefined){
+        const ts=state.checks[date][o.id];
+        try{
+          await db.ref(`userPlanChecks/${uid}/${date}/${survivor.id}`).set(ts);
+          await db.ref(`userPlanChecks/${uid}/${date}/${o.id}`).remove();
+        }catch(e){}
+        state.checks[date]=state.checks[date]||{}; state.checks[date][survivor.id]=ts; delete state.checks[date][o.id];
+      }
+    }
+  }
+  survivor.days=[...days].sort((a,b)=>a-b);
+  if(Object.keys(ov).length)survivor.ov=ov; else delete survivor.ov;
+  state.tasks=state.tasks.filter(t=>t===survivor||!others.includes(t));
+}
+async function runDedup(){
+  const groups=findMergeCandidates();
+  if(!groups.length)return;
+  const desc=groups.map(g=>`'${g[0].title}' ${g.length}개`).join(', ');
+  if(!confirm(`${desc} 를 한 항목으로 합칠까요?\n이번 주 체크 기록은 그대로 유지됩니다.`))return;
+  for(const g of groups)await mergeGroup(g);
+  persistWeek();
+  render(); loadStars();
+  toast('중복 항목을 합쳤어요.');
+}
 function render(){
   $('wLabel').textContent=weekLabel();
+  const dups=findMergeCandidates();
+  $('dedupWrap').innerHTML=dups.length?`<div class="vbar info"><span>같은 이름의 중복 항목 ${dups.length}건 발견</span><button id="dedupBtn">합치기</button></div>`:'';
+  const db2=$('dedupBtn'); if(db2)db2.onclick=runDedup;
   const todos=state.tasks.filter(t=>kindOf(t)==='todo').sort((a,b)=>toMin(a.start)-toMin(b.start));
   const routines=state.tasks.filter(t=>kindOf(t)==='routine').sort((a,b)=>toMin(a.start)-toMin(b.start));
   // 주간 %
@@ -388,6 +444,7 @@ function render(){
 }
 function renderEmpty(hasPrev){
   $('wLabel').textContent=weekLabel();
+  $('dedupWrap').innerHTML='';
   $('wPct').textContent='빈 주'; $('wBar').style.width='0%';
   $('content').innerHTML=`<div class="empty"><b>이 주는 아직 비어 있어요</b><p>어떻게 시작할까요?</p>
     ${hasPrev?'<button class="choice rec" id="cpPrev">지난주 복사 <small>가장 최근 주의 일정을 그대로</small></button>':''}
