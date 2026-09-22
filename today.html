@@ -343,11 +343,8 @@ function render(){
   renderFlame();
 }
 
-function canEdit(){ return viewDate===TODAY()||viewDate===YESTER(); }
-
 $('list').addEventListener('click',e=>{
   const el=e.target.closest('.todo'); if(!el)return;
-  if(!canEdit()){ toast(viewDate>TODAY()?'아직 오지 않은 날은 미리 체크할 수 없어요.':'지난 날짜는 체크할 수 없어요. (어제까지만 가능)'); return; }
   const tid=el.dataset.tid;
   const ref=db.ref(`userPlanChecks/${uid}/${viewDate}/${tid}`);
   if(dayChecks[tid]){ delete dayChecks[tid]; ref.remove().catch(()=>{}); }
