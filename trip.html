@@ -99,7 +99,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,3
 .map .eq{stroke:#E8453C;stroke-width:1.5;stroke-dasharray:6 5}.map .eqt{fill:#E8453C;font-size:13px}
 .map .dot{fill:#1B2733;stroke:#fff;stroke-width:2}.map .dot.home{fill:#1E90FF}.map .dot.new{fill:#2E9E6A}.map .dot.go{fill:#E8453C}
 .map .lb{fill:#1B2733;font-size:14px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:3px}
-.map .isl{fill:#8A5A52;font-size:14px;font-weight:700}.map .isl.s{font-size:12px;font-weight:400}.map .ctry{fill:#8C8570;font-size:14px}
+.map .isl{fill:#8A5A52;font-size:14px;font-weight:700}.map .isl.s{font-size:12px;font-weight:400}.map .ctry{fill:#8C8570;font-size:14px}.map .ctry.cb{font-size:17px;font-weight:700;fill:#6F6852}.map .ctry.id{fill:#C0392B;font-size:19px;letter-spacing:2px}.map .ctry.s2{font-size:12px}
 .fx { display:grid; grid-template-columns:1.1fr 1fr; gap:16px; margin-top:10px; }
 .fxrow { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:15px; font-variant-numeric:tabular-nums; }
 .fxrow small { color:var(--sub); }
@@ -120,7 +120,51 @@ a.tcard .t { font-family:'Jua',sans-serif; font-size:24px; }
 code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5px; }
 .skel { color:var(--sub); font-size:14px; text-align:center; padding:40px 0; }
 
+.plan { margin-top:10px; display:grid; gap:0; }
+.plan div { display:flex; gap:12px; padding:7px 0; border-top:1px dashed var(--line); font-size:15px; line-height:1.5; }
+.plan div:first-child { border-top:0; }
+.plan time { font-variant-numeric:tabular-nums; font-weight:700; color:var(--acc); min-width:52px; flex-shrink:0; }
+.flight { background:var(--card); border:2px solid var(--line); border-radius:18px; padding:16px 18px; }
+.flight .top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.flight .no { font-family:'Jua',sans-serif; font-size:26px; letter-spacing:1px; }
+.flight .al { color:var(--sub); font-size:13px; }
+.fleg { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; margin-top:10px; }
+.fleg .ap { font-family:'Jua',sans-serif; font-size:34px; line-height:1; }
+.fleg .tm { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; margin-top:4px; }
+.fleg .nm { font-size:12.5px; color:var(--sub); line-height:1.4; margin-top:2px; }
+.fleg .mid { text-align:center; color:var(--sub); font-size:13px; }
+.fleg .mid svg { width:28px; height:28px; stroke:var(--acc); display:block; margin:0 auto 2px; }
+.fleg .r { text-align:right; }
+.fnote { margin-top:10px; background:var(--bg); border-radius:12px; padding:10px 12px; font-size:14px; line-height:1.55; }
+.steps { counter-reset:st; display:grid; gap:8px; margin-top:8px; }
+.steps div { counter-increment:st; display:flex; gap:10px; font-size:15px; line-height:1.5; }
+.steps div::before { content:counter(st); flex:0 0 26px; height:26px; border-radius:50%; background:var(--soft); color:var(--acc); font-weight:700; display:grid; place-items:center; font-size:13px; }
+.phr { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.phr h4 { margin:10px 0 4px; font-size:13px; color:var(--sub); font-weight:700; }
+.wrow { display:flex; gap:8px; align-items:baseline; padding:5px 0; border-bottom:1px dashed var(--line); font-size:15px; flex-wrap:wrap; }
+.wrow b { font-size:16px; } .wrow .m { margin-left:auto; color:var(--sub); font-size:14px; }
+.geo { display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; align-items:center; }
+.geo svg { width:150px; height:182px; }
+.gdef { display:grid; gap:8px; margin-top:8px; }
+.gdef div { display:flex; gap:10px; align-items:flex-start; font-size:14.5px; line-height:1.5; }
+.gdef .k { flex:0 0 auto; border-radius:99px; padding:2px 10px; font-weight:700; font-size:13px; }
+.gaddr { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+.gaddr div { background:var(--bg); border-radius:14px; padding:12px 14px; }
+.gaddr .nm { font-weight:700; font-size:14px; }
+.gaddr .v { font-family:'Jua',sans-serif; font-size:22px; font-variant-numeric:tabular-nums; margin-top:2px; }
+.gaddr .n { font-size:12.5px; color:var(--sub); margin-top:2px; line-height:1.45; }
+.sno { display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--red); color:#fff; font-weight:700; font-size:13px; margin-right:6px; vertical-align:2px; }
+.feat { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.feat span { font-size:13px; background:var(--bg); border-radius:99px; padding:4px 10px; }
+a.mapbtn { display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 14px; border-radius:99px; border:1.5px solid var(--acc); color:var(--acc); text-decoration:none; font-size:14px; font-weight:700; }
+a.mapbtn svg { width:16px; height:16px; stroke:currentColor; }
+.bmap { width:100%; max-width:640px; height:auto; display:block; margin:8px auto 0; border-radius:14px; }
+.bmap .sea{fill:#DCEEFB}.bmap .land{fill:#F4F1E4;stroke:#C9C2A6}.bmap .lb{font-size:13px;font-weight:700;fill:#1B2733;paint-order:stroke;stroke:#fff;stroke-width:3px}.bmap .ct{font-size:12px;fill:#8C8570}
+.guide { background:var(--bg); border-radius:14px; padding:12px 14px; margin-top:10px; font-size:14.5px; line-height:1.6; }
+.guide h4 { margin:8px 0 2px; font-size:13.5px; }
+.guide ul { margin:4px 0 0; padding-left:18px; }
 @media (max-width:1100px) {
+  .phr { grid-template-columns:1fr; }
   .left { width:320px; }
   .grid3 { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .mapwrap, .fx { grid-template-columns:1fr; }
@@ -138,6 +182,8 @@ code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5p
   .glance { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .thero { padding:20px; } .thero .n { font-size:48px; }
   .hero { flex-direction:column; align-items:flex-start; } .hero .t { font-size:28px; }
+  .geo { grid-template-columns:1fr; justify-items:center; } .gaddr { grid-template-columns:1fr; }
+  .fleg .ap { font-size:28px; } .fleg .tm { font-size:19px; }
 }
 </style>
 </head>
@@ -213,8 +259,8 @@ const MAP = `<svg class="map" viewBox="0 0 539 561" role="img" aria-label="동�
 <line x1="0" y1="440" x2="539" y2="440" class="eq"/><text x="533" y="434" text-anchor="end" class="eqt">적도</text>
 <polygon class="land" points="11,0 11,264 38.5,264 47.3,330 52.8,352 69.3,368.5 80.3,409.2 103.4,425.7 112.2,424.6 104.5,392.7 90.2,371.8 69.3,347.6 57.2,327.8 67.1,291.5 75.9,300.3 93.5,308.0 99.0,323.4 118.8,345.4 140.8,325.6 167.2,312.4 168.3,291.5 162.8,270.6 138.6,247.5 127.6,231.0 138.6,216.7 154.0,203.5 176.0,209.0 187,203.5 214.5,195.8 253,181.5 280.5,154 302.5,126.5 308,99 291.5,66 278.3,55 313.5,33 297,24.2 261.8,16.5 269.5,5.5 280.5,0 333.3,0 341,25.3 353.1,25.3 357.5,55 355.3,61.6 368.5,59.4 388.3,52.8 390.5,35.2 378.4,15.4 382.8,0"/><polygon class="land id" points="14.3,378.4 38.5,382.8 69.3,412.5 107.8,429.0 116.6,456.5 132.0,475.2 129.8,503.8 115.5,504.9 91.3,484.0 70.4,451.0 51.7,421.3 35.2,404.8"/><polygon class="land id" points="123.2,514.8 132.0,504.9 157.3,509.3 180.4,515.9 204.6,515.9 224.4,525.8 224.4,535.7 198.0,531.3 165.0,525.8 136.4,521.4"/><polygon class="land id" points="165.0,423.5 171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 262.9,429.0 273.9,430.1 258.5,438.9 250.8,456.5 245.3,482.9 226.6,482.9 209.0,474.1 194.7,473.0 178.2,471.9 165.0,445.5"/><polygon class="land id" points="279.4,500.5 280.5,478.5 272.8,468.6 283.8,440.0 294.8,425.7 339.9,422.4 322.3,435.6 297.0,434.5 289.3,449.9 302.5,460.9 313.5,491.7 300.3,484.0 290.4,471.9 290.4,500.5"/><polygon class="land" points="286.0,236.5 310.2,236.5 308.0,264.0 303.6,283.8 330.0,301.4 319.0,297.0 292.6,288.2 286.0,264.0"/><polygon class="land" points="308.0,357.5 324.5,345.4 346.5,335.5 358.6,359.7 345.4,378.4 330.0,368.5 309.1,364.1"/><polygon class="land" points="287.1,187.0 297.0,161.7 306.9,166.1 295.9,199.1"/><polygon class="land" points="391.6,74.8 405.9,99.0 416.9,77.0 407.0,66.0 429,61.6 454.3,60.5 459.8,71.5 471.9,62.7 503.8,55.0 515.9,34.1 517.0,0 503.8,0 503.8,16.5 476.3,33.0 462.0,46.2 429.0,49.5 407.0,61.6"/><polygon class="land id" points="407,451 440,448.8 484,456.5 517,468.6 517,539 484,531.3 481.8,495 451,487.3 423.5,484 418,470.8"/><polygon class="land id" points="242,531.3 253,529.1 275,532.4 313.5,530.2 341,532.4 341,541.2 308,536.8 275,537.9 242,537.9"/><polygon class="bali" points="225.0,529.1 233.2,528.5 238.7,532.4 233.2,537.4 226.6,532.4"/>
 <text x="220" y="426.8" text-anchor="middle" class="isl">보르네오섬</text><text x="220" y="440.0" text-anchor="middle" class="isl s">(칼리만탄)</text><text x="77" y="448.8" text-anchor="middle" class="isl">수마트라</text><text x="176" y="545.6" text-anchor="middle" class="isl">자와섬</text><text x="315.7" y="451.0" text-anchor="middle" class="isl">술라웨시</text>
-<text x="99" y="253" text-anchor="middle" class="ctry">베트남</text><text x="368.5" y="11" text-anchor="middle" class="ctry">한국</text>
-<circle cx="362.8" cy="26.7" r="5" class="dot home"/><text x="370.8" y="30.7" text-anchor="start" class="lb home">서울 (우리 집)</text>
+<text x="152.9" y="283.8" text-anchor="middle" class="ctry cb">베트남</text><text x="380.6" y="37.4" text-anchor="middle" class="ctry cb">한국</text>
+<text x="201.3" y="495.0" text-anchor="middle" class="ctry cb id">인도네시아</text><text x="86.9" y="392.7" text-anchor="middle" class="ctry">말레이시아</text><text x="226.6" y="402.6" text-anchor="middle" class="ctry s2">말레이시아</text><text x="314.6" y="268.4" text-anchor="middle" class="ctry">필리핀</text><text x="72.6" y="266.2" text-anchor="middle" class="ctry">태국</text><text x="187" y="110" text-anchor="middle" class="ctry cb">중국</text><text x="481.8" y="40.7" text-anchor="middle" class="ctry">일본</text><circle cx="362.8" cy="26.7" r="5" class="dot home"/><text x="370.8" y="30.7" text-anchor="start" class="lb home">서울 (우리 집)</text>
 <circle cx="139.7" cy="321.2" r="5" class="dot "/><text x="131.7" y="325.2" text-anchor="end" class="lb ">호치민</text>
 <circle cx="130.3" cy="208.7" r="5" class="dot "/><text x="122.30000000000001" y="212.7" text-anchor="end" class="lb ">하노이</text>
 <circle cx="141.3" cy="508.2" r="5" class="dot "/><text x="139.3" y="498.2" text-anchor="end" class="lb ">자카르타</text>
@@ -229,8 +275,26 @@ const COUNTRY = {
            ['사람 수','약 2억 8천만 명<br>세계 4번째로 많아요'],['크기','우리나라(남한)의 약 19배'],
            ['말','인도네시아어 '+O('Bahasa Indonesia')+'<br>발리에선 발리어도 써요'],['우리 집에서','남쪽으로 약 5,300km<br>비행기로 7시간쯤']],
     flagTxt:'국기는 위 빨강, 아래 하양. 빨강은 용기, 하양은 깨끗한 마음이래요.',
-    geo:'발리는 적도 아래 <b>남위 8°</b> · <b>동경 115°</b>',
+    geo:{ name:'발리', ns:'남위', lat:8, lon:115, note:'적도 아래 — 남반구예요. 적도와 아주 가까워서 1년 내내 여름처럼 더워요' },
     words:[['할로','Halo','안녕'],['뜨리마 까시','Terima kasih','고마워'],['에낙','Enak','맛있어'],['브라빠?','Berapa?','얼마예요?']],
+    phrases:[['인사',[['슬라맛 빠기','Selamat pagi','좋은 아침'],['할로','Halo','안녕'],['뜨리마 까시','Terima kasih','고마워요'],['사마사마','Sama-sama','천만에요'],['마아프','Maaf','미안해요']]],
+             ['식당·가게',[['에낙','Enak','맛있어요'],['브라빠?','Berapa?','얼마예요?'],['아이르 뿌띠','Air putih','물'],['띠닥 뻐다스','Tidak pedas','안 맵게'],['야 / 띠닥','Ya / Tidak','네 / 아니요']]],
+             ['발리 말',[['옴 스와스띠아스뚜','Om Swastiastu','발리 힌두식 인사 (손 모으고)'],['숙스마','Suksma','고마워요 (발리 말)']]],
+             ['숫자 1~5',[['사뚜','satu','1'],['두아','dua','2'],['띠가','tiga','3'],['음빳','empat','4'],['리마','lima','5']]]],
+    dict:[['Jalan (잘란)','길 — 주소의 Jl.'],['Pantai (빤따이)','해변'],['Pura (뿌라)','사원'],['Pulau (뿔라우)','섬'],['Sungai (숭아이)','강'],['Pasar (빠사르)','시장'],['Gunung (구눙)','산'],['Kota (꼬따)','도시']],
+    names:[['인도네시아','Indonesia','그리스 말 "인도스(인도)" + "네소스(섬)" = <b>인도의 섬들</b>'],
+           ['덴파사르','Denpasar','den(북쪽) + pasar(시장) = <b>시장 북쪽</b>. 발리에서 가장 큰 도시'],
+           ['바투불란','Batubulan','batu(돌) + bulan(달) = <b>달의 돌</b>. 돌 조각으로 유명한 마을이에요'],
+           ['원숭이 숲의 진짜 이름','Mandala Suci Wenara Wana','mandala suci(신성한 곳) + wenara(원숭이) + wana(숲)'],
+           ['하노만 거리','Jalan Hanoman','하노만은 옛이야기 "라마야나"에 나오는 <b>원숭이 영웅</b>. 원숭이 숲 옆 길 이름으로 딱이죠'],
+           ['꾸따 해변 길','Jalan Pantai Kuta','jalan(길) + pantai(해변) = 꾸따 해변 길 — 하드락 호텔 주소예요'],
+           ['응우라라이 공항','Ngurah Rai','인도네시아 독립을 위해 싸운 <b>발리의 영웅</b> 이름을 땄어요'],
+           ['하드락','Hard Rock','록 음악의 한 종류. 그래서 호텔 곳곳에 기타와 음악 물건이 있어요']],
+    culture:[['신과 함께 사는 섬','인도네시아 사람 대부분은 이슬람교를 믿지만, 발리 사람 대부분은 <b>힌두교</b>를 믿어요. 집집마다 작은 사원이 있고 매일 짜낭을 바쳐요'],
+             ['이름에 순서가 있어요','발리 사람 이름 앞에는 태어난 순서가 붙어요. <b>와얀</b> Wayan(첫째) · <b>마데</b> Made(둘째) · <b>뇨만</b> Nyoman(셋째) · <b>끄뜻</b> Ketut(넷째)'],
+             ['침묵의 날 녀삐','발리의 새해 <b>녀삐</b> Nyepi에는 하루 종일 불도 켜지 않고 밖에 나가지 않아요. 공항까지 문을 닫아요'],
+             ['춤과 음악','쇠로 만든 악기 합주 <b>가믈란</b> Gamelan, 수십 명이 "짝짝" 소리 내며 추는 <b>께짝</b> Kecak, 사자 모양 착한 신 <b>바롱</b> Barong 춤이 유명해요'],
+             ['사롱','허리에 두르는 천이에요. 사원에 들어갈 땐 사롱으로 다리를 가려요']],
     money:'돈은 루피아 '+O('Rupiah · Rp'), time:'한국보다 1시간 늦어요', weather:'10월 초는 덥고 가끔 소나기',
     rules:['길바닥 꽃 바구니 <b>짜낭</b> '+O('Canang sari')+'은 신께 드리는 선물 — 밟지 않기','사원에선 무릎 가리기','물건은 오른손으로 주고받기'],
     food:[['나시고렝','Nasi goreng','볶음밥'],['미고렝','Mie goreng','볶음면'],['사테','Sate','꼬치구이']], foodTip:'안 맵게: <b>띠닥 뻐다스</b> '+O('Tidak pedas'),
@@ -244,8 +308,20 @@ const COUNTRY = {
     facts:[['대륙','아시아 · 동남아시아<br>바다를 따라 길쭉해요'],['수도','하노이 '+O('Hà Nội')+'<br>호치민은 가장 큰 도시'],['사람 수','약 1억 명'],['크기','우리나라(남한)의 약 3배'],
            ['말','베트남어 '+O('Tiếng Việt')+'<br>알파벳에 성조 기호를 붙여요'],['우리 집에서','남서쪽으로 약 3,600km<br>비행기로 5시간쯤']],
     flagTxt:'국기는 빨간 바탕에 노란 별 하나. 별의 뾰족한 끝이 5개예요.',
-    geo:'호치민은 <b>북위 11°</b> · <b>동경 107°</b>',
+    geo:{ name:'호치민', ns:'북위', lat:11, lon:107, note:'적도 위 — 한국처럼 북반구지만 적도와 아주 가까워 1년 내내 더워요' },
     words:[['씬 짜오','Xin chào','안녕'],['깜 언','Cảm ơn','고마워'],['응온','Ngon','맛있어']],
+    phrases:[['인사',[['씬 짜오','Xin chào','안녕하세요'],['깜 언','Cảm ơn','고마워요'],['씬 로이','Xin lỗi','미안해요'],['벙 / 콩','Vâng / Không','네 / 아니요']]],
+             ['식당·가게',[['응온','Ngon','맛있어요'],['바오 니에우?','Bao nhiêu?','얼마예요?'],['느억','Nước','물']]],
+             ['숫자 1~5',[['못','một','1'],['하이','hai','2'],['바','ba','3'],['본','bốn','4'],['남','năm','5']]]],
+    dict:[['Sân bay (선 바이)','공항'],['Phở (퍼)','쌀국수'],['Cà phê (까 페)','커피'],['Đường (드엉)','길']],
+    names:[['베트남','Việt Nam','한자로 越南 — <b>남쪽의 월(越)나라</b>라는 뜻'],
+           ['호치민','Hồ Chí Minh','한자로 胡志明. 志明은 <b>밝은 뜻</b>. 베트남 지도자의 이름을 도시 이름으로 붙였어요'],
+           ['떤선녓 공항','Tân Sơn Nhất','한자로 新山一 — <b>새 산 첫째</b>'],
+           ['감사해요 깜 언','Cảm ơn','한자 感恩(감은, 은혜에 감사함)에서 왔어요. 베트남 말에는 한자에서 온 낱말이 많아요']],
+    culture:[['뗏','베트남 설날 <b>뗏</b> Tết은 우리처럼 음력 설이에요. 세뱃돈도 줘요'],
+             ['아오자이와 논라','전통 옷 <b>아오자이</b> áo dài, 원뿔 모양 모자 <b>논라</b> nón lá'],
+             ['커피의 나라','베트남은 세계에서 두 번째로 커피를 많이 만드는 나라예요. 연유를 넣은 아이스커피 <b>까페 쓰어 다</b> cà phê sữa đá가 유명해요'],
+             ['오토바이 도시','호치민에는 자동차보다 오토바이가 훨씬 많아요. 온 가족이 한 오토바이에 타기도 해요']],
     money:'돈은 동 '+O('Đồng · ₫'), time:'한국보다 2시간 늦어요', weather:'10월은 비가 자주 와요',
     rules:['오토바이가 정말 많아요 — 길은 어른 손 잡고 천천히 일정하게 건너기','사원·집에 들어갈 땐 신발 벗는 곳이 있어요'],
     food:[['퍼','Phở','쌀국수'],['반미','Bánh mì','베트남 샌드위치']], foodTip:'고수 빼 주세요: <b>콩 쪼 자우 텀</b> '+O('Không cho rau thơm'),
@@ -254,16 +330,54 @@ const COUNTRY = {
           ['베트남 국기의 별은 무슨 색?',['하양','노랑','파랑'],1,'빨간 바탕에 노란 별']] }
 };
 const SPOT = {
-  ubud:{c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요'},
-  monkeyforest:{c:'id',ko:'원숭이 숲',local:'Monkey Forest',kind:'',desc:'원숭이 수백 마리가 사는 숲 속 사원',tip:'원숭이는 반짝이는 물건을 좋아해요. 선글라스·모자는 가방에!'},
-  yogabarn:{c:'id',ko:'요가반',local:'The Yoga Barn',kind:'',desc:'요가와 드럼 수업이 열리는 우붓의 큰 요가 센터'},
-  ayung:{c:'id',ko:'아융강',local:'Sungai Ayung',kind:'',desc:'발리에서 가장 긴 강. 정글 사이로 흘러요',tip:'구명조끼 끈은 꽉! 가이드 구호를 따라 노 젓기'},
-  reptile:{c:'id',ko:'파충류 공원',local:'Bali Reptile Park',kind:'',desc:'뱀·도마뱀·악어를 가까이서 볼 수 있어요'},
-  kuta:{c:'id',ko:'꾸따',local:'Kuta',kind:'sea',desc:'서핑 배우기 좋은 바다 마을, 노을이 예뻐요'},
-  turtle:{c:'id',ko:'바다거북 보호센터',local:'Bali Sea Turtle Society',kind:'sea',desc:'아기 거북을 바다로 보내 주는 곳 (하는 날이 정해져 있지 않아요)'},
-  waterbom:{c:'id',ko:'워터봄',local:'Waterbom Bali',kind:'sea',desc:'미끄럼틀이 가득한 워터파크'},
-  hcm:{c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요'}
+  ubud:{c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요',
+    tips:['우붓 사람들은 그림·조각·춤 같은 예술을 아주 좋아해요. 길가 가게마다 손으로 만든 작품이 있어요','아침엔 22~24도로 선선하고 낮엔 30도 가까이 올라가요 — 얇은 겉옷 하나 챙기기','계단식 논은 산비탈을 계단처럼 깎아 물을 가둔 논이에요. 물이 위에서 아래로 차례차례 흘러요']},
+  monkeyforest:{c:'id',ko:'원숭이 숲',local:'Monkey Forest',kind:'',lat:-8.519,lon:115.259,desc:'원숭이 수백 마리가 사는 숲. 숲 안에 오래된 힌두 사원이 있어요',
+    tips:['원숭이는 반짝이는 물건을 좋아해요. 선글라스·모자는 가방에!','원숭이 눈을 오래 똑바로 쳐다보면 싸우자는 뜻으로 알아요 — 살짝 눈 피하기','먹을 것을 손에 들고 다니지 않기. 가방 지퍼도 꼭 잠그기','원숭이가 올라타면 놀라서 뛰지 말고 가만히 — 직원이 도와줘요']},
+  yogabarn:{c:'id',ko:'요가반',local:'The Yoga Barn',kind:'',desc:'요가와 드럼 수업이 열리는 우붓의 큰 요가 센터',
+    tips:['드럼서클은 모두 둥글게 앉아 젬베(djembe)라는 북을 함께 쳐요','젬베는 아프리카 서쪽에서 온 북이에요. 가운데를 치면 낮은 소리, 가장자리를 치면 높은 소리!','선생님 박자를 먼저 듣고 따라 치기 — 다 같이 맞으면 소리가 훨씬 커져요']},
+  ayung:{c:'id',ko:'아융강',local:'Sungai Ayung',kind:'',desc:'발리에서 가장 긴 강. 정글 사이로 흘러요',
+    tips:['구명조끼 끈은 꽉! 헬멧도 턱끈까지 채우기','가이드 구호를 따라 노 젓기 — 모두 같이 저어야 보트가 똑바로 가요','래프팅(rafting)의 raft는 영어로 "뗏목"이라는 뜻이에요','물에 빠지면 발을 앞으로 뻗고 누운 자세로 둥둥 — 가이드가 건져 줘요']},
+  reptile:{c:'id',ko:'파충류 공원',local:'Bali Reptile Park',kind:'',desc:'뱀·도마뱀·악어를 가까이서 볼 수 있어요',
+    tips:['인도네시아에는 세계에서 가장 큰 도마뱀 코모도왕도마뱀이 살아요 (길이 3m까지!)','뱀은 눈꺼풀이 없어서 눈을 감지 못해요','파충류는 스스로 몸을 데우지 못해서 햇볕을 쬐며 체온을 올려요']},
+  kuta:{c:'id',ko:'꾸따',local:'Kuta',kind:'sea',desc:'서핑 배우기 좋은 바다 마을, 노을이 예뻐요',
+    tips:['꾸따 해변은 서쪽 바다를 보고 있어서 저녁에 해가 바다로 지는 게 보여요','해변 깃발 확인! 빨간 깃발이 있으면 물에 들어가지 않기','서핑할 땐 선크림 듬뿍, 물 자주 마시기']},
+  turtle:{c:'id',ko:'바다거북 보호센터',local:'Bali Sea Turtle Society',kind:'sea',desc:'아기 거북을 바다로 보내 주는 곳 (하는 날이 정해져 있지 않아요)',
+    tips:['바다거북은 태어난 해변을 기억해서, 어른이 되면 알을 낳으러 다시 돌아와요','아기 거북은 손으로 만지지 않기 — 사람 손의 열과 세균이 해로워요'],
+    guide:{ title:'아기 거북 바다로 보내기 (방류)',
+      when:'알이 부화한 날에만 열려요. 매일 하는 게 아니라서 <b>운이 좋고 날짜가 맞아야</b> 볼 수 있어요. 그날 아침 보호센터 인스타그램(@baliseaturtlesociety) 공지를 보고 알 수 있어요. 보통 해가 약해지는 늦은 오후에 해요',
+      how:['꾸따 해변의 보호센터 부스에 가서 이름을 적어요 (정해진 값 대신 기부를 받아요)','직원이 아기 거북을 작은 통에 담아 한 마리씩 나눠 줘요','해변에 줄을 서서 기다렸다가, 신호가 나면 다 같이 모래 위에 살며시 내려놓아요','아기 거북이 스스로 바다까지 기어가는 걸 지켜봐요'],
+      care:['손으로 만지거나 들어 올리지 않기','플래시 사진 금지 — 아기 거북은 빛을 보고 바다 쪽을 찾아가요','거북이 가는 길을 막거나 따라 들어가지 않기','내려놓은 뒤엔 뒤로 물러서서 응원만 하기'] }},
+  waterbom:{c:'id',ko:'워터봄',local:'Waterbom Bali',kind:'sea',lat:-8.728,lon:115.169,desc:'미끄럼틀이 가득한 워터파크',
+    tips:['미끄럼틀마다 키 제한이 있어요. 입구의 키 재는 표시를 확인!','물속에 오래 있어도 땀이 나요 — 물 자주 마시고 선크림 다시 바르기']},
+  hcm:{c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요',
+    tips:['공항 이름표 SGN은 옛 이름 사이공(SaiGoN)에서 왔어요','오토바이가 정말 많아요. 길은 어른 손을 잡고 천천히 일정한 속도로 건너기']}
 };
+const ENGLISH = [['Hello! / Thank you!','안녕하세요 / 고마워요'],['Excuse me.','실례합니다 (길 비켜 달라거나 부를 때)'],['Where is the toilet?','화장실이 어디예요?'],['Water, please.','물 주세요'],['How much is it?','얼마예요?'],['Can you help me?','도와주실 수 있어요?'],['I am from Korea.','저는 한국에서 왔어요']];
+// 공항·항공사 (공개 일반 정보)
+const AIRPORT = {
+  ICN:{ ko:'인천국제공항', local:'Incheon International Airport', city:'인천', tz:9, why:'ICN = <b>I</b>n<b>C</b>heo<b>N</b>' },
+  SGN:{ ko:'떤선녓 국제공항', local:'Tân Sơn Nhất International Airport', city:'호치민', tz:7, why:'SGN = 옛 이름 <b>S</b>ai<b>G</b>o<b>N</b>(사이공)' },
+  DPS:{ ko:'응우라라이 국제공항', local:'I Gusti Ngurah Rai International Airport', city:'발리', tz:8, why:'DPS = 발리의 중심 도시 <b>D</b>en<b>P</b>a<b>S</b>ar(덴파사르)', lat:-8.748, lon:115.167 }
+};
+const AIRLINE = { VN:'베트남항공 Vietnam Airlines', KE:'대한항공 Korean Air', OZ:'아시아나항공 Asiana Airlines', GA:'가루다 인도네시아 Garuda Indonesia' };
+const AIR_STEPS = {
+  dep:[['체크인','항공사 카운터에서 여권을 보여주고 탑승권(boarding pass)을 받아요. 미리 온라인 체크인을 했으면 짐만 맡기면 돼요'],
+       ['짐 부치기','큰 가방은 여기서 맡겨요. 가방에 붙인 짐표는 도착해서 짐 찾을 때 필요해요'],
+       ['보안 검색','주머니를 비우고 가방·겉옷을 바구니에 넣어요. 물병은 여기서 비워야 해요 (액체는 100ml까지)'],
+       ['출국 심사','여권과 얼굴을 확인해요. "이 나라를 나갑니다" 도장(기록)을 받는 곳'],
+       ['탑승구(게이트) 찾기','탑승권에 적힌 게이트 번호를 따라가요. 탑승 시작은 보통 출발 30~40분 전'],
+       ['탑승','탑승권을 보여주고 비행기에 타요. 자리에 앉으면 안전벨트!']],
+  arr:[['입국 심사','여권을 보여주고 "이 나라에 들어갑니다" 확인을 받아요. 발리는 도착 비자·도착카드도 확인해요'],
+       ['짐 찾기','화면에서 우리 비행기 편명을 찾으면 짐 나오는 벨트 번호가 보여요'],
+       ['세관','들고 오면 안 되는 물건이 없는지 확인하는 곳. 대부분 그냥 지나가요'],
+       ['도착 로비','마중 나온 사람·택시·차가 있는 곳이에요']],
+  tr:[['환승(transfer) 표지 따라가기','공항 밖으로 나가지 않고 "Transfer" 표지를 따라가요'],
+      ['다시 보안 검색','갈아탈 때도 가방 검사를 한 번 더 해요'],
+      ['다음 비행기 게이트 확인','화면에서 다음 편명을 찾아 게이트를 확인해요. 바뀔 수도 있으니 가끔 다시 보기']]
+};
+const AIR_WORDS = [['탑승권','Boarding pass'],['탑승구','Gate'],['출발','Departures'],['도착','Arrivals'],['환승','Transfer'],['수하물(짐)','Baggage'],['여권','Passport'],['지연','Delayed'],['탑승 중','Boarding']];
+const AIR_TIPS = ['비행기가 뜨고 내릴 때 귀가 먹먹하면 침을 삼키거나 하품하기','안전벨트 표시등이 켜져 있으면 자리에 앉아 있어요','비행기 안은 건조해요. 물을 자주 마시기','비행기 시간은 모두 <b>그 공항이 있는 나라 시간</b>이에요. 그래서 시차만큼 시계가 달라 보여요'];
 
 // ───────── 상태 ─────────
 const S = { me:null, role:null, tuid:null, readOnly:false, tid:null, trip:null, diary:{days:{},meta:{}},
@@ -285,6 +399,7 @@ function phase() {
 // 쓰기 가능 여부: 보기 모드(부모)는 불가, 여행 전엔 불가, 여행 중엔 오늘까지, 여행 후엔 전부
 function canWrite(d) {
   if (S.readOnly) return false;
+  if (S.trip.diaryOpen) return true;          // 부모가 가져오기 JSON에서 켜면 미리 써 보기 가능
   const ph = phase();
   if (ph.p === 'before') return false;
   if (ph.p === 'after') return true;
@@ -327,7 +442,7 @@ function flushDrafts() {
 }
 
 // ───────── 탭 ─────────
-const TABS = [['home','홈'],['days','일정'],['places','여행지'],['stays','숙소'],['diary','일기 모아보기']];
+const TABS = [['home','홈'],['days','일정'],['air','비행기·공항'],['places','여행지'],['stays','숙소'],['diary','일기 모아보기']];
 function renderTabs() {
   const t = $('tabs'); t.hidden = false;
   t.innerHTML = TABS.map(([k, n]) => '<button class="tab' + (S.tab === k ? ' on' : '') + '" data-k="' + k + '">' + n + '</button>').join('');
@@ -338,7 +453,7 @@ function render() {
   const ph = phase(), dd = $('dday');
   dd.hidden = false;
   dd.textContent = ph.p === 'before' ? 'D-' + ph.left : ph.p === 'during' ? '여행 중' : '여행 끝';
-  ({ home:renderHome, days:renderDays, places:renderPlaces, stays:renderStays, diary:renderDiary }[S.tab] || renderHome)();
+  ({ home:renderHome, days:renderDays, air:renderAir, places:renderPlaces, stays:renderStays, diary:renderDiary }[S.tab] || renderHome)();
 }
 
 // ───────── ① 홈 ─────────
@@ -389,11 +504,15 @@ function renderDays() {
   }).join('');
   const x = tr.days[S.sel] || {};
   const spots = (x.spots || []).filter(s => SPOT[s]);
-  const tips = [x.tip].concat(spots.map(s => SPOT[s].tip)).filter(Boolean);
+  const own = [].concat(x.tip ? [x.tip] : [], x.tips || []).map(esc);
+  const tips = own.concat(spots.flatMap(s => SPOT[s].tips || []));
+  const plan = (x.plan || []).length ? '<div class="plan">' + x.plan.map(r => '<div><time>' + esc(r[0]) + '</time><span>' + esc(r[1]) + '</span></div>').join('') + '</div>' : '';
+  const fl = (tr.flights || []).filter(f => f.date === S.sel);
   const detail = '<div class="card"><div class="lbl">' + md(S.sel) + ' ' + wd(S.sel) + '요일' + (x.place ? ' · ' + esc(x.place) : '') + '</div>' +
     '<div class="big">' + esc(x.title) + '</div>' + (x.desc ? '<div class="muted" style="margin-top:6px">' + esc(x.desc) + '</div>' : '') +
-    spots.map(s => '<span class="chip">' + SPOT[s].ko + ' ' + SPOT[s].local + '</span>').join('') +
-    tips.map(t => I(IC.info, t === x.tip ? esc(t) : t)).join('') + '</div>';
+    spots.map(s => '<span class="chip">' + SPOT[s].ko + ' ' + SPOT[s].local + '</span>').join('') + plan + '</div>' +
+    fl.map(flightCard).join('') +
+    (tips.length ? '<div class="card"><div class="lbl">알아 두면 좋은 것</div>' + tips.map(t => I(IC.info, t)).join('') + '</div>' : '');
   $('app').innerHTML = '<div class="two"><div class="left"><div class="days">' + list + '</div></div><div class="grow stack">' + detail + diaryEditor(S.sel) + '</div></div>';
   document.querySelectorAll('.day').forEach(b => b.onclick = () => {
     if (S.dirty) confirmLeave();
@@ -454,7 +573,79 @@ function confirmLeave() {
   if ($('dSave')) $('dSave').click();
 }
 
+// ───────── 비행기 ─────────
+const pad = n => String(n).padStart(2, '0');
+function flightCalc(f) {
+  const A = AIRPORT[f.from] || { tz:9 }, B = AIRPORT[f.to] || { tz:9 };
+  const t = (d, hm, tz) => { const [h, m] = hm.split(':').map(Number); return dObj(d).getTime() + (h * 60 + m) * 6e4 - tz * 36e5; };
+  const dep = t(f.date, f.dep, A.tz);
+  let arr = t(f.date, f.arr, B.tz), plus = 0;
+  while (arr <= dep) { arr += 864e5; plus++; }
+  const mins = Math.round((arr - dep) / 6e4);
+  const [dh, dm] = f.dep.split(':').map(Number), [ah, am] = f.arr.split(':').map(Number);
+  const clock = ((ah * 60 + am) - (dh * 60 + dm) + plus * 1440);
+  return { dep, arr, plus, mins, clock, diff:B.tz - A.tz };
+}
+const josa = (w, a, b) => { const c = (w || '').charCodeAt((w || '').length - 1) - 0xAC00; return c >= 0 && c < 11172 && c % 28 ? a : b; };
+const hm = m => Math.floor(m / 60) + '시간' + (m % 60 ? ' ' + (m % 60) + '분' : '');
+function flightCard(f) {
+  const A = AIRPORT[f.from] || { ko:f.from, local:'', city:f.from }, B = AIRPORT[f.to] || { ko:f.to, local:'', city:f.to };
+  const c = flightCalc(f), al = AIRLINE[(f.no || '').slice(0, 2)] || '';
+  const plane = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>';
+  let note;
+  if (c.diff === 0) note = '두 공항 시간이 같아요. 시계로 ' + hm(c.clock) + ' 지나요.';
+  else note = '실제로 하늘을 나는 시간은 <b>' + hm(c.mins) + '</b>. 그런데 시계로는 ' + hm(c.clock) + (c.clock > c.mins ? ' 지난 것처럼 보여요' : '만 지난 것처럼 보여요') +
+    ' — ' + B.city + josa(B.city, '이', '가') + ' ' + A.city + '보다 <b>' + Math.abs(c.diff) + '시간 ' + (c.diff > 0 ? '빠르기' : '늦기') + '</b> 때문이에요' + (c.diff > 0 ? ' (시계를 ' + c.diff + '시간 앞으로!)' : ' (시계를 ' + (-c.diff) + '시간 뒤로!)');
+  return '<div class="flight"><div class="top"><span class="chip" style="margin:0">' + md(f.date) + ' ' + wd(f.date) + '</span><span class="no">' + esc(f.no) + '</span><span class="al">' + esc(al) + '</span></div>' +
+    '<div class="fleg"><div><div class="ap">' + esc(f.from) + '</div><div class="tm">' + esc(f.dep) + '</div><div class="nm">' + esc(A.ko) + (f.fromT ? ' ' + esc(f.fromT) : '') + '<br>' + esc(A.local) + '</div></div>' +
+    '<div class="mid">' + plane + hm(c.mins) + '</div>' +
+    '<div class="r"><div class="ap">' + esc(f.to) + '</div><div class="tm">' + esc(f.arr) + (c.plus ? ' <small style="font-size:13px;color:var(--red)">+' + c.plus + '일</small>' : '') + '</div><div class="nm">' + esc(B.ko) + (f.toT ? ' ' + esc(f.toT) : '') + '<br>' + esc(B.local) + '</div></div></div>' +
+    '<div class="fnote">시각은 모두 <b>그 공항의 현지 시간</b>이에요. ' + note + '</div></div>';
+}
+function renderAir() {
+  const fl = (S.trip.flights || []).slice().sort((a, b) => flightCalc(a).dep - flightCalc(b).dep);
+  const waits = [];
+  for (let i = 0; i + 1 < fl.length; i++) {
+    const a = flightCalc(fl[i]), b = flightCalc(fl[i + 1]);
+    if (fl[i].to === fl[i + 1].from && b.dep - a.arr < 864e5 * .75) waits.push([fl[i], fl[i + 1], Math.round((b.dep - a.arr) / 6e4)]);
+  }
+  const used = [...new Set(fl.flatMap(f => [f.from, f.to]))].filter(k => AIRPORT[k]);
+  $('app').innerHTML = '<div class="stack">' +
+    '<div class="card"><div class="lbl">이번 여행 비행기</div><div class="big">비행기를 ' + fl.length + '번 타요</div>' +
+      '<div class="muted">편명(flight number)은 비행기의 이름표예요. 앞 두 글자는 항공사(VN = 베트남항공), 뒤 숫자는 그 항공사의 노선 번호예요.</div></div>' +
+    fl.map(flightCard).join('') +
+    waits.map(([a, b, m]) => '<div class="card" style="border-color:var(--yel)"><div class="lbl">갈아타기 (환승)</div><div class="big">' + esc((AIRPORT[a.to] || {}).city || a.to) + ' 공항에서 ' + hm(m) + ' 기다려요</div><div class="muted">' + esc(a.no) + ' 도착 ' + esc(a.arr) + ' → ' + esc(b.no) + ' 출발 ' + esc(b.dep) + '. 공항 밖으로 나가지 않고 안에서 쉬어요.</div>' +
+      '<div class="steps">' + AIR_STEPS.tr.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div></div>').join('') +
+    '<div class="grid2">' +
+      '<div class="card"><div class="lbl">출발할 때 (공항 순서)</div><div class="steps">' + AIR_STEPS.dep.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div></div>' +
+      '<div class="card"><div class="lbl">도착할 때</div><div class="steps">' + AIR_STEPS.arr.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div></div>' +
+      '<div class="card"><div class="lbl">공항 이름표 (알파벳 3글자)</div>' + used.map(k => '<div class="wrow"><b>' + k + '</b><span>' + AIRPORT[k].ko + ' ' + O(AIRPORT[k].local) + '</span><span class="m" style="margin-left:0;flex-basis:100%">' + AIRPORT[k].why + '</span></div>').join('') + '</div>' +
+      '<div class="card"><div class="lbl">공항에서 보는 영어</div>' + AIR_WORDS.map(w => '<div class="wrow"><b>' + w[1] + '</b><span class="m">' + w[0] + '</span></div>').join('') + '</div>' +
+      '<div class="card" style="grid-column:1/-1"><div class="lbl">비행기 안 팁</div>' + AIR_TIPS.map(t => I(IC.info, t)).join('') + '</div>' +
+    '</div></div>';
+}
+
 // ───────── ③ 여행지 ─────────
+function geoPanel(c) {
+  const g = c.geo;
+  const globe = '<svg viewBox="0 -16 150 182" aria-hidden="true"><defs><clipPath id="gc"><circle cx="75" cy="75" r="68"/></clipPath></defs>' +
+    '<circle cx="75" cy="75" r="68" fill="#DCEEFB" stroke="#9CC3E6" stroke-width="2"/><g clip-path="url(#gc)" fill="none" stroke="#9CC3E6" stroke-width="1.2">' +
+    '<line x1="0" y1="41" x2="150" y2="41"/><line x1="0" y1="109" x2="150" y2="109"/><line x1="0" y1="18" x2="150" y2="18"/><line x1="0" y1="132" x2="150" y2="132"/>' +
+    '<ellipse cx="75" cy="75" rx="24" ry="68"/><ellipse cx="75" cy="75" rx="50" ry="68"/><line x1="75" y1="0" x2="75" y2="150"/></g>' +
+    '<line x1="7" y1="75" x2="143" y2="75" stroke="#E8453C" stroke-width="3"/><text x="75" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#E8453C">적도 0°</text>' +
+    '<text x="75" y="-4" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">북극 90°</text><text x="75" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">남극 90°</text>' +
+    '<circle cx="101" cy="45" r="5" fill="#1E90FF" stroke="#fff" stroke-width="2"/><circle cx="' + (g.ns === '남위' ? 92 : 90) + '" cy="' + (g.ns === '남위' ? 84 : 67) + '" r="5" fill="#E8453C" stroke="#fff" stroke-width="2"/></svg>';
+  return '<div class="card"><div class="lbl">지구 위 주소 · 위도와 경도</div><div class="geo">' + globe + '<div>' +
+    '<div class="big" style="font-size:21px">위도·경도는 지구 위 주소를 나타내요</div>' +
+    '<div class="gdef">' +
+      '<div><span class="k" style="background:#FDECEA;color:#E8453C">적도 赤道</span><span>"붉은 길". 지구 한가운데를 가로로 두른 선이에요. 해가 가장 뜨겁게 비춰요</span></div>' +
+      '<div><span class="k" style="background:var(--soft);color:var(--acc)">위도 緯度</span><span>緯는 옷감의 <b>가로 실</b>. 적도에서 북쪽(북위)·남쪽(남위)으로 얼마나 떨어졌는지 0°~90°</span></div>' +
+      '<div><span class="k" style="background:var(--okbg);color:var(--ok)">경도 經度</span><span>經은 옷감의 <b>세로 실</b>. 영국 그리니치에서 동쪽(동경)·서쪽(서경)으로 얼마나 떨어졌는지 0°~180°</span></div>' +
+    '</div></div></div>' +
+    '<div class="gaddr"><div><div class="nm"><span style="color:#1E90FF">●</span> 서울 (우리 집)</div><div class="v">북위 37.5° · 동경 127°</div><div class="n">적도 위 — 북반구</div></div>' +
+    '<div><div class="nm"><span style="color:#E8453C">●</span> ' + g.name + '</div><div class="v">' + g.ns + ' ' + g.lat + '° · 동경 ' + g.lon + '°</div><div class="n">' + g.note + '</div></div></div>' +
+    '<div class="muted small" style="margin-top:10px">경도 15°마다 시계가 약 1시간씩 달라져요. 서울과 ' + g.name + josa(g.name, '은', '는') + ' 경도가 ' + (127 - g.lon) + '° 차이 → 시차 약 ' + Math.round((127 - g.lon) / 15) + '시간</div></div>';
+}
 function renderPlaces() {
   const cs = (S.trip.countries || []).filter(c => COUNTRY[c]);
   if (!S.country || !cs.includes(S.country)) S.country = cs[0];
@@ -463,22 +654,32 @@ function renderPlaces() {
   const mySpots = [...new Set(dayList().flatMap(d => S.trip.days[d].spots || []))].filter(s => SPOT[s] && SPOT[s].c === key);
   const fx = (S.trip.fx || {})[key];
   const ctabs = '<div class="tabs" style="padding-bottom:12px">' + cs.map(k => '<button class="tab ct' + (k === key ? ' on' : '') + '" data-c="' + k + '">' + FLAG[k].replace('width="60" height="40"', 'width="24" height="16"') + COUNTRY[k].ko + '</button>').join('') + '</div>';
+  const W = (w) => '<div class="wrow"><b>' + w[0] + '</b>' + O(w[1]) + '<span class="m">' + w[2] + '</span></div>';
+  const guide = g => '<div class="guide"><b>' + g.title + '</b><h4>언제?</h4>' + g.when + '<h4>어떻게?</h4><ul>' + g.how.map(x => '<li>' + x + '</li>').join('') + '</ul><h4>꼭 지켜요</h4><ul>' + g.care.map(x => '<li>' + x + '</li>').join('') + '</ul></div>';
   $('app').innerHTML = ctabs + '<div class="stack">' +
     '<div class="hero" style="background:' + c.color + '">' + FLAG[key] + '<div><div class="t">' + c.ko + ' ' + O(c.local) + '</div><div class="s">' + c.line + '</div></div></div>' +
     '<div class="card"><div class="lbl">나라 한눈에 · 어디 있을까?</div><div class="mapwrap"><div>' + MAP +
-      '<div class="muted small" style="margin-top:4px">대략 그린 위치도예요 (실제 모양과 조금 달라요)</div>' +
-      '<div class="fact" style="font-size:14px"><div><b>위도·경도는 지구 위 주소를 나타내요.</b><br><small style="color:var(--sub)">위도 緯度 = 적도 赤道에서 위아래로 얼마나 (가로 실) · 경도 經度 = 영국 그리니치에서 동서로 얼마나 (세로 실)</small><br>서울은 <b>북위 37.5°</b> · <b>동경 127°</b><br>' + c.geo + '</div></div></div>' +
+      '<div class="muted small" style="margin-top:4px">대략 그린 위치도예요 (실제 모양과 조금 달라요)</div></div>' +
       '<div><div class="kv">' + c.facts.map(f => '<div><small>' + f[0] + '</small>' + f[1] + '</div>').join('') + '</div>' +
       '<div class="fact" style="margin-top:12px">' + FLAG[key].replace('width="60" height="40"', 'width="30" height="20"') + '<div>' + c.flagTxt + '</div></div></div></div></div>' +
+    geoPanel(c) +
     (fx ? fxCard(fx, key) : '') +
+    '<div class="card"><div class="lbl">' + c.lang + ' 말 써보기</div><div class="phr">' +
+      c.phrases.map(g => '<div><h4>' + g[0] + '</h4>' + g[1].map(W).join('') + '</div>').join('') + '</div></div>' +
+    '<div class="grid2">' +
+      '<div class="card"><div class="lbl">영어로도 말해 봐요</div>' + ENGLISH.map(e => '<div class="wrow"><b>' + e[0] + '</b><span class="m">' + e[1] + '</span></div>').join('') + '</div>' +
+      '<div class="card"><div class="lbl">간판·주소에 자주 나오는 말</div>' + c.dict.map(d => '<div class="wrow"><b>' + d[0] + '</b><span class="m">' + d[1] + '</span></div>').join('') + '</div>' +
+    '</div>' +
+    '<div class="card"><div class="lbl">이름에 숨은 뜻</div><div class="phr">' + c.names.map(n => '<div class="fact" style="display:block;margin-top:6px"><b>' + n[0] + '</b> ' + O(n[1]) + '<div class="muted" style="font-size:14px">' + n[2] + '</div></div>').join('') + '</div></div>' +
+    '<div class="card"><div class="lbl">' + c.ko + ' 문화 이야기</div><div class="phr">' + c.culture.map(x => '<div class="fact" style="display:block;margin-top:6px"><b>' + x[0] + '</b><div class="muted" style="font-size:14.5px">' + x[1] + '</div></div>').join('') + '</div></div>' +
+    '<div class="card"><div class="lbl">우리가 가는 곳</div><div class="phr">' + (mySpots.length ? mySpots.map(s => '<div class="city" style="align-items:flex-start"><div class="cimg ' + SPOT[s].kind + '"></div><div><div class="dtt">' + SPOT[s].ko + ' ' + O(SPOT[s].local) + '</div><div class="pl">' + SPOT[s].desc + '</div>' + (SPOT[s].guide ? guide(SPOT[s].guide) : '') + '</div></div>').join('') : '<div class="muted">일정에 장소가 아직 없어요</div>') + '</div></div>' +
     '<div class="grid3">' +
-      '<div class="card"><div class="lbl">이 말 써보기</div><div>' + c.words.map(w => '<span class="pill"><b>' + w[0] + '</b> ' + O(w[1]) + ' = ' + w[2] + '</span>').join('') + '</div></div>' +
       '<div class="card"><div class="lbl">돈 · 시간 · 날씨</div>' + I(IC.coin, c.money + (fx ? '. 1만 ' + esc(fx.unit || '') + ' ≈ ' + fx.now + '원 (' + esc(fx.date) + ' 기준)' : '')) + I(IC.clock, c.time) + I(IC.sun, c.weather) + '</div>' +
       '<div class="card"><div class="lbl">꼭 지켜요</div>' + c.rules.map(r => I(IC.shield, r)).join('') + '</div>' +
-      '<div class="card"><div class="lbl">우리가 가는 곳</div>' + (mySpots.length ? mySpots.map(s => '<div class="city"><div class="cimg ' + SPOT[s].kind + '"></div><div><div class="dtt">' + SPOT[s].ko + ' ' + O(SPOT[s].local) + '</div><div class="pl">' + SPOT[s].desc + '</div></div></div>').join('') : '<div class="muted">일정에 장소가 아직 없어요</div>') + '</div>' +
       '<div class="card"><div class="lbl">먹어볼 것</div>' + c.food.map(f => '<div class="fact"><div><b>' + f[0] + '</b> ' + O(f[1]) + ' — ' + f[2] + '</div></div>').join('') + '<div class="muted small" style="margin-top:6px">' + c.foodTip + '</div></div>' +
-      '<div class="card"><div class="lbl">퀴즈 · 위에서 읽은 것</div><div id="qbox"></div></div>' +
-    '</div></div>';
+    '</div>' +
+    '<div class="card"><div class="lbl">퀴즈 · 위에서 읽은 것</div><div id="qbox"></div></div>' +
+  '</div>';
   document.querySelectorAll('.tab.ct').forEach(b => b.onclick = () => { S.country = b.dataset.c; renderPlaces(); });
   if (fx) bindFx(fx);
   runQuiz($('qbox'), c.quiz, 0, 0);
@@ -528,15 +729,36 @@ function runQuiz(box, qs, i, score) {
 }
 
 // ───────── ④ 숙소 ─────────
+const BALI = [[114.43,-8.10],[114.60,-8.14],[114.85,-8.18],[115.05,-8.13],[115.18,-8.06],[115.35,-8.10],[115.50,-8.17],[115.62,-8.28],[115.71,-8.38],[115.60,-8.50],[115.45,-8.55],[115.32,-8.62],[115.26,-8.68],[115.24,-8.72],[115.22,-8.78],[115.23,-8.83],[115.18,-8.85],[115.10,-8.84],[115.09,-8.80],[115.15,-8.76],[115.16,-8.72],[115.12,-8.66],[115.00,-8.58],[114.85,-8.48],[114.65,-8.40],[114.50,-8.30],[114.44,-8.20]];
+function baliMap(pins) {
+  const X = lo => ((lo - 114.38) * 460).toFixed(1), Y = la => ((-8.0 - la) * 460).toFixed(1);
+  const land = '<polygon class="land" points="' + BALI.map(p => X(p[0]) + ',' + Y(p[1])).join(' ') + '"/>';
+  const pin = p => '<circle cx="' + X(p.lon) + '" cy="' + Y(p.lat) + '" r="' + (p.n ? 11 : 6) + '" fill="' + (p.color || '#E8453C') + '" stroke="#fff" stroke-width="2"/>' +
+    (p.n ? '<text x="' + X(p.lon) + '" y="' + (+Y(p.lat) + 4.5) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">' + p.n + '</text>' : '') +
+    '<text x="' + (+X(p.lon) + (p.dx || 15)) + '" y="' + (+Y(p.lat) + 5) + '" text-anchor="' + (p.anchor || 'start') + '" class="lb">' + esc(p.label) + '</text>';
+  return '<svg class="bmap" viewBox="0 0 630 420" role="img" aria-label="발리섬 숙소 위치도"><rect width="630" height="420" class="sea"/>' + land +
+    '<text x="330" y="95" class="ct" text-anchor="middle">발리섬 Pulau Bali</text>' + pins.map(pin).join('') + '</svg>';
+}
 function renderStays() {
   const st = S.trip.stays || [];
-  $('app').innerHTML = st.length ? '<div class="grid2">' + st.map(s => {
-    const n = s.from && s.to ? diffDays(s.from, s.to) : null;
-    return '<div class="card"><div class="lbl">' + (s.from ? md(s.from) + (s.to ? ' ~ ' + md(s.to) : '') : '') + (n ? ' · ' + n + '밤' : '') + '</div>' +
-      '<div class="big">' + esc(s.name) + '</div>' + (s.area ? I(IC.pin, esc(s.area)) : '') + (s.desc ? '<div class="muted" style="margin-top:6px">' + esc(s.desc) + '</div>' : '') + '</div>';
-  }).join('') + '</div>' : '<div class="skel">숙소 정보가 아직 없어요</div>';
+  if (!st.length) { $('app').innerHTML = '<div class="skel">숙소 정보가 아직 없어요</div>'; return; }
+  const inBali = (s) => typeof s.lat === 'number' && s.lat < -8 && s.lat > -8.9 && s.lon > 114.4 && s.lon < 115.8;
+  let n = 0; const num = st.map(s => inBali(s) ? ++n : 0);
+  const pins = st.map((s, i) => num[i] ? { lat:s.lat, lon:s.lon, n:num[i], label:s.name } : null).filter(Boolean);
+  const dps = AIRPORT.DPS; pins.push({ lat:dps.lat, lon:dps.lon, color:'#1E90FF', label:'DPS 공항', dx:-12, anchor:'end' });
+  const pinI = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+  $('app').innerHTML = '<div class="stack">' + (n ? '<div class="card"><div class="lbl">발리 숙소 위치 · 대략</div>' + baliMap(pins) + '<div class="muted small" style="margin-top:6px;text-align:center">번호는 아래 숙소 카드 번호예요. 정확한 위치는 구글 지도 버튼으로 확인해요</div></div>' : '') +
+    '<div class="grid2">' + st.map((s, i) => {
+      const nn = s.from && s.to ? diffDays(s.from, s.to) : null;
+      return '<div class="card"><div class="lbl">' + (s.from ? md(s.from) + (s.to ? ' ~ ' + md(s.to) : '') : '') + (nn ? ' · ' + nn + '박' : '') + '</div>' +
+        '<div class="big">' + (num[i] ? '<span class="sno">' + num[i] + '</span>' : '') + esc(s.name) + '</div>' + (s.local ? '<div class="muted" style="font-size:14px">' + esc(s.local) + '</div>' : '') +
+        (s.area ? I(IC.pin, esc(s.area) + (s.address ? '<br><small style="color:var(--sub)">' + esc(s.address) + '</small>' : '')) : '') +
+        ((s.checkin || s.checkout) ? I(IC.clock, (s.checkin ? '체크인 ' + esc(s.checkin) : '') + (s.checkin && s.checkout ? ' · ' : '') + (s.checkout ? '체크아웃 ' + esc(s.checkout) : '')) : '') +
+        (s.desc ? '<div class="muted" style="margin-top:6px">' + esc(s.desc) + '</div>' : '') +
+        ((s.features || []).length ? '<div class="feat">' + s.features.map(f => '<span>' + esc(f) + '</span>').join('') + '</div>' : '') +
+        (s.map ? '<a class="mapbtn" href="' + esc(s.map) + '" target="_blank" rel="noopener">' + pinI + '구글 지도에서 보기</a>' : '') + '</div>';
+    }).join('') + '</div></div>';
 }
-
 // ───────── ⑤ 일기 모아보기 ─────────
 function renderDiary() {
   const ds = dayList(), days = Object.assign({}, S.diary.days || {});
@@ -563,26 +785,30 @@ async function renderList(msg) {
   $('app').innerHTML = (msg ? '<p class="err">' + esc(msg) + '</p>' : '') +
     '<div class="list">' + (items.length ? items.map(([id, t]) => '<a class="tcard" href="trip.html?id=' + encodeURIComponent(id) + '"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--acc)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span><span class="t">' + esc(t.title) + '</span><br><span class="muted small">' + (t.start ? md(t.start) + ' ~ ' + md(t.end) : '') + '</span></span></a>').join('')
       : '<div class="muted">아직 여행이 없어요</div>') + '</div>' +
-    (isParent && !S.readOnly ? importPanel() : '');
-  if (isParent && !S.readOnly) bindImport();
+    (isParent && !S.readOnly ? '<div class="row" style="margin-top:18px"><button class="btn ghost" id="addTrip">+ 여행 등록 · 수정</button></div><div id="impWrap" hidden>' + importPanel() + '</div>' : '');
+  if (isParent && !S.readOnly) {
+    bindImport();
+    $('addTrip').onclick = () => { const w = $('impWrap'); w.hidden = !w.hidden; if (!w.hidden) { $('impTa').focus(); w.scrollIntoView({ block:'start', behavior:'smooth' }); } };
+    if (location.hash === '#add') $('addTrip').click();
+  }
 }
 function importPanel() {
-  return '<div class="card" style="margin-top:24px;max-width:820px"><div class="lbl">여행 가져오기 (부모)</div>' +
-    '<div class="muted small" style="margin:6px 0 10px">아이용 JSON을 붙여 넣으세요. 같은 id로 다시 가져오면 일정만 바뀌고 일기는 그대로예요. 예약번호·금액·이메일·편명 같은 내용이 있으면 거부돼요.</div>' +
+  return '<div class="card" style="margin-top:14px;max-width:820px"><div class="lbl">여행 등록 · 수정 (부모)</div>' +
+    '<div class="muted small" style="margin:6px 0 10px">아이용 여행 JSON을 붙여 넣고 검사 → 등록. <b>새 id면 새 여행</b>, <b>같은 id면 그 여행의 일정만 바뀌고 일기는 그대로</b>예요. 예약번호·긴 숫자·금액·이메일·결제 관련 내용이 있으면 거부돼요.</div>' +
     '<textarea class="ta tall" id="impTa" style="font-family:ui-monospace,monospace;font-size:13px;min-height:220px" placeholder="{ &quot;id&quot;: &quot;2027-01-jeju&quot;, ... }"></textarea>' +
-    '<div class="row" style="margin-top:10px"><button class="btn ghost" id="impCheck">검사</button><button class="btn" id="impGo" disabled>가져오기</button></div><div id="impMsg" style="margin-top:10px"></div></div>';
+    '<div class="row" style="margin-top:10px"><button class="btn ghost" id="impCheck">검사</button><button class="btn" id="impGo" disabled>등록</button></div><div id="impMsg" style="margin-top:10px"></div></div>';
 }
 const ALLOW = {
-  top:['id','title','start','end','members','countries','route','home','days','stays','fx'],
-  day:['title','short','place','desc','chips','tip','tz','spots'],
-  stay:['name','area','from','to','desc'],
+  top:['id','title','start','end','members','countries','route','home','days','stays','fx','flights','diaryOpen'],
+  day:['title','short','place','desc','chips','tip','tips','plan','tz','spots'],
+  stay:['name','local','area','address','from','to','checkin','checkout','desc','features','map','lat','lon'],
+  flight:['date','no','from','fromT','to','toT','dep','arr'],
   fx:['unit','date','now','hist','item','price','min','max']
 };
 const BAD = [
   [/\d{6,}/, '긴 숫자(예약·카드·전화번호일 수 있음)'],
   [/\d{1,3}(,\d{3}){2,}/, '큰 금액'],
   [/[\w.+-]+@[\w-]+\.[\w.]+/, '이메일'],
-  [/\b[A-Z]{2}\d{3,4}\b/, '항공 편명'],
   [/예약|확인\s*번호|결제|카드|여권|booking|confirm|passport|pnr|invoice|voucher|₩|\$\s?\d/i, '예약·결제 관련 단어']
 ];
 const isDate = s => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(dObj(s));
@@ -599,12 +825,30 @@ function validateTrip(o) {
   t.countries = (Array.isArray(t.countries) ? t.countries : []).filter(c => { if (!COUNTRY[c]) { warn.push('countries: ' + c + ' — 라이브러리에 없는 나라라 버림'); return false; } return true; });
   t.route = (Array.isArray(t.route) ? t.route : []).filter(r => typeof r === 'string').map((r, i) => (chk(r, 'route[' + i + ']'), r));
   if (t.home) { t.home = pick(t.home, ['favDate'], 'home'); }
+  if (t.diaryOpen != null && typeof t.diaryOpen !== 'boolean') err.push('diaryOpen: true/false');
+  const isHM = v => typeof v === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
+  t.flights = (Array.isArray(t.flights) ? t.flights : []).map((f, i) => {
+    const x = pick(f, ALLOW.flight, 'flights[' + i + ']'), P = 'flights[' + i + ']';
+    if (!isDate(x.date)) err.push(P + '.date: 날짜 형식');
+    if (!/^[A-Z0-9]{2}\d{1,4}$/.test(x.no || '')) err.push(P + '.no: 편명 형식 (예: KE123)');
+    for (const k of ['from','to']) if (!/^[A-Z]{3}$/.test(x[k] || '')) err.push(P + '.' + k + ': 공항 코드 3글자');
+    for (const k of ['from','to']) if (x[k] && !AIRPORT[x[k]]) warn.push(P + '.' + k + ': ' + x[k] + ' — 공항 정보가 없어 한국 시간으로 계산');
+    for (const k of ['fromT','toT']) if (x[k] != null && !/^T?\d{1,2}$|^[A-Z]$/.test(x[k])) err.push(P + '.' + k + ': 터미널 (예: T1)');
+    for (const k of ['dep','arr']) if (!isHM(x[k])) err.push(P + '.' + k + ': 시각 HH:MM');
+    return x;
+  });
   const days = {};
   for (const [d, v] of Object.entries(t.days || {})) {
     if (!isDate(d) || d < t.start || d > t.end) { err.push('days.' + d + ': 여행 기간 밖이거나 날짜 형식이 아님'); continue; }
     const x = pick(v, ALLOW.day, 'days.' + d);
     if (!x.title) err.push('days.' + d + '.title: 필요');
     for (const k of ['title','short','place','desc','tip']) { if (x[k] != null && typeof x[k] !== 'string') err.push('days.' + d + '.' + k + ': 글자여야 함'); chk(x[k], 'days.' + d + '.' + k); }
+    x.tips = (Array.isArray(x.tips) ? x.tips : []).filter(v => typeof v === 'string').map((v, i) => (chk(v, 'days.' + d + '.tips[' + i + ']'), v));
+    x.plan = (Array.isArray(x.plan) ? x.plan : []).map((r, i) => {
+      if (!Array.isArray(r) || typeof r[0] !== 'string' || typeof r[1] !== 'string') { err.push('days.' + d + '.plan[' + i + ']: ["시각", "할 일"]'); return ['', '']; }
+      chk(r[1], 'days.' + d + '.plan[' + i + ']'); if (r[0].length > 12) err.push('days.' + d + '.plan[' + i + ']: 시각 칸이 너무 길어요');
+      return [r[0], r[1]];
+    });
     if (x.tz != null && (typeof x.tz !== 'number' || x.tz < -12 || x.tz > 14)) err.push('days.' + d + '.tz: -12~14 숫자');
     x.spots = (Array.isArray(x.spots) ? x.spots : []).filter(s => { if (!SPOT[s]) { warn.push('days.' + d + '.spots: ' + s + ' — 라이브러리에 없어 버림'); return false; } return true; });
     delete x.chips;
@@ -614,7 +858,10 @@ function validateTrip(o) {
   t.days = days;
   t.stays = (Array.isArray(t.stays) ? t.stays : []).map((s, i) => {
     const x = pick(s, ALLOW.stay, 'stays[' + i + ']');
-    for (const k of ['name','area','desc']) chk(x[k], 'stays[' + i + '].' + k);
+    for (const k of ['name','local','area','address','desc','checkin','checkout']) chk(x[k], 'stays[' + i + '].' + k);
+    x.features = (Array.isArray(x.features) ? x.features : []).filter(v => typeof v === 'string').map((v, j) => (chk(v, 'stays[' + i + '].features[' + j + ']'), v));
+    if (x.map != null && !/^https:\/\/(www\.)?google\.[a-z.]+\/maps\//.test(x.map)) err.push('stays[' + i + '].map: 구글 지도 주소(https://www.google.com/maps/...)만 허용');
+    for (const k of ['lat','lon']) if (x[k] != null && typeof x[k] !== 'number') err.push('stays[' + i + '].' + k + ': 숫자');
     for (const k of ['from','to']) if (x[k] != null && !isDate(x[k])) err.push('stays[' + i + '].' + k + ': 날짜 형식');
     if (!x.name) err.push('stays[' + i + '].name: 필요');
     return x;
@@ -642,7 +889,7 @@ function bindImport() {
     const w = r.warn.length ? '<div class="muted small">' + r.warn.map(esc).join('<br>') + '</div>' : '';
     if (r.err.length) { show('<div class="err"><b>가져올 수 없어요 — 고칠 곳 ' + r.err.length + '개</b><br>' + r.err.map(esc).join('<br>') + '</div>' + w); return; }
     ready = r.clean; $('impGo').disabled = false;
-    show('<div class="okmsg">통과: ' + esc(ready.title) + ' · ' + Object.keys(ready.days).length + '일 · 숙소 ' + ready.stays.length + '곳</div>' + w);
+    show('<div class="okmsg">통과: ' + esc(ready.title) + ' · ' + Object.keys(ready.days).length + '일 · 비행기 ' + ready.flights.length + '편 · 숙소 ' + ready.stays.length + '곳' + (ready.diaryOpen ? ' · 일기 미리 쓰기 열림' : '') + '</div>' + w);
   };
   $('impGo').onclick = async () => {
     if (!ready) return; $('impGo').disabled = true;
@@ -657,7 +904,7 @@ function bindImport() {
       data.memberUids = uids; data.updatedAt = firebase.database.ServerValue.TIMESTAMP; data.updatedBy = S.me;
       await db.ref('trips/' + ready.id).set(data);
       for (const u of Object.keys(uids)) await db.ref('userTrips/' + u + '/' + ready.id).set({ title:ready.title, start:ready.start, end:ready.end });
-      show('<div class="okmsg">가져왔어요. <a href="trip.html?id=' + encodeURIComponent(ready.id) + '">열어 보기</a></div>');
+      show('<div class="okmsg">등록했어요. <a href="trip.html?id=' + encodeURIComponent(ready.id) + '">열어 보기</a></div>');
     } catch (e) { show('<div class="err">저장 실패: ' + esc(e.message || e.code) + '</div>'); $('impGo').disabled = false; }
   };
 }
