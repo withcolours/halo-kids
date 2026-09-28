@@ -73,6 +73,25 @@
         ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
         ".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())"
       }
+    },
+    "trips": {
+      "$tid": {
+        ".read": "auth != null && (data.child('memberUids').child(auth.uid).exists() || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('users').child(auth.uid).child('role').val() === 'parent')"
+      }
+    },
+    "userTrips": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('users').child(auth.uid).child('role').val() === 'parent')"
+      }
+    },
+    "tripDiary": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        ".write": "auth != null && auth.uid === $uid"
+      }
     }
   }
 }

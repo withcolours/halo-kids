@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>여행 · Halo Kids</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Halo Kids">
+<link rel="apple-touch-icon" href="icon-home.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F2F8FD">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root { --bg:#F2F8FD; --card:#FFFFFF; --ink:#22303C; --sub:#64748B; --line:#D8E6F2; --acc:#1E90FF; --soft:#E3F0FC; --yel:#F4C531; --red:#E8453C; --ok:#2E9E6A; --okbg:#E2F4EA; --badbg:#FDECEA; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; --soft:#20374F; --okbg:#1D3A2C; --badbg:#3E2426; } }
+:root[data-theme="dark"] { --bg:#16202B; --card:#1E2A38; --ink:#E8EFF6; --sub:#93A5B8; --line:#2E3E50; --soft:#20374F; --okbg:#1D3A2C; --badbg:#3E2426; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-serif; margin:0; padding:16px 24px 40px; }
+.wrap { max-width:1240px; margin:0 auto; }
+.header { display:flex; align-items:center; gap:10px; padding:6px 0 10px; }
+.hbtn { width:40px; height:40px; background:var(--card); border:1.5px solid var(--line); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 40px; text-decoration:none; }
+.hbtn svg { width:20px; height:20px; }
+.logo { width:36px; height:39px; flex-shrink:0; }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,34px); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dday { background:var(--yel); color:#22303C; border-radius:99px; padding:4px 14px; font-family:'Jua',sans-serif; font-size:18px; white-space:nowrap; }
+.sp { flex:1; }
+.vcbar { background:#E0742C18; border:1.5px solid #E0742C; border-radius:14px; padding:9px 14px; margin-bottom:12px; font-size:13px; font-weight:700; color:#E0742C; display:flex; align-items:center; gap:8px; }
+.vcbar button { border:1.5px solid #E0742C; background:transparent; color:#E0742C; border-radius:99px; padding:4px 12px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+.tabs { display:flex; gap:8px; padding:0 0 14px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.tab { padding:10px 18px; border-radius:99px; background:var(--card); border:1.5px solid var(--line); font-size:15px; color:var(--sub); white-space:nowrap; cursor:pointer; font-family:inherit; min-height:44px; display:inline-flex; align-items:center; }
+.tab.on { background:var(--acc); border-color:var(--acc); color:#fff; }
+.tab.ct.on { background:var(--ink); border-color:var(--ink); color:var(--bg); }
+.tab .flag { width:24px; height:16px; border-radius:3px; margin-right:7px; }
+.stack { display:flex; flex-direction:column; gap:14px; }
+.two { display:flex; gap:18px; align-items:flex-start; }
+.left { width:400px; flex-shrink:0; }
+.grow { flex:1; min-width:0; }
+.card { background:var(--card); border:2px solid var(--line); border-radius:18px; padding:18px; min-width:0; }
+.lbl { font-size:13px; color:var(--acc); font-weight:700; }
+.big { font-family:'Jua',sans-serif; font-size:24px; margin-top:4px; text-wrap:balance; }
+.muted { color:var(--sub); font-size:15px; line-height:1.6; }
+.small { font-size:13px; }
+.o { color:var(--sub); font-size:.82em; font-weight:400; margin-left:3px; }
+.days { display:flex; flex-direction:column; gap:8px; }
+.day { display:flex; gap:12px; align-items:center; background:var(--card); border:2px solid var(--line); border-radius:16px; padding:10px 14px; min-height:58px; cursor:pointer; text-align:left; font-family:inherit; color:var(--ink); width:100%; }
+.day.on { border-color:var(--acc); box-shadow:0 0 0 3px var(--soft); }
+.day.done .d { color:var(--ok); }
+.date { width:44px; text-align:center; flex-shrink:0; }
+.date .d { font-family:'Jua',sans-serif; font-size:24px; line-height:1; }
+.date .w { font-size:12px; color:var(--sub); }
+.dtt { font-weight:700; font-size:16px; }
+.pl { font-size:13px; color:var(--sub); margin-top:2px; line-height:1.45; }
+.tag { margin-left:auto; font-size:11px; border-radius:99px; padding:2px 8px; white-space:nowrap; font-weight:700; }
+.tag.ok { background:var(--okbg); color:var(--ok); } .tag.now { background:var(--yel); color:#22303C; }
+.chip { display:inline-block; font-size:12px; background:var(--soft); color:var(--acc); border-radius:99px; padding:3px 10px; margin:6px 4px 0 0; }
+.pill { display:inline-block; font-size:14px; padding:7px 14px; border-radius:99px; background:var(--bg); border:1.5px solid var(--line); margin:4px 6px 0 0; color:var(--ink); font-family:inherit; }
+.fact { display:flex; gap:10px; align-items:flex-start; margin-top:8px; font-size:15px; line-height:1.55; }
+.fact svg { width:18px; height:18px; stroke:var(--acc); flex-shrink:0; margin-top:3px; }
+.moods { display:flex; gap:10px; }
+.mood { flex:1; border:1.5px solid var(--line); border-radius:14px; padding:10px 0; text-align:center; font-size:14px; color:var(--sub); min-height:48px; background:var(--card); cursor:pointer; font-family:inherit; }
+.mood svg { width:26px; height:26px; display:block; margin:0 auto 4px; }
+.mood.on { border-color:var(--acc); color:var(--acc); background:var(--soft); }
+.q { font-weight:700; font-size:16px; }
+.ta, .inp { width:100%; border:1.5px solid var(--line); border-radius:14px; padding:12px; font:inherit; font-size:16px; resize:vertical; color:var(--ink); background:var(--card); }
+.ta { min-height:64px; } .ta.tall { min-height:130px; }
+.row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.btn { background:var(--acc); color:#fff; border:0; border-radius:14px; padding:13px 18px; font-family:'Jua',sans-serif; font-size:19px; cursor:pointer; }
+.btn.ghost { background:var(--card); color:var(--acc); border:1.5px solid var(--acc); font-size:16px; padding:10px 14px; }
+.btn:disabled { opacity:.5; cursor:default; }
+.save { font-size:12.5px; color:var(--sub); }
+.lock { background:var(--bg); border-radius:14px; padding:16px; color:var(--sub); font-size:15px; text-align:center; }
+.grid2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.thero { border-radius:22px; padding:26px 28px; color:#fff; background:linear-gradient(120deg,#1E90FF,#39B5FF 60%,#5CC08A); display:flex; align-items:flex-end; gap:20px; flex-wrap:wrap; }
+.thero .n { font-family:'Jua',sans-serif; font-size:64px; line-height:1; }
+.thero .m { font-size:17px; line-height:1.6; }
+.thero .m b { font-family:'Jua',sans-serif; font-weight:400; font-size:26px; display:block; }
+.route { display:flex; gap:6px; align-items:center; flex-wrap:wrap; font-size:14px; flex-basis:100%; }
+.route span { background:rgba(255,255,255,.22); border-radius:99px; padding:4px 12px; }
+.glance { display:grid; grid-template-columns:repeat(var(--n,9),minmax(0,1fr)); gap:8px; margin-top:10px; }
+.glance button { background:var(--bg); border:0; border-radius:12px; padding:10px 4px; text-align:center; font-size:13px; color:var(--sub); min-height:48px; cursor:pointer; font-family:inherit; }
+.glance b { display:block; font-family:'Jua',sans-serif; font-weight:400; font-size:22px; color:var(--ink); }
+.hero { border-radius:20px; padding:22px; color:#fff; display:flex; gap:18px; align-items:center; }
+.hero .t { font-family:'Jua',sans-serif; font-size:34px; }
+.hero .s { font-size:16px; opacity:.95; margin-top:4px; line-height:1.5; }
+.hero .o { color:rgba(255,255,255,.85); }
+.flag { display:block; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,.15); flex-shrink:0; }
+.hero .flag { width:96px; height:64px; box-shadow:0 0 0 3px rgba(255,255,255,.7); }
+.city { display:flex; gap:14px; align-items:center; margin-top:10px; }
+.cimg { width:72px; height:56px; border-radius:12px; background:linear-gradient(135deg,#5CC08A,#2E9E6A); flex-shrink:0; }
+.cimg.sea { background:linear-gradient(135deg,#39B5FF,#1E90FF); } .cimg.city { background:linear-gradient(135deg,#F4C531,#F08A3C); }
+.kv { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.kv div { background:var(--bg); border-radius:12px; padding:10px 12px; font-size:15px; line-height:1.45; }
+.kv small { display:block; color:var(--sub); font-size:12px; }
+.mapwrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:16px; align-items:start; margin-top:10px; }
+.map { width:100%; max-width:540px; height:auto; display:block; border-radius:14px; margin:0 auto; }
+.map .sea{fill:#DCEEFB}.map .land{fill:#F4F1E4;stroke:#C9C2A6;stroke-width:1}.map .land.id{fill:#FBE3DF;stroke:#E8A79E}.map .bali{fill:#E8453C}
+.map .eq{stroke:#E8453C;stroke-width:1.5;stroke-dasharray:6 5}.map .eqt{fill:#E8453C;font-size:13px}
+.map .dot{fill:#1B2733;stroke:#fff;stroke-width:2}.map .dot.home{fill:#1E90FF}.map .dot.new{fill:#2E9E6A}.map .dot.go{fill:#E8453C}
+.map .lb{fill:#1B2733;font-size:14px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.map .isl{fill:#8A5A52;font-size:14px;font-weight:700}.map .isl.s{font-size:12px;font-weight:400}.map .ctry{fill:#8C8570;font-size:14px}
+.fx { display:grid; grid-template-columns:1.1fr 1fr; gap:16px; margin-top:10px; }
+.fxrow { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:15px; font-variant-numeric:tabular-nums; }
+.fxrow small { color:var(--sub); }
+.fxbox { background:var(--bg); border-radius:14px; padding:14px; }
+.fxbox input[type=range] { width:100%; accent-color:var(--acc); height:36px; }
+.fxbig { font-family:'Jua',sans-serif; font-size:28px; font-variant-numeric:tabular-nums; }
+.opt { cursor:pointer; min-height:40px; }
+.opt.right { background:var(--okbg); border-color:var(--ok); color:var(--ok); }
+.opt.wrong { background:var(--badbg); border-color:var(--red); color:var(--red); }
+.stars { color:var(--yel); font-size:20px; letter-spacing:2px; }
+.entry { border-top:1px solid var(--line); padding:14px 0; }
+.entry:first-child { border-top:0; padding-top:4px; }
+.list { display:grid; gap:14px; max-width:640px; }
+a.tcard { display:flex; align-items:center; gap:16px; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:22px; text-decoration:none; color:var(--ink); }
+a.tcard .t { font-family:'Jua',sans-serif; font-size:24px; }
+.err { color:var(--red); font-size:14px; line-height:1.6; }
+.okmsg { color:var(--ok); font-size:14px; line-height:1.6; }
+code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5px; }
+.skel { color:var(--sub); font-size:14px; text-align:center; padding:40px 0; }
+
+@media (max-width:1100px) {
+  .left { width:320px; }
+  .grid3 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .mapwrap, .fx { grid-template-columns:1fr; }
+}
+@media (max-width:700px) {
+  body { padding:12px 16px 32px; }
+  .logo { display:none; }
+  .dday { font-size:15px; padding:3px 10px; }
+  .two { flex-direction:column; align-items:stretch; }
+  .left { width:auto; }
+  .days { flex-direction:row; overflow-x:auto; padding-bottom:4px; }
+  .day { flex-direction:column; align-items:center; min-width:64px; width:auto; padding:8px 6px; gap:2px; }
+  .day .info, .day .tag { display:none; }
+  .grid2, .grid3 { grid-template-columns:1fr; }
+  .glance { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .thero { padding:20px; } .thero .n { font-size:48px; }
+  .hero { flex-direction:column; align-items:flex-start; } .hero .t { font-size:28px; }
+}
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);})();</script>
+<div class="wrap">
+  <div class="header">
+    <button class="hbtn" id="backBtn" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <svg class="logo" viewBox="0 -6 150 164" aria-hidden="true"><line x1="75" y1="30" x2="75" y2="0" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/><line x1="45" y1="36" x2="31" y2="12" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/><line x1="105" y1="36" x2="119" y2="12" stroke="#F4C531" stroke-width="9" stroke-linecap="round"/><circle cx="75" cy="94" r="60" fill="var(--acc)"/><circle cx="57" cy="86" r="7" fill="#fff"/><circle cx="93" cy="86" r="7" fill="#fff"/><path d="M53 110 Q75 130 97 110" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/></svg>
+    <h1 id="title">여행</h1>
+    <span class="dday" id="dday" hidden></span>
+    <span class="sp"></span>
+    <a href="index.html" class="hbtn" title="처음으로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  </div>
+  <div id="vc"></div>
+  <div class="tabs" id="tabs" hidden></div>
+  <div id="app"><div class="skel">불러오는 중…</div></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAy889tWquig05QYOEphozzlaTbfiPIbyc",
+  authDomain: "halo-kids.firebaseapp.com",
+  databaseURL: "https://halo-kids-default-rtdb.firebaseio.com",
+  projectId: "halo-kids",
+  storageBucket: "halo-kids.firebasestorage.app",
+  messagingSenderId: "148528901393",
+  appId: "1:148528901393:web:32256a8df7bff9417b30b0"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// ───────── 공통 유틸 ─────────
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const O = t => '<span class="o">' + t + '</span>';          // 신뢰된 상수용
+const Oe = t => t ? O(esc(t)) : '';                          // 여행 데이터용
+const WD = ['일','월','화','수','목','금','토'];
+const dObj = s => { const [y,m,d] = s.split('-').map(Number); return new Date(Date.UTC(y, m-1, d)); };
+const md = s => { const d = dObj(s); return (d.getUTCMonth()+1) + '월 ' + d.getUTCDate() + '일'; };
+const wd = s => WD[dObj(s).getUTCDay()];
+const dayNum = s => dObj(s).getUTCDate();
+const diffDays = (a, b) => Math.round((dObj(b) - dObj(a)) / 864e5);
+// tz(시간) 기준 지금 날짜. "오늘"은 기기 시계가 아니라 그날 머무는 곳 시간으로 계산
+const localDate = tz => new Date(Date.now() + tz * 36e5).toISOString().slice(0, 10);
+const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); };
+const I = (path, html) => '<div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke-width="2">' + path + '</svg><div>' + html + '</div></div>';
+const IC = {
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  coin:'<circle cx="12" cy="12" r="10"/><path d="M12 6v12"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  sun:'<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M1 12h2M21 12h2"/>',
+  pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'
+};
+const MOODS = [
+  ['best','최고','<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>'],
+  ['ok','그냥','<circle cx="12" cy="12" r="10"/><path d="M8 15h8M9 9h.01M15 9h.01"/>'],
+  ['tired','피곤','<circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2M9 9h.01M15 9h.01"/>']
+];
+
+// ───────── 여행지 라이브러리 (공개 가능한 일반 정보만 — 우리 가족 정보는 Firebase) ─────────
+const FLAG = {
+  id:'<svg class="flag" viewBox="0 0 30 20" width="60" height="40"><rect width="30" height="10" fill="#E70011"/><rect y="10" width="30" height="10" fill="#fff"/></svg>',
+  vn:'<svg class="flag" viewBox="0 0 30 20" width="60" height="40"><rect width="30" height="20" fill="#DA251D"/><polygon fill="#FFFF00" points="15.00,4.00 16.38,8.10 20.71,8.15 17.23,10.73 18.53,14.85 15.00,12.35 11.47,14.85 12.77,10.73 9.29,8.15 13.62,8.10"/></svg>'
+};
+const MAP = `<svg class="map" viewBox="0 0 539 561" role="img" aria-label="동남아시아와 인도네시아 섬 위치도">
+<rect width="539" height="561" class="sea"/>
+<line x1="0" y1="440" x2="539" y2="440" class="eq"/><text x="533" y="434" text-anchor="end" class="eqt">적도</text>
+<polygon class="land" points="11,0 11,264 38.5,264 47.3,330 52.8,352 69.3,368.5 80.3,409.2 103.4,425.7 112.2,424.6 104.5,392.7 90.2,371.8 69.3,347.6 57.2,327.8 67.1,291.5 75.9,300.3 93.5,308.0 99.0,323.4 118.8,345.4 140.8,325.6 167.2,312.4 168.3,291.5 162.8,270.6 138.6,247.5 127.6,231.0 138.6,216.7 154.0,203.5 176.0,209.0 187,203.5 214.5,195.8 253,181.5 280.5,154 302.5,126.5 308,99 291.5,66 278.3,55 313.5,33 297,24.2 261.8,16.5 269.5,5.5 280.5,0 333.3,0 341,25.3 353.1,25.3 357.5,55 355.3,61.6 368.5,59.4 388.3,52.8 390.5,35.2 378.4,15.4 382.8,0"/><polygon class="land id" points="14.3,378.4 38.5,382.8 69.3,412.5 107.8,429.0 116.6,456.5 132.0,475.2 129.8,503.8 115.5,504.9 91.3,484.0 70.4,451.0 51.7,421.3 35.2,404.8"/><polygon class="land id" points="123.2,514.8 132.0,504.9 157.3,509.3 180.4,515.9 204.6,515.9 224.4,525.8 224.4,535.7 198.0,531.3 165.0,525.8 136.4,521.4"/><polygon class="land id" points="165.0,423.5 171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 262.9,429.0 273.9,430.1 258.5,438.9 250.8,456.5 245.3,482.9 226.6,482.9 209.0,474.1 194.7,473.0 178.2,471.9 165.0,445.5"/><polygon class="land id" points="279.4,500.5 280.5,478.5 272.8,468.6 283.8,440.0 294.8,425.7 339.9,422.4 322.3,435.6 297.0,434.5 289.3,449.9 302.5,460.9 313.5,491.7 300.3,484.0 290.4,471.9 290.4,500.5"/><polygon class="land" points="286.0,236.5 310.2,236.5 308.0,264.0 303.6,283.8 330.0,301.4 319.0,297.0 292.6,288.2 286.0,264.0"/><polygon class="land" points="308.0,357.5 324.5,345.4 346.5,335.5 358.6,359.7 345.4,378.4 330.0,368.5 309.1,364.1"/><polygon class="land" points="287.1,187.0 297.0,161.7 306.9,166.1 295.9,199.1"/><polygon class="land" points="391.6,74.8 405.9,99.0 416.9,77.0 407.0,66.0 429,61.6 454.3,60.5 459.8,71.5 471.9,62.7 503.8,55.0 515.9,34.1 517.0,0 503.8,0 503.8,16.5 476.3,33.0 462.0,46.2 429.0,49.5 407.0,61.6"/><polygon class="land id" points="407,451 440,448.8 484,456.5 517,468.6 517,539 484,531.3 481.8,495 451,487.3 423.5,484 418,470.8"/><polygon class="land id" points="242,531.3 253,529.1 275,532.4 313.5,530.2 341,532.4 341,541.2 308,536.8 275,537.9 242,537.9"/><polygon class="bali" points="225.0,529.1 233.2,528.5 238.7,532.4 233.2,537.4 226.6,532.4"/>
+<text x="220" y="426.8" text-anchor="middle" class="isl">보르네오섬</text><text x="220" y="440.0" text-anchor="middle" class="isl s">(칼리만탄)</text><text x="77" y="448.8" text-anchor="middle" class="isl">수마트라</text><text x="176" y="545.6" text-anchor="middle" class="isl">자와섬</text><text x="315.7" y="451.0" text-anchor="middle" class="isl">술라웨시</text>
+<text x="99" y="253" text-anchor="middle" class="ctry">베트남</text><text x="368.5" y="11" text-anchor="middle" class="ctry">한국</text>
+<circle cx="362.8" cy="26.7" r="5" class="dot home"/><text x="370.8" y="30.7" text-anchor="start" class="lb home">서울 (우리 집)</text>
+<circle cx="139.7" cy="321.2" r="5" class="dot "/><text x="131.7" y="325.2" text-anchor="end" class="lb ">호치민</text>
+<circle cx="130.3" cy="208.7" r="5" class="dot "/><text x="122.30000000000001" y="212.7" text-anchor="end" class="lb ">하노이</text>
+<circle cx="141.3" cy="508.2" r="5" class="dot "/><text x="139.3" y="498.2" text-anchor="end" class="lb ">자카르타</text>
+<circle cx="249.7" cy="450.7" r="5" class="dot new"/><text x="257.7" y="454.7" text-anchor="start" class="lb new">누산따라 (새 수도)</text>
+<circle cx="233.9" cy="533.5" r="5" class="dot go"/><text x="241.9" y="549.5" text-anchor="start" class="lb go">발리</text>
+</svg>`;
+const COUNTRY = {
+  id: { ko:'인도네시아', local:'Indonesia', color:'linear-gradient(135deg,#E8453C,#F07A5A)', lang:'인도네시아',
+    line:'섬이 1만7천 개가 넘는 바다 위 나라',
+    facts:[['대륙','아시아 · 동남아시아<br>적도가 지나가요'],
+           ['수도','자카르타 '+O('Jakarta')+'<br><small>땅이 가라앉아 보르네오섬에 새 수도 누산따라 '+O('Nusantara')+'를 짓는 중</small>'],
+           ['사람 수','약 2억 8천만 명<br>세계 4번째로 많아요'],['크기','우리나라(남한)의 약 19배'],
+           ['말','인도네시아어 '+O('Bahasa Indonesia')+'<br>발리에선 발리어도 써요'],['우리 집에서','남쪽으로 약 5,300km<br>비행기로 7시간쯤']],
+    flagTxt:'국기는 위 빨강, 아래 하양. 빨강은 용기, 하양은 깨끗한 마음이래요.',
+    geo:'발리는 적도 아래 <b>남위 8°</b> · <b>동경 115°</b>',
+    words:[['할로','Halo','안녕'],['뜨리마 까시','Terima kasih','고마워'],['에낙','Enak','맛있어'],['브라빠?','Berapa?','얼마예요?']],
+    money:'돈은 루피아 '+O('Rupiah · Rp'), time:'한국보다 1시간 늦어요', weather:'10월 초는 덥고 가끔 소나기',
+    rules:['길바닥 꽃 바구니 <b>짜낭</b> '+O('Canang sari')+'은 신께 드리는 선물 — 밟지 않기','사원에선 무릎 가리기','물건은 오른손으로 주고받기'],
+    food:[['나시고렝','Nasi goreng','볶음밥'],['미고렝','Mie goreng','볶음면'],['사테','Sate','꼬치구이']], foodTip:'안 맵게: <b>띠닥 뻐다스</b> '+O('Tidak pedas'),
+    quiz:[['인도네시아는 어느 대륙에 있을까?',['유럽','아시아','아프리카'],1,'아시아 동남쪽, 바다 위 섬나라예요'],
+          ['인도네시아의 수도는?',['발리','자카르타','하노이'],1,'발리는 섬 이름, 하노이는 베트남 수도!'],
+          ['수도는 인도네시아 말로 이부 코타 '+O('Ibu Kota')+'. 무슨 뜻일까?',['어머니 도시','큰 섬','왕의 집'],0,'이부=어머니, 코타=도시!'],
+          ['발리 사람들이 가장 많이 믿는 종교는?',['이슬람교','힌두교','불교'],1,'인도네시아 전체는 이슬람교가 많지만 발리는 힌두교!'],
+          ['인도네시아 국기 색깔은?',['빨강·하양','빨강·노랑','파랑·하양'],0,'위 빨강, 아래 하양']] },
+  vn: { ko:'베트남', local:'Việt Nam', color:'linear-gradient(135deg,#DA251D,#F08A3C)', lang:'베트남',
+    line:'S자 모양으로 길쭉한 나라',
+    facts:[['대륙','아시아 · 동남아시아<br>바다를 따라 길쭉해요'],['수도','하노이 '+O('Hà Nội')+'<br>호치민은 가장 큰 도시'],['사람 수','약 1억 명'],['크기','우리나라(남한)의 약 3배'],
+           ['말','베트남어 '+O('Tiếng Việt')+'<br>알파벳에 성조 기호를 붙여요'],['우리 집에서','남서쪽으로 약 3,600km<br>비행기로 5시간쯤']],
+    flagTxt:'국기는 빨간 바탕에 노란 별 하나. 별의 뾰족한 끝이 5개예요.',
+    geo:'호치민은 <b>북위 11°</b> · <b>동경 107°</b>',
+    words:[['씬 짜오','Xin chào','안녕'],['깜 언','Cảm ơn','고마워'],['응온','Ngon','맛있어']],
+    money:'돈은 동 '+O('Đồng · ₫'), time:'한국보다 2시간 늦어요', weather:'10월은 비가 자주 와요',
+    rules:['오토바이가 정말 많아요 — 길은 어른 손 잡고 천천히 일정하게 건너기','사원·집에 들어갈 땐 신발 벗는 곳이 있어요'],
+    food:[['퍼','Phở','쌀국수'],['반미','Bánh mì','베트남 샌드위치']], foodTip:'고수 빼 주세요: <b>콩 쪼 자우 텀</b> '+O('Không cho rau thơm'),
+    quiz:[['베트남의 수도는?',['호치민','하노이','다낭'],1,'호치민은 가장 큰 도시, 수도는 하노이!'],
+          ['호치민의 옛 이름은?',['사이공','방콕','마닐라'],0,'지금도 사이공이라고 부르는 사람이 많아요'],
+          ['베트남 국기의 별은 무슨 색?',['하양','노랑','파랑'],1,'빨간 바탕에 노란 별']] }
+};
+const SPOT = {
+  ubud:{c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요'},
+  monkeyforest:{c:'id',ko:'원숭이 숲',local:'Monkey Forest',kind:'',desc:'원숭이 수백 마리가 사는 숲 속 사원',tip:'원숭이는 반짝이는 물건을 좋아해요. 선글라스·모자는 가방에!'},
+  yogabarn:{c:'id',ko:'요가반',local:'The Yoga Barn',kind:'',desc:'요가와 드럼 수업이 열리는 우붓의 큰 요가 센터'},
+  ayung:{c:'id',ko:'아융강',local:'Sungai Ayung',kind:'',desc:'발리에서 가장 긴 강. 정글 사이로 흘러요',tip:'구명조끼 끈은 꽉! 가이드 구호를 따라 노 젓기'},
+  reptile:{c:'id',ko:'파충류 공원',local:'Bali Reptile Park',kind:'',desc:'뱀·도마뱀·악어를 가까이서 볼 수 있어요'},
+  kuta:{c:'id',ko:'꾸따',local:'Kuta',kind:'sea',desc:'서핑 배우기 좋은 바다 마을, 노을이 예뻐요'},
+  turtle:{c:'id',ko:'바다거북 보호센터',local:'Bali Sea Turtle Society',kind:'sea',desc:'아기 거북을 바다로 보내 주는 곳 (하는 날이 정해져 있지 않아요)'},
+  waterbom:{c:'id',ko:'워터봄',local:'Waterbom Bali',kind:'sea',desc:'미끄럼틀이 가득한 워터파크'},
+  hcm:{c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요'}
+};
+
+// ───────── 상태 ─────────
+const S = { me:null, role:null, tuid:null, readOnly:false, tid:null, trip:null, diary:{days:{},meta:{}},
+            tab:null, sel:null, country:null, online:true };
+
+// ───────── 여행 날짜 로직 ─────────
+function dayList() { return Object.keys(S.trip.days || {}).sort(); }
+function tzOf(d) { const x = (S.trip.days || {})[d]; return x && typeof x.tz === 'number' ? x.tz : 9; }
+function phase() {
+  const ds = dayList();
+  for (const d of ds) if (localDate(tzOf(d)) === d) return { p:'during', today:d };
+  const first = ds[0] || S.trip.start, last = ds[ds.length-1] || S.trip.end;
+  if (localDate(tzOf(first)) < first) return { p:'before', today:null, left:diffDays(localDate(9), first) };
+  if (localDate(tzOf(last)) > last) return { p:'after', today:null };
+  // 여행 기간 중 일정이 없는 날: 가장 가까운 지난 날짜를 오늘로
+  const now = localDate(9); const past = ds.filter(d => d <= now);
+  return { p:'during', today: past[past.length-1] || first };
+}
+// 쓰기 가능 여부: 보기 모드(부모)는 불가, 여행 전엔 불가, 여행 중엔 오늘까지, 여행 후엔 전부
+function canWrite(d) {
+  if (S.readOnly) return false;
+  const ph = phase();
+  if (ph.p === 'before') return false;
+  if (ph.p === 'after') return true;
+  return d <= ph.today;
+}
+
+// ───────── 일기 저장: 기기 먼저 → Firebase ─────────
+const draftKey = path => 'tripDraft:' + S.tuid + ':' + S.tid + ':' + path;
+function getDraft(path) { try { return JSON.parse(localStorage.getItem(draftKey(path)) || 'null'); } catch (e) { return null; } }
+function entry(path) {                       // 서버값 위에 전송 대기 중인 기기 저장본을 덮어서 보여줌
+  const dr = getDraft(path);
+  if (dr && dr.pending) return dr.data;
+  const [a, b] = path.split('/');
+  return a === 'meta' ? (S.diary.meta || null) : ((S.diary.days || {})[b] || null);
+}
+function push(path, data, onDone) {
+  return db.ref('tripDiary/' + S.tuid + '/' + S.tid + '/' + path).set(data).then(() => {
+    const dr = getDraft(path);
+    if (dr && dr.data.updatedAt === data.updatedAt) localStorage.removeItem(draftKey(path));
+    onDone && onDone(true);
+  }).catch(e => { onDone && onDone(false, e); });
+}
+// statusId: 상태 글자를 쓸 요소 id — 저장 후 화면이 다시 그려져도 새 요소를 찾아 갱신
+function saveEntry(path, data, statusId) {
+  data.updatedAt = Date.now();
+  try { localStorage.setItem(draftKey(path), JSON.stringify({ data, pending:true })); } catch (e) {}
+  S.dirty = false;
+  const say = t => { const el = statusId && $(statusId); if (el) el.textContent = t; };
+  say(S.online ? '기기에 저장됨 · 보내는 중…' : '기기에 저장됨 · 인터넷 연결되면 자동으로 보내요');
+  push(path, data, (ok, e) => say(ok ? '저장됨 · ' + hhmm(data.updatedAt) : '기기에만 저장됨 (' + (e && e.code || '오류') + ') · 다시 열면 또 보내요'));
+}
+function flushDrafts() {
+  const pre = 'tripDraft:' + S.tuid + ':' + S.tid + ':';
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (!k || !k.startsWith(pre)) continue;
+    const dr = getDraft(k.slice(pre.length));
+    if (dr && dr.pending) push(k.slice(pre.length), dr.data);
+  }
+}
+
+// ───────── 탭 ─────────
+const TABS = [['home','홈'],['days','일정'],['places','여행지'],['stays','숙소'],['diary','일기 모아보기']];
+function renderTabs() {
+  const t = $('tabs'); t.hidden = false;
+  t.innerHTML = TABS.map(([k, n]) => '<button class="tab' + (S.tab === k ? ' on' : '') + '" data-k="' + k + '">' + n + '</button>').join('');
+  t.querySelectorAll('.tab').forEach(b => b.onclick = () => { if (S.dirty) confirmLeave(); S.tab = b.dataset.k; try { history.replaceState(null, '', '?id=' + encodeURIComponent(S.tid) + '#' + S.tab); } catch (e) {} render(); window.scrollTo(0, 0); });
+}
+function render() {
+  renderTabs();
+  const ph = phase(), dd = $('dday');
+  dd.hidden = false;
+  dd.textContent = ph.p === 'before' ? 'D-' + ph.left : ph.p === 'during' ? '여행 중' : '여행 끝';
+  ({ home:renderHome, days:renderDays, places:renderPlaces, stays:renderStays, diary:renderDiary }[S.tab] || renderHome)();
+}
+
+// ───────── ① 홈 ─────────
+function renderHome() {
+  const tr = S.trip, ph = phase(), ds = dayList();
+  const nights = diffDays(tr.start, tr.end);
+  let heroN, heroM;
+  if (ph.p === 'before') { heroN = 'D-' + ph.left; heroM = '<b>' + esc(tr.title) + '까지 ' + ph.left + '일 남았어요!</b>'; }
+  else if (ph.p === 'during') { heroN = (diffDays(tr.start, ph.today) + 1) + '일째'; heroM = '<b>지금 여행 중! 오늘 일기 잊지 말기</b>'; }
+  else { heroN = '끝'; heroM = '<b>즐거운 여행이었어요</b>'; }
+  heroM += md(tr.start) + '(' + wd(tr.start) + ') 출발 · ' + nights + '박 ' + (nights + 1) + '일';
+  const route = (tr.route || []).map(r => '<span>' + esc(r) + '</span>').join('→');
+  const first = (tr.days || {})[tr.start] || {};
+  const meta = entry('meta') || {};
+  const fav = meta.fav && tr.days[meta.fav] ? meta.fav : null;
+  const favSel = S.readOnly ? '' : '<select class="inp" id="favSel" style="margin-top:10px"><option value="">— 골라 보기 —</option>' +
+    ds.map(d => '<option value="' + d + '"' + (d === fav ? ' selected' : '') + '>' + md(d) + ' · ' + esc(tr.days[d].title) + '</option>').join('') + '</select>';
+  const pre = ph.p === 'before' ? '<div class="card"><div class="lbl">여행 가기 전 · 기대되는 것</div>' +
+    (S.readOnly ? '<div class="muted" style="margin-top:6px">' + (esc(meta.pre) || '아직 안 썼어요') + '</div>' :
+     '<textarea class="ta" id="preTa" style="margin-top:8px" placeholder="발리에서 제일 해 보고 싶은 건?">' + esc(meta.pre || '') + '</textarea><div class="row" style="margin-top:8px"><button class="btn ghost" id="preSave">저장</button><span class="save" id="preSt"></span></div>') + '</div>' : '';
+  $('app').innerHTML = '<div class="stack">' +
+    '<div class="thero"><div class="n">' + heroN + '</div><div class="m">' + heroM + '</div>' + (route ? '<div class="route">' + route + '</div>' : '') + '</div>' +
+    pre +
+    '<div class="grid2">' +
+      '<div class="card"><div class="lbl">첫날</div><div class="big">' + esc(first.title || '') + '</div><div class="muted">' + esc(first.desc || '') + '</div></div>' +
+      '<div class="card"><div class="lbl">제일 기대되는 날</div>' + (fav ? '<div class="big">' + md(fav) + ' · ' + esc(tr.days[fav].title) + '</div>' : '<div class="muted" style="margin-top:6px">어떤 날이 제일 기대돼?</div>') + favSel + '</div>' +
+      '<div class="card" style="grid-column:1/-1"><div class="lbl">우리가 가는 나라</div><div class="grid2">' +
+        (tr.countries || []).filter(c => COUNTRY[c]).map(c => '<div class="city">' + FLAG[c].replace('width="60" height="40"', 'width="72" height="48"') + '<div><div class="dtt">' + COUNTRY[c].ko + ' ' + O(COUNTRY[c].local) + '</div><div class="pl">' + COUNTRY[c].line + '</div></div></div>').join('') +
+      '</div></div>' +
+    '</div>' +
+    '<div class="card"><div class="lbl">일정 한눈에 · 누르면 그날로</div><div class="glance" style="--n:' + Math.min(ds.length, 10) + '">' +
+      ds.map(d => '<button data-d="' + d + '"><b>' + dayNum(d) + '</b>' + esc(tr.days[d].short || tr.days[d].place || '') + '</button>').join('') + '</div></div>' +
+  '</div>';
+  document.querySelectorAll('.glance button').forEach(b => b.onclick = () => { S.sel = b.dataset.d; S.tab = 'days'; render(); window.scrollTo(0, 0); });
+  const fs = $('favSel'); if (fs) fs.onchange = () => { const m = Object.assign({}, entry('meta') || {}); m.fav = fs.value || null; saveEntry('meta', m); setTimeout(render, 0); };
+  const ps = $('preSave'); if (ps) ps.onclick = () => { const m = Object.assign({}, entry('meta') || {}); m.pre = $('preTa').value.trim(); saveEntry('meta', m, 'preSt'); };
+}
+
+// ───────── ② 일정 + 일기 ─────────
+function renderDays() {
+  const tr = S.trip, ds = dayList(), ph = phase();
+  if (!S.sel || !tr.days[S.sel]) S.sel = ph.today || ds[0];
+  const list = ds.map(d => {
+    const x = tr.days[d], has = !!entry('days/' + d);
+    const tag = d === ph.today ? '<span class="tag now">오늘</span>' : has ? '<span class="tag ok">일기 씀</span>' : '';
+    return '<button class="day' + (d === S.sel ? ' on' : '') + (has ? ' done' : '') + '" data-d="' + d + '"><div class="date"><div class="d">' + dayNum(d) + '</div><div class="w">' + wd(d) + '</div></div>' +
+      '<div class="info"><div class="dtt">' + esc(x.title) + '</div><div class="pl">' + esc(x.place || '') + '</div></div>' + tag + '</button>';
+  }).join('');
+  const x = tr.days[S.sel] || {};
+  const spots = (x.spots || []).filter(s => SPOT[s]);
+  const tips = [x.tip].concat(spots.map(s => SPOT[s].tip)).filter(Boolean);
+  const detail = '<div class="card"><div class="lbl">' + md(S.sel) + ' ' + wd(S.sel) + '요일' + (x.place ? ' · ' + esc(x.place) : '') + '</div>' +
+    '<div class="big">' + esc(x.title) + '</div>' + (x.desc ? '<div class="muted" style="margin-top:6px">' + esc(x.desc) + '</div>' : '') +
+    spots.map(s => '<span class="chip">' + SPOT[s].ko + ' ' + SPOT[s].local + '</span>').join('') +
+    tips.map(t => I(IC.info, t === x.tip ? esc(t) : t)).join('') + '</div>';
+  $('app').innerHTML = '<div class="two"><div class="left"><div class="days">' + list + '</div></div><div class="grow stack">' + detail + diaryEditor(S.sel) + '</div></div>';
+  document.querySelectorAll('.day').forEach(b => b.onclick = () => {
+    if (S.dirty) confirmLeave();
+    S.dirty = false; S.sel = b.dataset.d; renderDays();
+  });
+  bindEditor(S.sel);
+  const on = document.querySelector('.day.on'); if (on && window.innerWidth <= 700) on.scrollIntoView({ inline:'center', block:'nearest' });
+}
+function diaryEditor(d) {
+  const e = entry('days/' + d) || {}, ph = phase();
+  const lang = (COUNTRY[(SPOT[((S.trip.days[d] || {}).spots || [])[0]] || {}).c] || COUNTRY[(S.trip.countries || [])[0]] || { lang:'현지' }).lang;
+  if (!canWrite(d)) {
+    if (S.readOnly) return '<div class="card"><div class="q">' + md(d) + '의 일기</div>' + (entry('days/' + d) ? entryView(e) : '<div class="lock" style="margin-top:10px">아직 안 썼어요</div>') + '</div>';
+    const why = ph.p === 'before' ? '여행이 시작되면 일기를 쓸 수 있어요. 지금은 홈에서 "기대되는 것"을 써 봐!' : '이 날이 오면 쓸 수 있어요';
+    return '<div class="card"><div class="q">오늘의 일기</div><div class="lock" style="margin-top:10px">' + why + '</div></div>';
+  }
+  const words = (e.words || []).map((w, i) => '<button class="pill" data-wi="' + i + '" title="지우기">' + esc(w) + ' ×</button>').join('');
+  return '<div class="card stack" style="gap:10px"><div class="q">' + (d === ph.today ? '오늘의 일기' : md(d) + '의 일기') + '</div>' +
+    '<div class="moods">' + MOODS.map(([k, n, p]) => '<button class="mood' + (e.mood === k ? ' on' : '') + '" data-m="' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + p + '</svg>' + n + '</button>').join('') + '</div>' +
+    '<div class="q">제일 재밌던 것</div><textarea class="ta" id="dFun">' + esc(e.fun || '') + '</textarea>' +
+    '<div class="q">오늘 뭐 했어?</div><textarea class="ta tall" id="dText">' + esc(e.text || '') + '</textarea>' +
+    '<div class="q">오늘 배운 ' + lang + ' 말</div><div id="dWords">' + words + '</div>' +
+    '<div class="row"><input class="inp" id="dWordIn" style="flex:1;min-width:180px" placeholder="예: 뜨리마 까시 = 고마워" maxlength="40"><button class="btn ghost" id="dWordAdd">추가</button></div>' +
+    '<div class="row"><button class="btn" id="dSave" style="flex:1">저장하기</button><span class="save" id="dSt">' + (getDraft('days/' + d) ? '기기에 저장됨 · 전송 대기' : (e.updatedAt ? '저장됨 · ' + hhmm(e.updatedAt) : '')) + '</span></div></div>';
+}
+function entryView(e) {
+  const m = MOODS.find(x => x[0] === e.mood);
+  return (m ? '<div class="chip">' + m[1] + '</div>' : '') +
+    (e.fun ? '<div class="fact"><b>제일 재밌던 것</b>&nbsp;' + esc(e.fun) + '</div>' : '') +
+    (e.text ? '<div class="muted" style="margin-top:8px;white-space:pre-wrap">' + esc(e.text) + '</div>' : '') +
+    ((e.words || []).length ? '<div style="margin-top:6px">' + e.words.map(w => '<span class="pill">' + esc(w) + '</span>').join('') + '</div>' : '');
+}
+function bindEditor(d) {
+  if (!$('dSave')) return;
+  let cur = Object.assign({ mood:null, fun:'', text:'', words:[] }, entry('days/' + d) || {});
+  cur.words = (cur.words || []).slice();
+  document.querySelectorAll('.mood').forEach(b => b.onclick = () => { dirty(); cur.mood = b.dataset.m; document.querySelectorAll('.mood').forEach(x => x.classList.toggle('on', x === b)); });
+  const dirty = () => { S.dirty = true; const st = $('dSt'); if (st) st.textContent = '저장 안 됨'; };
+  ['dFun','dText'].forEach(id => $(id).oninput = dirty);
+  const drawWords = () => {
+    $('dWords').innerHTML = cur.words.map((w, i) => '<button class="pill" data-wi="' + i + '" title="지우기">' + esc(w) + ' ×</button>').join('');
+    $('dWords').querySelectorAll('[data-wi]').forEach(b => b.onclick = () => { cur.words.splice(+b.dataset.wi, 1); dirty(); drawWords(); });
+  };
+  drawWords();
+  const add = () => { const v = $('dWordIn').value.trim(); if (v && cur.words.length < 20) { cur.words.push(v); $('dWordIn').value = ''; dirty(); drawWords(); } };
+  $('dWordAdd').onclick = add;
+  $('dWordIn').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); add(); } };
+  $('dSave').onclick = () => {
+    cur.fun = $('dFun').value.trim(); cur.text = $('dText').value.trim();
+    const data = { mood:cur.mood || null, fun:cur.fun, text:cur.text, words:cur.words };
+    saveEntry('days/' + d, data, 'dSt');
+    const btn = document.querySelector('.day[data-d="' + d + '"]'); if (btn) { btn.classList.add('done'); }
+  };
+}
+
+// 저장 안 한 글이 있는데 다른 날·탭으로 옮기면: 기기에 먼저 저장하고 이동 (쓰던 글 보호)
+function confirmLeave() {
+  if ($('dSave')) $('dSave').click();
+}
+
+// ───────── ③ 여행지 ─────────
+function renderPlaces() {
+  const cs = (S.trip.countries || []).filter(c => COUNTRY[c]);
+  if (!S.country || !cs.includes(S.country)) S.country = cs[0];
+  const key = S.country, c = COUNTRY[key];
+  if (!c) { $('app').innerHTML = '<div class="skel">여행지 정보가 아직 없어요</div>'; return; }
+  const mySpots = [...new Set(dayList().flatMap(d => S.trip.days[d].spots || []))].filter(s => SPOT[s] && SPOT[s].c === key);
+  const fx = (S.trip.fx || {})[key];
+  const ctabs = '<div class="tabs" style="padding-bottom:12px">' + cs.map(k => '<button class="tab ct' + (k === key ? ' on' : '') + '" data-c="' + k + '">' + FLAG[k].replace('width="60" height="40"', 'width="24" height="16"') + COUNTRY[k].ko + '</button>').join('') + '</div>';
+  $('app').innerHTML = ctabs + '<div class="stack">' +
+    '<div class="hero" style="background:' + c.color + '">' + FLAG[key] + '<div><div class="t">' + c.ko + ' ' + O(c.local) + '</div><div class="s">' + c.line + '</div></div></div>' +
+    '<div class="card"><div class="lbl">나라 한눈에 · 어디 있을까?</div><div class="mapwrap"><div>' + MAP +
+      '<div class="muted small" style="margin-top:4px">대략 그린 위치도예요 (실제 모양과 조금 달라요)</div>' +
+      '<div class="fact" style="font-size:14px"><div><b>위도·경도는 지구 위 주소를 나타내요.</b><br><small style="color:var(--sub)">위도 緯度 = 적도 赤道에서 위아래로 얼마나 (가로 실) · 경도 經度 = 영국 그리니치에서 동서로 얼마나 (세로 실)</small><br>서울은 <b>북위 37.5°</b> · <b>동경 127°</b><br>' + c.geo + '</div></div></div>' +
+      '<div><div class="kv">' + c.facts.map(f => '<div><small>' + f[0] + '</small>' + f[1] + '</div>').join('') + '</div>' +
+      '<div class="fact" style="margin-top:12px">' + FLAG[key].replace('width="60" height="40"', 'width="30" height="20"') + '<div>' + c.flagTxt + '</div></div></div></div></div>' +
+    (fx ? fxCard(fx, key) : '') +
+    '<div class="grid3">' +
+      '<div class="card"><div class="lbl">이 말 써보기</div><div>' + c.words.map(w => '<span class="pill"><b>' + w[0] + '</b> ' + O(w[1]) + ' = ' + w[2] + '</span>').join('') + '</div></div>' +
+      '<div class="card"><div class="lbl">돈 · 시간 · 날씨</div>' + I(IC.coin, c.money + (fx ? '. 1만 ' + esc(fx.unit || '') + ' ≈ ' + fx.now + '원 (' + esc(fx.date) + ' 기준)' : '')) + I(IC.clock, c.time) + I(IC.sun, c.weather) + '</div>' +
+      '<div class="card"><div class="lbl">꼭 지켜요</div>' + c.rules.map(r => I(IC.shield, r)).join('') + '</div>' +
+      '<div class="card"><div class="lbl">우리가 가는 곳</div>' + (mySpots.length ? mySpots.map(s => '<div class="city"><div class="cimg ' + SPOT[s].kind + '"></div><div><div class="dtt">' + SPOT[s].ko + ' ' + O(SPOT[s].local) + '</div><div class="pl">' + SPOT[s].desc + '</div></div></div>').join('') : '<div class="muted">일정에 장소가 아직 없어요</div>') + '</div>' +
+      '<div class="card"><div class="lbl">먹어볼 것</div>' + c.food.map(f => '<div class="fact"><div><b>' + f[0] + '</b> ' + O(f[1]) + ' — ' + f[2] + '</div></div>').join('') + '<div class="muted small" style="margin-top:6px">' + c.foodTip + '</div></div>' +
+      '<div class="card"><div class="lbl">퀴즈 · 위에서 읽은 것</div><div id="qbox"></div></div>' +
+    '</div></div>';
+  document.querySelectorAll('.tab.ct').forEach(b => b.onclick = () => { S.country = b.dataset.c; renderPlaces(); });
+  if (fx) bindFx(fx);
+  runQuiz($('qbox'), c.quiz, 0, 0);
+}
+function fxCard(f, key) {
+  const unit = esc(f.unit || ''), won = r => Math.round(f.price / 10000 * r).toLocaleString('ko-KR');
+  const josa = /[가-힣]$/.test(f.unit || '') && ((f.unit.charCodeAt(f.unit.length - 1) - 0xAC00) % 28) ? '이라면' : '라면';
+  return '<div class="card"><div class="lbl">돈 공부 · 환율은 매일 바뀌어요</div><div class="fx"><div>' +
+    '<div class="fxrow"><span><b>' + esc(f.date) + '</b><br><small>우리가 마지막으로 바꾼 날</small></span><span><b>1만 ' + unit + ' = ' + f.now + '원</b></span></div>' +
+    (f.hist || []).map(h => '<div class="fxrow"><span>' + esc(h[0]) + '</span><span>' + (typeof h[1] === 'number' ? '1만 ' + unit + ' = ' + h[1] + '원' : '<span style="color:var(--red);font-size:13px">확인 중</span>') + '</span></div>').join('') +
+    '<div class="muted" style="font-size:14px;margin-top:10px">숫자가 <b>작을수록</b> 우리 돈이 힘이 센 날이에요. 같은 물건을 더 싸게 살 수 있어요.</div></div>' +
+    '<div class="fxbox"><div class="q">' + esc(f.item) + ' 가격이 <b>' + Number(f.price).toLocaleString('ko-KR') + ' ' + unit + '</b>' + josa + '?</div>' +
+    '<input type="range" id="fxr" min="' + (f.min || Math.round(f.now * .85)) + '" max="' + (f.max || Math.round(f.now * 1.2)) + '" step="1" value="' + f.now + '" aria-label="환율">' +
+    '<div class="muted small">막대를 밀어서 환율을 바꿔 봐 · 1만 ' + unit + ' = <b id="fxv">' + f.now + '</b>원</div>' +
+    '<div class="fxbig"><span id="fxw">' + won(f.now) + '</span>원</div><div id="fxd" style="margin-top:6px;font-size:15px;line-height:1.55"></div>' +
+    '<div class="muted" style="font-size:12px;margin-top:6px">예시 가격이에요. 실제 가격은 가게마다 달라요.</div></div></div></div>';
+}
+function bindFx(f) {
+  const r = $('fxr'), base = Math.round(f.price / 10000 * f.now);
+  const upd = () => {
+    const v = +r.value, w = Math.round(f.price / 10000 * v), d = w - base;
+    $('fxv').textContent = v; $('fxw').textContent = w.toLocaleString('ko-KR');
+    $('fxd').innerHTML = d === 0 ? '마지막으로 바꾼 날 환율이에요.' :
+      (d > 0 ? '마지막으로 바꾼 날보다 <b style="color:var(--red)">' + d.toLocaleString('ko-KR') + '원 더 비싸요</b>' : '마지막으로 바꾼 날보다 <b style="color:var(--ok)">' + (-d).toLocaleString('ko-KR') + '원 더 싸요</b>') +
+      (Math.abs(d) >= 1500 ? ' · 아이스크림 ' + Math.floor(Math.abs(d) / 1500) + '개 값!' : '');
+  };
+  r.oninput = upd; upd();
+}
+function runQuiz(box, qs, i, score) {
+  if (i >= qs.length) {
+    box.innerHTML = '<div class="q" style="margin-top:6px">다 풀었어요!</div><div class="stars">' + '★'.repeat(score) + '☆'.repeat(qs.length - score) + '</div><div class="muted small">' + qs.length + '문제 중 ' + score + '개 맞힘</div><button class="btn ghost" style="margin-top:8px">다시 풀기</button>';
+    box.querySelector('button').onclick = () => runQuiz(box, qs, 0, 0); return;
+  }
+  const [q, opts, ans, why] = qs[i];
+  box.innerHTML = '<div class="q" style="margin-top:6px">' + q + '</div><div>' + opts.map((o, j) => '<button class="pill opt" data-j="' + j + '">' + o + '</button>').join('') + '</div><div class="small" style="margin-top:8px;min-height:1.4em" id="qfb"></div><div class="muted small">' + (i + 1) + ' / ' + qs.length + '</div>';
+  let done = false;
+  box.querySelectorAll('.opt').forEach(el => el.onclick = () => {
+    if (done) return; done = true;
+    const ok = +el.dataset.j === ans;
+    el.classList.add(ok ? 'right' : 'wrong');
+    if (!ok) box.querySelector('[data-j="' + ans + '"]').classList.add('right');
+    $('qfb').innerHTML = (ok ? '<b style="color:var(--ok)">정답!</b> ' : '<b style="color:var(--red)">아쉬워요</b> ') + why;
+    const b = document.createElement('button'); b.className = 'btn ghost'; b.style.marginTop = '8px';
+    b.textContent = i + 1 < qs.length ? '다음 문제' : '결과 보기';
+    b.onclick = () => runQuiz(box, qs, i + 1, score + (ok ? 1 : 0)); box.appendChild(b);
+  });
+}
+
+// ───────── ④ 숙소 ─────────
+function renderStays() {
+  const st = S.trip.stays || [];
+  $('app').innerHTML = st.length ? '<div class="grid2">' + st.map(s => {
+    const n = s.from && s.to ? diffDays(s.from, s.to) : null;
+    return '<div class="card"><div class="lbl">' + (s.from ? md(s.from) + (s.to ? ' ~ ' + md(s.to) : '') : '') + (n ? ' · ' + n + '밤' : '') + '</div>' +
+      '<div class="big">' + esc(s.name) + '</div>' + (s.area ? I(IC.pin, esc(s.area)) : '') + (s.desc ? '<div class="muted" style="margin-top:6px">' + esc(s.desc) + '</div>' : '') + '</div>';
+  }).join('') + '</div>' : '<div class="skel">숙소 정보가 아직 없어요</div>';
+}
+
+// ───────── ⑤ 일기 모아보기 ─────────
+function renderDiary() {
+  const ds = dayList(), days = Object.assign({}, S.diary.days || {});
+  // 기기에만 있는(전송 대기) 일기도 포함
+  const pre = 'tripDraft:' + S.tuid + ':' + S.tid + ':days/';
+  for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(pre)) { const dr = getDraft('days/' + k.slice(pre.length)); if (dr && dr.pending) days[k.slice(pre.length)] = dr.data; } }
+  const block = d => '<div class="entry"><div class="lbl">' + md(d) + ' ' + wd(d) + '요일' + (S.trip.days[d] ? ' · ' + esc(S.trip.days[d].title) : '') + '</div>' + entryView(days[d]) + '</div>';
+  const inTrip = ds.filter(d => days[d]);
+  const orphan = Object.keys(days).filter(d => !S.trip.days[d]).sort();   // 일정에서 빠진 날짜의 일기 — 지우지 않고 따로 보여줌
+  const meta = entry('meta') || {};
+  $('app').innerHTML = '<div class="stack" style="max-width:820px">' +
+    (meta.pre ? '<div class="card"><div class="lbl">여행 가기 전 · 기대되는 것</div><div class="muted" style="margin-top:6px;white-space:pre-wrap">' + esc(meta.pre) + '</div></div>' : '') +
+    '<div class="card">' + (inTrip.length ? inTrip.map(block).join('') : '<div class="muted">아직 쓴 일기가 없어요</div>') + '</div>' +
+    (orphan.length ? '<div class="card"><div class="lbl">기타 날짜</div>' + orphan.map(block).join('') + '</div>' : '') + '</div>';
+}
+
+// ───────── 여행 목록 + 가져오기(부모) ─────────
+async function renderList(msg) {
+  $('title').textContent = '여행'; $('tabs').hidden = true; $('dday').hidden = true;
+  let items = [];
+  try { items = Object.entries((await db.ref('userTrips/' + S.tuid).once('value')).val() || {}); } catch (e) {}
+  items.sort((a, b) => (b[1].start || '').localeCompare(a[1].start || ''));
+  const isParent = S.role === 'admin' || S.role === 'parent';
+  $('app').innerHTML = (msg ? '<p class="err">' + esc(msg) + '</p>' : '') +
+    '<div class="list">' + (items.length ? items.map(([id, t]) => '<a class="tcard" href="trip.html?id=' + encodeURIComponent(id) + '"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--acc)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span><span class="t">' + esc(t.title) + '</span><br><span class="muted small">' + (t.start ? md(t.start) + ' ~ ' + md(t.end) : '') + '</span></span></a>').join('')
+      : '<div class="muted">아직 여행이 없어요</div>') + '</div>' +
+    (isParent && !S.readOnly ? importPanel() : '');
+  if (isParent && !S.readOnly) bindImport();
+}
+function importPanel() {
+  return '<div class="card" style="margin-top:24px;max-width:820px"><div class="lbl">여행 가져오기 (부모)</div>' +
+    '<div class="muted small" style="margin:6px 0 10px">아이용 JSON을 붙여 넣으세요. 같은 id로 다시 가져오면 일정만 바뀌고 일기는 그대로예요. 예약번호·금액·이메일·편명 같은 내용이 있으면 거부돼요.</div>' +
+    '<textarea class="ta tall" id="impTa" style="font-family:ui-monospace,monospace;font-size:13px;min-height:220px" placeholder="{ &quot;id&quot;: &quot;2027-01-jeju&quot;, ... }"></textarea>' +
+    '<div class="row" style="margin-top:10px"><button class="btn ghost" id="impCheck">검사</button><button class="btn" id="impGo" disabled>가져오기</button></div><div id="impMsg" style="margin-top:10px"></div></div>';
+}
+const ALLOW = {
+  top:['id','title','start','end','members','countries','route','home','days','stays','fx'],
+  day:['title','short','place','desc','chips','tip','tz','spots'],
+  stay:['name','area','from','to','desc'],
+  fx:['unit','date','now','hist','item','price','min','max']
+};
+const BAD = [
+  [/\d{6,}/, '긴 숫자(예약·카드·전화번호일 수 있음)'],
+  [/\d{1,3}(,\d{3}){2,}/, '큰 금액'],
+  [/[\w.+-]+@[\w-]+\.[\w.]+/, '이메일'],
+  [/\b[A-Z]{2}\d{3,4}\b/, '항공 편명'],
+  [/예약|확인\s*번호|결제|카드|여권|booking|confirm|passport|pnr|invoice|voucher|₩|\$\s?\d/i, '예약·결제 관련 단어']
+];
+const isDate = s => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(dObj(s));
+function validateTrip(o) {
+  const err = [], warn = [];
+  const chk = (s, path) => { if (typeof s !== 'string') return; for (const [re, n] of BAD) if (re.test(s)) err.push(path + ': ' + n); };
+  const pick = (obj, keys, path) => { const r = {}; for (const k of Object.keys(obj || {})) { if (keys.includes(k)) r[k] = obj[k]; else warn.push(path + '.' + k + ' — 허용 안 된 칸이라 버림'); } return r; };
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return { err:['JSON 객체가 아니에요'], warn };
+  const t = pick(o, ALLOW.top, '(최상위)');
+  if (!/^[a-z0-9-]{3,40}$/.test(t.id || '')) err.push('id: 영문 소문자·숫자·- 3~40자 (예: 2027-01-jeju)');
+  if (!t.title || typeof t.title !== 'string') err.push('title: 필요'); else chk(t.title, 'title');
+  if (!isDate(t.start) || !isDate(t.end) || t.start > t.end) err.push('start/end: YYYY-MM-DD, start ≤ end');
+  if (!Array.isArray(t.members) || !t.members.length || t.members.some(m => typeof m !== 'string')) err.push('members: 아이 아이디 목록 (예: ["아이아이디"])');
+  t.countries = (Array.isArray(t.countries) ? t.countries : []).filter(c => { if (!COUNTRY[c]) { warn.push('countries: ' + c + ' — 라이브러리에 없는 나라라 버림'); return false; } return true; });
+  t.route = (Array.isArray(t.route) ? t.route : []).filter(r => typeof r === 'string').map((r, i) => (chk(r, 'route[' + i + ']'), r));
+  if (t.home) { t.home = pick(t.home, ['favDate'], 'home'); }
+  const days = {};
+  for (const [d, v] of Object.entries(t.days || {})) {
+    if (!isDate(d) || d < t.start || d > t.end) { err.push('days.' + d + ': 여행 기간 밖이거나 날짜 형식이 아님'); continue; }
+    const x = pick(v, ALLOW.day, 'days.' + d);
+    if (!x.title) err.push('days.' + d + '.title: 필요');
+    for (const k of ['title','short','place','desc','tip']) { if (x[k] != null && typeof x[k] !== 'string') err.push('days.' + d + '.' + k + ': 글자여야 함'); chk(x[k], 'days.' + d + '.' + k); }
+    if (x.tz != null && (typeof x.tz !== 'number' || x.tz < -12 || x.tz > 14)) err.push('days.' + d + '.tz: -12~14 숫자');
+    x.spots = (Array.isArray(x.spots) ? x.spots : []).filter(s => { if (!SPOT[s]) { warn.push('days.' + d + '.spots: ' + s + ' — 라이브러리에 없어 버림'); return false; } return true; });
+    delete x.chips;
+    days[d] = x;
+  }
+  if (!Object.keys(days).length) err.push('days: 하루 이상 필요');
+  t.days = days;
+  t.stays = (Array.isArray(t.stays) ? t.stays : []).map((s, i) => {
+    const x = pick(s, ALLOW.stay, 'stays[' + i + ']');
+    for (const k of ['name','area','desc']) chk(x[k], 'stays[' + i + '].' + k);
+    for (const k of ['from','to']) if (x[k] != null && !isDate(x[k])) err.push('stays[' + i + '].' + k + ': 날짜 형식');
+    if (!x.name) err.push('stays[' + i + '].name: 필요');
+    return x;
+  });
+  const fx = {};
+  for (const [c, v] of Object.entries(t.fx || {})) {
+    if (!COUNTRY[c]) { warn.push('fx.' + c + ' — 버림'); continue; }
+    const x = pick(v, ALLOW.fx, 'fx.' + c);
+    if (typeof x.now !== 'number' || typeof x.price !== 'number') err.push('fx.' + c + ': now·price는 숫자');
+    if (!x.date) err.push('fx.' + c + '.date: 기준 날짜 필요');
+    for (const k of ['unit','date','item']) chk(x[k], 'fx.' + c + '.' + k);
+    x.hist = (Array.isArray(x.hist) ? x.hist : []).map((h, i) => { chk(h[0], 'fx.' + c + '.hist[' + i + ']'); return [String(h[0]), typeof h[1] === 'number' ? h[1] : null]; });
+    fx[c] = x;
+  }
+  t.fx = fx;
+  return { err, warn, clean:t };
+}
+function bindImport() {
+  let ready = null;
+  const show = (html) => $('impMsg').innerHTML = html;
+  $('impTa').oninput = () => { ready = null; $('impGo').disabled = true; };
+  $('impCheck').onclick = () => {
+    let o; try { o = JSON.parse($('impTa').value); } catch (e) { show('<div class="err">JSON 형식 오류: ' + esc(e.message) + '</div>'); return; }
+    const r = validateTrip(o);
+    const w = r.warn.length ? '<div class="muted small">' + r.warn.map(esc).join('<br>') + '</div>' : '';
+    if (r.err.length) { show('<div class="err"><b>가져올 수 없어요 — 고칠 곳 ' + r.err.length + '개</b><br>' + r.err.map(esc).join('<br>') + '</div>' + w); return; }
+    ready = r.clean; $('impGo').disabled = false;
+    show('<div class="okmsg">통과: ' + esc(ready.title) + ' · ' + Object.keys(ready.days).length + '일 · 숙소 ' + ready.stays.length + '곳</div>' + w);
+  };
+  $('impGo').onclick = async () => {
+    if (!ready) return; $('impGo').disabled = true;
+    try {
+      const uids = {}; uids[S.me] = true;
+      for (const m of ready.members) {
+        const u = (await db.ref('usernames/' + m).once('value')).val();
+        if (!u) throw new Error('아이디를 찾을 수 없어요: ' + m);
+        uids[u] = true;
+      }
+      const data = Object.assign({}, ready); delete data.members;
+      data.memberUids = uids; data.updatedAt = firebase.database.ServerValue.TIMESTAMP; data.updatedBy = S.me;
+      await db.ref('trips/' + ready.id).set(data);
+      for (const u of Object.keys(uids)) await db.ref('userTrips/' + u + '/' + ready.id).set({ title:ready.title, start:ready.start, end:ready.end });
+      show('<div class="okmsg">가져왔어요. <a href="trip.html?id=' + encodeURIComponent(ready.id) + '">열어 보기</a></div>');
+    } catch (e) { show('<div class="err">저장 실패: ' + esc(e.message || e.code) + '</div>'); $('impGo').disabled = false; }
+  };
+}
+
+// ───────── 시작 ─────────
+$('backBtn').onclick = () => { if (S.tid) location.href = 'trip.html'; else location.href = 'index.html'; };
+if (!localStorage.getItem('currentUser')) location.href = 'login.html';
+auth.onAuthStateChanged(async user => {
+  if (!user) { location.href = 'login.html'; return; }
+  S.me = S.tuid = user.uid;
+  try { S.role = ((await db.ref('users/' + user.uid + '/role').once('value')).val()) || 'child'; } catch (e) { S.role = 'child'; }
+  try {
+    const vc = JSON.parse(localStorage.getItem('viewChild') || 'null');
+    if (vc && vc.uid) {
+      S.tuid = vc.uid; S.readOnly = true;
+      $('vc').innerHTML = '<div class="vcbar"><span style="flex:1">' + esc(vc.name) + ' 보기 모드 (부모) — 일기는 읽기만 돼요</span><button id="vcOff">내 계정으로</button></div>';
+      $('vcOff').onclick = () => { localStorage.removeItem('viewChild'); location.reload(); };
+    }
+  } catch (e) {}
+  S.tid = new URLSearchParams(location.search).get('id');
+  if (!S.tid) { renderList(); return; }
+  try { S.trip = (await db.ref('trips/' + S.tid).once('value')).val(); } catch (e) { S.trip = null; }
+  if (!S.trip || !S.trip.days) { S.tid = null; renderList('여행을 찾을 수 없거나 볼 수 없어요'); return; }
+  $('title').textContent = S.trip.title || '여행';
+  document.title = (S.trip.title || '여행') + ' · Halo Kids';
+  const h = location.hash.slice(1);
+  S.tab = TABS.some(t => t[0] === h) ? h : ({ during:'days', after:'diary' }[phase().p] || 'home');
+  render();
+  db.ref('tripDiary/' + S.tuid + '/' + S.tid).on('value', snap => {
+    const v = snap.val() || {}; S.diary = { days:v.days || {}, meta:v.meta || {} };
+    // 쓰는 중인 일기는 다시 그리지 않음 (쓰던 글 보호). 첫 로드는 항상 그림
+    if (S.dirty) return;
+    render();
+  }, () => {});
+  db.ref('.info/connected').on('value', s => { S.online = !!s.val(); if (S.online) flushDrafts(); });
+});
+</script>
+</body>
+</html>

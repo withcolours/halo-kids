@@ -103,6 +103,12 @@ a.card:active { transform:scale(.98); }
     <span><span class="t">영상</span><br><span class="d">영어 애니메이션 추천</span></span>
     <span class="tag" style="background:#3B6FE0">영상</span>
   </a>
+
+  <a class="card" href="trip.html" id="tripCard" style="display:none">
+    <div class="icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+    <span><span class="t">여행</span><br><span class="d" id="tripCardD">일정 보고 일기 쓰기</span></span>
+    <span class="tag" id="tripCardTag" style="background:#F08A3C">여행</span>
+  </a>
 </div>
 
 <script>
@@ -183,6 +189,7 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
   }
   document.getElementById('ddUsername').textContent = username;
 
+  loadTripCard(uid);
   const me = (await db.ref(`users/${uid}`).once('value')).val();
   if (me) {
     const name = me.nickname || username;
@@ -224,6 +231,31 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
     }
   }
 });
+
+// 여행 카드: 여행이 있을 때만 맨 아래에 보임. 가장 가까운(진행 중·다가오는) 여행으로 연결
+async function loadTripCard(uid) {
+  try {
+    let target = uid;
+    try { const vc = JSON.parse(localStorage.getItem('viewChild') || 'null'); if (vc && vc.uid) target = vc.uid; } catch (e) {}
+    const trips = Object.entries((await db.ref(`userTrips/${target}`).once('value')).val() || {});
+    if (!trips.length) return;
+    const today = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+    const next = trips.filter(([, t]) => t.end >= today).sort((a, b) => a[1].start.localeCompare(b[1].start))[0];
+    const card = document.getElementById('tripCard');
+    const tag = document.getElementById('tripCardTag');
+    if (next) {
+      const [id, t] = next;
+      card.href = 'trip.html?id=' + encodeURIComponent(id);
+      document.getElementById('tripCardD').textContent = t.title + ' · 일정 보고 일기 쓰기';
+      const left = Math.round((Date.parse(t.start) - Date.parse(today)) / 864e5);
+      if (left > 7) tag.textContent = '여행';
+      else tag.textContent = left > 0 ? 'D-' + left : '여행 중';
+    } else {
+      tag.textContent = '지난 여행'; tag.style.background = '#64748B';
+    }
+    card.style.display = '';
+  } catch (e) { /* 규칙 미게시 등 — 카드 숨김 유지 */ }
+}
 
 // 로그아웃 (활동 로그 남기고 종료)
 async function handleLogout() {
