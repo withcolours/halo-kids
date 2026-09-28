@@ -143,8 +143,13 @@ code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5p
 .phr h4 { margin:10px 0 4px; font-size:13px; color:var(--sub); font-weight:700; }
 .wrow { display:flex; gap:8px; align-items:baseline; padding:5px 0; border-bottom:1px dashed var(--line); font-size:15px; flex-wrap:wrap; }
 .wrow b { font-size:16px; } .wrow .m { margin-left:auto; color:var(--sub); font-size:14px; }
-.geo { display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; align-items:center; }
-.geo svg { width:150px; height:182px; }
+.geo { display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:20px; align-items:start; }
+.gchart { width:100%; max-width:340px; height:auto; display:block; }
+.tclocks { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; }
+.tclock { background:var(--bg); border-radius:16px; padding:14px; text-align:center; }
+.tclock .nm { font-weight:700; font-size:14px; }
+.tclock .tt { font-family:'Jua',sans-serif; font-size:44px; line-height:1.1; font-variant-numeric:tabular-nums; }
+.tclock .n { font-size:12px; color:var(--sub); }
 .gdef { display:grid; gap:8px; margin-top:8px; }
 .gdef div { display:flex; gap:10px; align-items:flex-start; font-size:14.5px; line-height:1.5; }
 .gdef .k { flex:0 0 auto; border-radius:99px; padding:2px 10px; font-weight:700; font-size:13px; }
@@ -260,7 +265,7 @@ const MAP = `<svg class="map" viewBox="0 0 539 561" role="img" aria-label="동�
 <polygon class="land" points="11,0 11,264 38.5,264 47.3,330 52.8,352 69.3,368.5 80.3,409.2 103.4,425.7 112.2,424.6 104.5,392.7 90.2,371.8 69.3,347.6 57.2,327.8 67.1,291.5 75.9,300.3 93.5,308.0 99.0,323.4 118.8,345.4 140.8,325.6 167.2,312.4 168.3,291.5 162.8,270.6 138.6,247.5 127.6,231.0 138.6,216.7 154.0,203.5 176.0,209.0 187,203.5 214.5,195.8 253,181.5 280.5,154 302.5,126.5 308,99 291.5,66 278.3,55 313.5,33 297,24.2 261.8,16.5 269.5,5.5 280.5,0 333.3,0 341,25.3 353.1,25.3 357.5,55 355.3,61.6 368.5,59.4 388.3,52.8 390.5,35.2 378.4,15.4 382.8,0"/><polygon class="land id" points="14.3,378.4 38.5,382.8 69.3,412.5 107.8,429.0 116.6,456.5 132.0,475.2 129.8,503.8 115.5,504.9 91.3,484.0 70.4,451.0 51.7,421.3 35.2,404.8"/><polygon class="land id" points="123.2,514.8 132.0,504.9 157.3,509.3 180.4,515.9 204.6,515.9 224.4,525.8 224.4,535.7 198.0,531.3 165.0,525.8 136.4,521.4"/><polygon class="land id" points="165.0,423.5 171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 262.9,429.0 273.9,430.1 258.5,438.9 250.8,456.5 245.3,482.9 226.6,482.9 209.0,474.1 194.7,473.0 178.2,471.9 165.0,445.5"/><polygon class="land id" points="279.4,500.5 280.5,478.5 272.8,468.6 283.8,440.0 294.8,425.7 339.9,422.4 322.3,435.6 297.0,434.5 289.3,449.9 302.5,460.9 313.5,491.7 300.3,484.0 290.4,471.9 290.4,500.5"/><polygon class="land" points="286.0,236.5 310.2,236.5 308.0,264.0 303.6,283.8 330.0,301.4 319.0,297.0 292.6,288.2 286.0,264.0"/><polygon class="land" points="308.0,357.5 324.5,345.4 346.5,335.5 358.6,359.7 345.4,378.4 330.0,368.5 309.1,364.1"/><polygon class="land" points="287.1,187.0 297.0,161.7 306.9,166.1 295.9,199.1"/><polygon class="land" points="391.6,74.8 405.9,99.0 416.9,77.0 407.0,66.0 429,61.6 454.3,60.5 459.8,71.5 471.9,62.7 503.8,55.0 515.9,34.1 517.0,0 503.8,0 503.8,16.5 476.3,33.0 462.0,46.2 429.0,49.5 407.0,61.6"/><polygon class="land id" points="407,451 440,448.8 484,456.5 517,468.6 517,539 484,531.3 481.8,495 451,487.3 423.5,484 418,470.8"/><polygon class="land id" points="242,531.3 253,529.1 275,532.4 313.5,530.2 341,532.4 341,541.2 308,536.8 275,537.9 242,537.9"/><polygon class="bali" points="225.0,529.1 233.2,528.5 238.7,532.4 233.2,537.4 226.6,532.4"/>
 <text x="220" y="426.8" text-anchor="middle" class="isl">보르네오섬</text><text x="220" y="440.0" text-anchor="middle" class="isl s">(칼리만탄)</text><text x="77" y="448.8" text-anchor="middle" class="isl">수마트라</text><text x="176" y="545.6" text-anchor="middle" class="isl">자와섬</text><text x="315.7" y="451.0" text-anchor="middle" class="isl">술라웨시</text>
 <text x="152.9" y="283.8" text-anchor="middle" class="ctry cb">베트남</text><text x="380.6" y="37.4" text-anchor="middle" class="ctry cb">한국</text>
-<text x="201.3" y="495.0" text-anchor="middle" class="ctry cb id">인도네시아</text><text x="86.9" y="392.7" text-anchor="middle" class="ctry">말레이시아</text><text x="226.6" y="402.6" text-anchor="middle" class="ctry s2">말레이시아</text><text x="314.6" y="268.4" text-anchor="middle" class="ctry">필리핀</text><text x="72.6" y="266.2" text-anchor="middle" class="ctry">태국</text><text x="187" y="110" text-anchor="middle" class="ctry cb">중국</text><text x="481.8" y="40.7" text-anchor="middle" class="ctry">일본</text><circle cx="362.8" cy="26.7" r="5" class="dot home"/><text x="370.8" y="30.7" text-anchor="start" class="lb home">서울 (우리 집)</text>
+<text x="201.3" y="495.0" text-anchor="middle" class="ctry cb id">인도네시아</text><text x="86.9" y="392.7" text-anchor="middle" class="ctry">말레이시아</text><text x="226.6" y="402.6" text-anchor="middle" class="ctry s2">말레이시아</text><text x="314.6" y="268.4" text-anchor="middle" class="ctry">필리핀</text><text x="72.6" y="266.2" text-anchor="middle" class="ctry">태국</text><text x="187" y="110" text-anchor="middle" class="ctry cb">중국</text><text x="481.8" y="40.7" text-anchor="middle" class="ctry">일본</text><circle cx="365.0" cy="30.4" r="5" class="dot home"/><text x="373.0" y="34.4" text-anchor="start" class="lb home">용인 (우리 집)</text>
 <circle cx="139.7" cy="321.2" r="5" class="dot "/><text x="131.7" y="325.2" text-anchor="end" class="lb ">호치민</text>
 <circle cx="130.3" cy="208.7" r="5" class="dot "/><text x="122.30000000000001" y="212.7" text-anchor="end" class="lb ">하노이</text>
 <circle cx="141.3" cy="508.2" r="5" class="dot "/><text x="139.3" y="498.2" text-anchor="end" class="lb ">자카르타</text>
@@ -275,7 +280,8 @@ const COUNTRY = {
            ['사람 수','약 2억 8천만 명<br>세계 4번째로 많아요'],['크기','우리나라(남한)의 약 19배'],
            ['말','인도네시아어 '+O('Bahasa Indonesia')+'<br>발리에선 발리어도 써요'],['우리 집에서','남쪽으로 약 5,300km<br>비행기로 7시간쯤']],
     flagTxt:'국기는 위 빨강, 아래 하양. 빨강은 용기, 하양은 깨끗한 마음이래요.',
-    geo:{ name:'발리', ns:'남위', lat:8, lon:115, note:'적도 아래 — 남반구예요. 적도와 아주 가까워서 1년 내내 여름처럼 더워요' },
+    geo:{ name:'발리', lat:-8.4, lon:115.2, tz:8, tzName:'WITA (중부 인도네시아 시간)', note:'적도 아래 — 남반구예요. 적도와 아주 가까워서 1년 내내 여름처럼 더워요',
+      tzMore:'인도네시아는 동서로 아주 길어서 시간대가 <b>3개</b>예요. 서쪽 자카르타는 UTC+7, 가운데 발리는 UTC+8, 동쪽 파푸아는 UTC+9 (우리나라와 같아요)' },
     words:[['할로','Halo','안녕'],['뜨리마 까시','Terima kasih','고마워'],['에낙','Enak','맛있어'],['브라빠?','Berapa?','얼마예요?']],
     phrases:[['인사',[['슬라맛 빠기','Selamat pagi','좋은 아침'],['할로','Halo','안녕'],['뜨리마 까시','Terima kasih','고마워요'],['사마사마','Sama-sama','천만에요'],['마아프','Maaf','미안해요']]],
              ['식당·가게',[['에낙','Enak','맛있어요'],['브라빠?','Berapa?','얼마예요?'],['아이르 뿌띠','Air putih','물'],['띠닥 뻐다스','Tidak pedas','안 맵게'],['야 / 띠닥','Ya / Tidak','네 / 아니요']]],
@@ -308,7 +314,8 @@ const COUNTRY = {
     facts:[['대륙','아시아 · 동남아시아<br>바다를 따라 길쭉해요'],['수도','하노이 '+O('Hà Nội')+'<br>호치민은 가장 큰 도시'],['사람 수','약 1억 명'],['크기','우리나라(남한)의 약 3배'],
            ['말','베트남어 '+O('Tiếng Việt')+'<br>알파벳에 성조 기호를 붙여요'],['우리 집에서','남서쪽으로 약 3,600km<br>비행기로 5시간쯤']],
     flagTxt:'국기는 빨간 바탕에 노란 별 하나. 별의 뾰족한 끝이 5개예요.',
-    geo:{ name:'호치민', ns:'북위', lat:11, lon:107, note:'적도 위 — 한국처럼 북반구지만 적도와 아주 가까워 1년 내내 더워요' },
+    geo:{ name:'호치민', lat:10.8, lon:106.7, tz:7, tzName:'ICT (인도차이나 시간)', note:'적도 위 — 한국처럼 북반구지만 적도와 아주 가까워 1년 내내 더워요',
+      tzMore:'베트남은 나라 전체가 시간대 하나(UTC+7)를 써요. 태국·캄보디아·라오스도 같은 시간이에요' },
     words:[['씬 짜오','Xin chào','안녕'],['깜 언','Cảm ơn','고마워'],['응온','Ngon','맛있어']],
     phrases:[['인사',[['씬 짜오','Xin chào','안녕하세요'],['깜 언','Cảm ơn','고마워요'],['씬 로이','Xin lỗi','미안해요'],['벙 / 콩','Vâng / Không','네 / 아니요']]],
              ['식당·가게',[['응온','Ngon','맛있어요'],['바오 니에우?','Bao nhiêu?','얼마예요?'],['느억','Nước','물']]],
@@ -626,26 +633,63 @@ function renderAir() {
 }
 
 // ───────── ③ 여행지 ─────────
+const HOME = { name:'용인', lat:37.2, lon:127.2, tz:9 };
+const latTxt = v => (v >= 0 ? '북위 ' : '남위 ') + Math.abs(v) + '°';
+const lonTxt = v => (v >= 0 ? '동경 ' : '서경 ') + Math.abs(v) + '°';
+// 위도·경도 격자 그림: 위도선 파랑, 경도선 초록, 적도 빨강. 점에서 축까지 점선으로 "주소" 읽기
+function geoChart(pts) {
+  const L = 44, R = 330, T = 18, B = 300, lo0 = 95, lo1 = 145, la0 = 50, la1 = -20;
+  const X = lo => L + (lo - lo0) / (lo1 - lo0) * (R - L), Y = la => T + (la0 - la) / (la0 - la1) * (B - T);
+  let g = '<rect x="' + L + '" y="' + T + '" width="' + (R - L) + '" height="' + (B - T) + '" rx="8" fill="#EEF6FD"/>';
+  for (let la = 40; la >= -10; la -= 10) if (la !== 0) g += '<line x1="' + L + '" y1="' + Y(la) + '" x2="' + R + '" y2="' + Y(la) + '" stroke="#1E90FF" stroke-opacity=".35" stroke-width="1.2"/><text x="' + (L - 6) + '" y="' + (Y(la) + 4) + '" text-anchor="end" font-size="11" fill="#1E90FF">' + Math.abs(la) + '°' + (la > 0 ? 'N' : 'S') + '</text>';
+  for (let lo = 100; lo <= 140; lo += 10) g += '<line x1="' + X(lo) + '" y1="' + T + '" x2="' + X(lo) + '" y2="' + B + '" stroke="#2E9E6A" stroke-opacity=".4" stroke-width="1.2"/><text x="' + X(lo) + '" y="' + (B + 15) + '" text-anchor="middle" font-size="11" fill="#2E9E6A">' + lo + '°E</text>';
+  g += '<line x1="' + L + '" y1="' + Y(0) + '" x2="' + R + '" y2="' + Y(0) + '" stroke="#E8453C" stroke-width="3"/><text x="' + (L - 6) + '" y="' + (Y(0) + 4) + '" text-anchor="end" font-size="11" font-weight="700" fill="#E8453C">0°</text>' +
+       '<text x="' + (R - 6) + '" y="' + (Y(0) - 6) + '" text-anchor="end" font-size="12" font-weight="700" fill="#E8453C">적도</text>';
+  for (const p of pts) {
+    const x = X(p.lon), y = Y(p.lat);
+    g += '<line x1="' + L + '" y1="' + y + '" x2="' + x + '" y2="' + y + '" stroke="#1E90FF" stroke-width="2" stroke-dasharray="5 4"/>' +
+         '<line x1="' + x + '" y1="' + y + '" x2="' + x + '" y2="' + B + '" stroke="#2E9E6A" stroke-width="2" stroke-dasharray="5 4"/>' +
+         '<circle cx="' + x + '" cy="' + y + '" r="7" fill="' + p.color + '" stroke="#fff" stroke-width="2.5"/>' +
+         '<text x="' + (x + 11) + '" y="' + (y - 8) + '" font-size="13" font-weight="700" fill="#1B2733" paint-order="stroke" stroke="#EEF6FD" stroke-width="4">' + p.name + '</text>';
+  }
+  return '<svg class="gchart" viewBox="0 0 340 342" role="img" aria-label="위도 경도 격자 그림">' + g +
+    '<text x="' + ((L + R) / 2) + '" y="' + (B + 30) + '" text-anchor="middle" font-size="11" fill="var(--sub)">← 서쪽 · 경도 · 동쪽 →</text></svg>';
+}
 function geoPanel(c) {
   const g = c.geo;
-  const globe = '<svg viewBox="0 -16 150 182" aria-hidden="true"><defs><clipPath id="gc"><circle cx="75" cy="75" r="68"/></clipPath></defs>' +
-    '<circle cx="75" cy="75" r="68" fill="#DCEEFB" stroke="#9CC3E6" stroke-width="2"/><g clip-path="url(#gc)" fill="none" stroke="#9CC3E6" stroke-width="1.2">' +
-    '<line x1="0" y1="41" x2="150" y2="41"/><line x1="0" y1="109" x2="150" y2="109"/><line x1="0" y1="18" x2="150" y2="18"/><line x1="0" y1="132" x2="150" y2="132"/>' +
-    '<ellipse cx="75" cy="75" rx="24" ry="68"/><ellipse cx="75" cy="75" rx="50" ry="68"/><line x1="75" y1="0" x2="75" y2="150"/></g>' +
-    '<line x1="7" y1="75" x2="143" y2="75" stroke="#E8453C" stroke-width="3"/><text x="75" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#E8453C">적도 0°</text>' +
-    '<text x="75" y="-4" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">북극 90°</text><text x="75" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">남극 90°</text>' +
-    '<circle cx="101" cy="45" r="5" fill="#1E90FF" stroke="#fff" stroke-width="2"/><circle cx="' + (g.ns === '남위' ? 92 : 90) + '" cy="' + (g.ns === '남위' ? 84 : 67) + '" r="5" fill="#E8453C" stroke="#fff" stroke-width="2"/></svg>';
-  return '<div class="card"><div class="lbl">지구 위 주소 · 위도와 경도</div><div class="geo">' + globe + '<div>' +
+  const pts = [{ name:HOME.name + ' (우리 집)', lat:HOME.lat, lon:HOME.lon, color:'#1E90FF' }, { name:g.name, lat:g.lat, lon:g.lon, color:'#E8453C' }];
+  return '<div class="card"><div class="lbl">지구 위 주소 · 위도와 경도</div><div class="geo">' + geoChart(pts) + '<div>' +
     '<div class="big" style="font-size:21px">위도·경도는 지구 위 주소를 나타내요</div>' +
     '<div class="gdef">' +
-      '<div><span class="k" style="background:#FDECEA;color:#E8453C">적도 赤道</span><span>"붉은 길". 지구 한가운데를 가로로 두른 선이에요. 해가 가장 뜨겁게 비춰요</span></div>' +
-      '<div><span class="k" style="background:var(--soft);color:var(--acc)">위도 緯度</span><span>緯는 옷감의 <b>가로 실</b>. 적도에서 북쪽(북위)·남쪽(남위)으로 얼마나 떨어졌는지 0°~90°</span></div>' +
-      '<div><span class="k" style="background:var(--okbg);color:var(--ok)">경도 經度</span><span>經은 옷감의 <b>세로 실</b>. 영국 그리니치에서 동쪽(동경)·서쪽(서경)으로 얼마나 떨어졌는지 0°~180°</span></div>' +
-    '</div></div></div>' +
-    '<div class="gaddr"><div><div class="nm"><span style="color:#1E90FF">●</span> 서울 (우리 집)</div><div class="v">북위 37.5° · 동경 127°</div><div class="n">적도 위 — 북반구</div></div>' +
-    '<div><div class="nm"><span style="color:#E8453C">●</span> ' + g.name + '</div><div class="v">' + g.ns + ' ' + g.lat + '° · 동경 ' + g.lon + '°</div><div class="n">' + g.note + '</div></div></div>' +
-    '<div class="muted small" style="margin-top:10px">경도 15°마다 시계가 약 1시간씩 달라져요. 서울과 ' + g.name + josa(g.name, '은', '는') + ' 경도가 ' + (127 - g.lon) + '° 차이 → 시차 약 ' + Math.round((127 - g.lon) / 15) + '시간</div></div>';
+      '<div><span class="k" style="background:#FDECEA;color:#E8453C">적도 赤道</span><span><b style="color:#E8453C">빨간 선</b>. "붉은 길"이라는 뜻으로, 지구 한가운데를 가로로 두른 선이에요. 위도 0°</span></div>' +
+      '<div><span class="k" style="background:var(--soft);color:var(--acc)">위도 緯度</span><span><b style="color:var(--acc)">파란 가로선</b>. 緯는 옷감의 가로 실. 적도에서 북쪽(북위 N)·남쪽(남위 S)으로 얼마나 떨어졌는지 0°~90°</span></div>' +
+      '<div><span class="k" style="background:var(--okbg);color:var(--ok)">경도 經度</span><span><b style="color:var(--ok)">초록 세로선</b>. 經은 옷감의 세로 실. 영국 그리니치에서 동쪽(동경 E)·서쪽(서경 W)으로 얼마나 떨어졌는지 0°~180°</span></div>' +
+    '</div>' +
+    '<div class="muted small" style="margin-top:10px">점에서 <b style="color:var(--acc)">파란 점선</b>을 따라 왼쪽으로 가면 위도, <b style="color:var(--ok)">초록 점선</b>을 따라 아래로 가면 경도가 나와요.</div>' +
+    '<div class="gaddr"><div><div class="nm"><span style="color:#1E90FF">●</span> ' + HOME.name + ' (우리 집)</div><div class="v">' + latTxt(HOME.lat) + ' · ' + lonTxt(HOME.lon) + '</div><div class="n">적도 위 — 북반구</div></div>' +
+    '<div><div class="nm"><span style="color:#E8453C">●</span> ' + g.name + '</div><div class="v">' + latTxt(g.lat) + ' · ' + lonTxt(g.lon) + '</div><div class="n">' + g.note + '</div></div></div>' +
+    '</div></div></div>';
 }
+// 시차는 왜 생길까? — 지금 시각을 나란히 보여 주고, 경도와 시간대로 설명
+function timePanel(c) {
+  const g = c.geo, d = Math.round((HOME.lon - g.lon) * 10) / 10, h = HOME.tz - g.tz;
+  const clock = (name, tz, color) => '<div class="tclock"><div class="nm" style="color:' + color + '">' + name + '</div><div class="tt" data-tz="' + tz + '">--:--</div><div class="n">UTC+' + tz + '</div></div>';
+  return '<div class="card"><div class="lbl">시차는 왜 생길까?</div>' +
+    '<div class="tclocks">' + clock(HOME.name + ' (우리 집)', HOME.tz, '#1E90FF') + clock(g.name, g.tz, '#E8453C') + '</div>' +
+    '<div class="muted small" style="text-align:center;margin-top:4px">지금 이 순간, 두 곳의 시계예요 · ' + g.name + josa(g.name, '은', '는') + ' 우리 집보다 <b>' + h + '시간 늦어요</b></div>' +
+    '<div class="phr" style="margin-top:12px">' +
+      '<div class="fact" style="display:block"><b>1. 지구는 하루에 한 바퀴 돌아요</b><div class="muted" style="font-size:14.5px">한 바퀴는 360°, 하루는 24시간. 그래서 <b>1시간에 15°</b>씩 돌아요 (360 ÷ 24 = 15)</div></div>' +
+      '<div class="fact" style="display:block"><b>2. 해는 동쪽 나라부터 떠요</b><div class="muted" style="font-size:14.5px">지구가 서쪽에서 동쪽으로 돌기 때문에, 동쪽에 있는 곳이 먼저 아침을 맞아요. 그래서 동쪽일수록 시계가 빨라요</div></div>' +
+      '<div class="fact" style="display:block"><b>3. 경도로 계산해 보기</b><div class="muted" style="font-size:14.5px">' + HOME.name + '(동경 ' + HOME.lon + '°)과 ' + g.name + '(동경 ' + g.lon + '°)' + josa(g.name, '은', '는') + ' 경도가 약 ' + d + '° 차이 → ' + d + ' ÷ 15 ≈ <b>' + (Math.round(d / 15 * 10) / 10) + '시간</b>. 실제 시차는 <b>' + h + '시간</b>이에요</div></div>' +
+      '<div class="fact" style="display:block"><b>4. 시간은 나라가 정해요 (시간대)</b><div class="muted" style="font-size:14.5px">나라마다 편하게 쓰려고 시계를 1시간 단위로 맞춰 정해요. 그래서 계산과 조금 달라요. 우리나라는 UTC+9, ' + g.name + josa(g.name, '은', '는') + ' ' + g.tzName + ' UTC+' + g.tz + '</div></div>' +
+      '<div class="fact" style="display:block"><b>UTC가 뭐예요?</b><div class="muted" style="font-size:14.5px">세계 시간의 기준이에요. 영국 그리니치(경도 0°) 근처의 시간이라고 생각하면 돼요. UTC+9는 "기준보다 9시간 빠르다"는 뜻</div></div>' +
+      '<div class="fact" style="display:block"><b>' + c.ko + '의 시간대</b><div class="muted" style="font-size:14.5px">' + g.tzMore + '</div></div>' +
+    '</div></div>';
+}
+function tickClocks() {
+  document.querySelectorAll('.tt[data-tz]').forEach(el => { const d = new Date(Date.now() + (+el.dataset.tz) * 36e5); el.textContent = pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()); });
+}
+setInterval(tickClocks, 20000);
 function renderPlaces() {
   const cs = (S.trip.countries || []).filter(c => COUNTRY[c]);
   if (!S.country || !cs.includes(S.country)) S.country = cs[0];
@@ -663,6 +707,7 @@ function renderPlaces() {
       '<div><div class="kv">' + c.facts.map(f => '<div><small>' + f[0] + '</small>' + f[1] + '</div>').join('') + '</div>' +
       '<div class="fact" style="margin-top:12px">' + FLAG[key].replace('width="60" height="40"', 'width="30" height="20"') + '<div>' + c.flagTxt + '</div></div></div></div></div>' +
     geoPanel(c) +
+    timePanel(c) +
     (fx ? fxCard(fx, key) : '') +
     '<div class="card"><div class="lbl">' + c.lang + ' 말 써보기</div><div class="phr">' +
       c.phrases.map(g => '<div><h4>' + g[0] + '</h4>' + g[1].map(W).join('') + '</div>').join('') + '</div></div>' +
@@ -682,6 +727,7 @@ function renderPlaces() {
   '</div>';
   document.querySelectorAll('.tab.ct').forEach(b => b.onclick = () => { S.country = b.dataset.c; renderPlaces(); });
   if (fx) bindFx(fx);
+  tickClocks();
   runQuiz($('qbox'), c.quiz, 0, 0);
 }
 function fxCard(f, key) {
