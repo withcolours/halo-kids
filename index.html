@@ -245,7 +245,6 @@ async function loadTripCard(uid) {
     const tag = document.getElementById('tripCardTag');
     if (next) {
       const [id, t] = next;
-      card.href = 'trip.html?id=' + encodeURIComponent(id);
       document.getElementById('tripCardD').textContent = t.title + ' · 일정 보고 일기 쓰기';
       const left = Math.round((Date.parse(t.start) - Date.parse(today)) / 864e5);
       if (left > 7) tag.textContent = '여행';

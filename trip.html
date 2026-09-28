@@ -78,6 +78,10 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,3
 .thero .m b { font-family:'Jua',sans-serif; font-weight:400; font-size:26px; display:block; }
 .route { display:flex; gap:6px; align-items:center; flex-wrap:wrap; font-size:14px; flex-basis:100%; }
 .route span { background:rgba(255,255,255,.22); border-radius:99px; padding:4px 12px; }
+.route span.ap { background:rgba(255,255,255,.34); }
+.route span b { letter-spacing:.5px; }
+.route .leg { font-style:normal; display:inline-flex; align-items:center; opacity:.95; }
+.rnote { flex-basis:100%; font-size:13px; opacity:.95; line-height:1.5; }
 .glance { display:grid; grid-template-columns:repeat(var(--n,9),minmax(0,1fr)); gap:8px; margin-top:10px; }
 .glance button { background:var(--bg); border:0; border-radius:12px; padding:10px 4px; text-align:center; font-size:13px; color:var(--sub); min-height:48px; cursor:pointer; font-family:inherit; }
 .glance b { display:block; font-family:'Jua',sans-serif; font-weight:400; font-size:22px; color:var(--ink); }
@@ -112,7 +116,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,3
 .stars { color:var(--yel); font-size:20px; letter-spacing:2px; }
 .entry { border-top:1px solid var(--line); padding:14px 0; }
 .entry:first-child { border-top:0; padding-top:4px; }
-.list { display:grid; gap:14px; max-width:640px; }
+.list { display:grid; gap:14px; max-width:820px; }
 a.tcard { display:flex; align-items:center; gap:16px; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:22px; text-decoration:none; color:var(--ink); }
 a.tcard .t { font-family:'Jua',sans-serif; font-size:24px; }
 .err { color:var(--red); font-size:14px; line-height:1.6; }
@@ -143,8 +147,13 @@ code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5p
 .phr h4 { margin:10px 0 4px; font-size:13px; color:var(--sub); font-weight:700; }
 .wrow { display:flex; gap:8px; align-items:baseline; padding:5px 0; border-bottom:1px dashed var(--line); font-size:15px; flex-wrap:wrap; }
 .wrow b { font-size:16px; } .wrow .m { margin-left:auto; color:var(--sub); font-size:14px; }
-.geo { display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:20px; align-items:start; }
-.gchart { width:100%; max-width:340px; height:auto; display:block; }
+.geo { display:grid; grid-template-columns:auto minmax(0,1fr); gap:20px; align-items:start; }
+.geofigs { display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start; }
+.geofigs figure { margin:0; }
+.geofigs figcaption { text-align:center; font-size:12px; color:var(--sub); margin-top:2px; }
+.gglobe { width:250px; max-width:100%; height:auto; display:block; }
+.gchart { width:340px; max-width:100%; height:auto; display:block; }
+@media (max-width:1180px) { .geo { grid-template-columns:1fr; } .geofigs { justify-content:center; } }
 .tclocks { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; }
 .tclock { background:var(--bg); border-radius:16px; padding:14px; text-align:center; }
 .tclock .nm { font-weight:700; font-size:14px; }
@@ -273,7 +282,7 @@ const MAP = `<svg class="map" viewBox="0 0 539 561" role="img" aria-label="동�
 <circle cx="233.9" cy="533.5" r="5" class="dot go"/><text x="241.9" y="549.5" text-anchor="start" class="lb go">발리</text>
 </svg>`;
 const COUNTRY = {
-  id: { ko:'인도네시아', local:'Indonesia', color:'linear-gradient(135deg,#E8453C,#F07A5A)', lang:'인도네시아',
+  id: { ko:'인도네시아', local:'Indonesia', color:'linear-gradient(120deg,#1E90FF,#39B5FF 60%,#5CC08A)', lang:'인도네시아',
     line:'섬이 1만7천 개가 넘는 바다 위 나라',
     facts:[['대륙','아시아 · 동남아시아<br>적도가 지나가요'],
            ['수도','자카르타 '+O('Jakarta')+'<br><small>땅이 가라앉아 보르네오섬에 새 수도 누산따라 '+O('Nusantara')+'를 짓는 중</small>'],
@@ -308,8 +317,13 @@ const COUNTRY = {
           ['인도네시아의 수도는?',['발리','자카르타','하노이'],1,'발리는 섬 이름, 하노이는 베트남 수도!'],
           ['수도는 인도네시아 말로 이부 코타 '+O('Ibu Kota')+'. 무슨 뜻일까?',['어머니 도시','큰 섬','왕의 집'],0,'이부=어머니, 코타=도시!'],
           ['발리 사람들이 가장 많이 믿는 종교는?',['이슬람교','힌두교','불교'],1,'인도네시아 전체는 이슬람교가 많지만 발리는 힌두교!'],
-          ['인도네시아 국기 색깔은?',['빨강·하양','빨강·노랑','파랑·하양'],0,'위 빨강, 아래 하양']] },
-  vn: { ko:'베트남', local:'Việt Nam', color:'linear-gradient(135deg,#DA251D,#F08A3C)', lang:'베트남',
+          ['인도네시아 국기 색깔은?',['빨강·하양','빨강·노랑','파랑·하양'],0,'위 빨강, 아래 하양'],
+          ['발리는 적도의 어느 쪽에 있을까?',['적도 위 (북반구)','적도 아래 (남반구)','딱 적도 위'],1,'남위 8° — 적도 바로 아래 남반구예요'],
+          ['발리 사람 이름 앞의 "끄뜻(Ketut)"은 몇째라는 뜻?',['첫째','둘째','넷째'],2,'와얀 첫째 · 마데 둘째 · 뇨만 셋째 · 끄뜻 넷째'],
+          ['발리의 새해 "녀삐(Nyepi)"에는 어떻게 할까?',['불꽃놀이를 해요','하루 종일 조용히 집에 있어요','바닷가 축제를 해요'],1,'불도 켜지 않고 공항도 문을 닫아요'],
+          ['주소에 자주 나오는 "Jalan(잘란)"의 뜻은?',['길','바다','사원'],0,'Jalan = 길, Pantai = 해변, Pura = 사원'],
+          ['발리 공항의 공항 코드는?',['ICN','SGN','DPS'],2,'DPS — 발리 중심 도시 덴파사르(DenPaSar)에서 왔어요']] },
+  vn: { ko:'베트남', local:'Việt Nam', color:'linear-gradient(120deg,#1E90FF,#39B5FF 60%,#5CC08A)', lang:'베트남',
     line:'S자 모양으로 길쭉한 나라',
     facts:[['대륙','아시아 · 동남아시아<br>바다를 따라 길쭉해요'],['수도','하노이 '+O('Hà Nội')+'<br>호치민은 가장 큰 도시'],['사람 수','약 1억 명'],['크기','우리나라(남한)의 약 3배'],
            ['말','베트남어 '+O('Tiếng Việt')+'<br>알파벳에 성조 기호를 붙여요'],['우리 집에서','남서쪽으로 약 3,600km<br>비행기로 5시간쯤']],
@@ -334,7 +348,14 @@ const COUNTRY = {
     food:[['퍼','Phở','쌀국수'],['반미','Bánh mì','베트남 샌드위치']], foodTip:'고수 빼 주세요: <b>콩 쪼 자우 텀</b> '+O('Không cho rau thơm'),
     quiz:[['베트남의 수도는?',['호치민','하노이','다낭'],1,'호치민은 가장 큰 도시, 수도는 하노이!'],
           ['호치민의 옛 이름은?',['사이공','방콕','마닐라'],0,'지금도 사이공이라고 부르는 사람이 많아요'],
-          ['베트남 국기의 별은 무슨 색?',['하양','노랑','파랑'],1,'빨간 바탕에 노란 별']] }
+          ['베트남 국기의 별은 무슨 색?',['하양','노랑','파랑'],1,'빨간 바탕에 노란 별'],
+          ['베트남은 한국보다 몇 시간 늦을까?',['1시간','2시간','3시간'],1,'베트남은 UTC+7, 한국은 UTC+9'],
+          ['"깜 언(Cảm ơn)"은 무슨 뜻?',['안녕','고마워요','맛있어요'],1,'한자 感恩(감은)에서 온 말이에요'],
+          ['베트남의 설날 이름은?',['뗏(Tết)','녀삐(Nyepi)','추석'],0,'우리처럼 음력 설이고 세뱃돈도 줘요. 녀삐는 발리의 새해!'],
+          ['호치민 공항 코드 SGN은 어디서 왔을까?',['싱가포르','옛 이름 사이공','서울'],1,'SaiGoN — 사이공'],
+          ['원뿔 모양의 베트남 전통 모자 이름은?',['논라','아오자이','사롱'],0,'아오자이는 전통 옷, 사롱은 발리의 허리 천'],
+          ['베트남 쌀국수의 이름은?',['퍼(Phở)','반미(Bánh mì)','나시고렝'],0,'반미는 샌드위치, 나시고렝은 인도네시아 볶음밥'],
+          ['베트남어 "느억(Nước)"은 무슨 뜻?',['물','불','밥'],0,'식당에서 물이 필요하면 "느억!"']] }
 };
 const SPOT = {
   ubud:{c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요',
@@ -360,7 +381,7 @@ const SPOT = {
   hcm:{c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요',
     tips:['공항 이름표 SGN은 옛 이름 사이공(SaiGoN)에서 왔어요','오토바이가 정말 많아요. 길은 어른 손을 잡고 천천히 일정한 속도로 건너기']}
 };
-const ENGLISH = [['Hello! / Thank you!','안녕하세요 / 고마워요'],['Excuse me.','실례합니다 (길 비켜 달라거나 부를 때)'],['Where is the toilet?','화장실이 어디예요?'],['Water, please.','물 주세요'],['How much is it?','얼마예요?'],['Can you help me?','도와주실 수 있어요?'],['I am from Korea.','저는 한국에서 왔어요']];
+const ENGLISH = [['Hello! / Thank you!','안녕하세요 / 고마워요'],['Excuse me.','실례합니다 (길 비켜 달라거나 부를 때)'],['Where is the toilet?','화장실이 어디예요?'],['Water, please.','물 주세요'],['How much is it?','얼마예요?'],['Can you help me?','도와주실 수 있어요?'],['I am from Korea.','저는 한국에서 왔어요'],['I am 9 years old.','나는 9살이에요 — 영어로는 만 나이로 말해요 (한국식으로는 10살)'],['My name is ___.','내 이름은 ___예요 (내 이름 넣어 말하기)']];
 // 공항·항공사 (공개 일반 정보)
 const AIRPORT = {
   ICN:{ ko:'인천국제공항', local:'Incheon International Airport', city:'인천', tz:9, why:'ICN = <b>I</b>n<b>C</b>heo<b>N</b>' },
@@ -472,7 +493,11 @@ function renderHome() {
   else if (ph.p === 'during') { heroN = (diffDays(tr.start, ph.today) + 1) + '일째'; heroM = '<b>지금 여행 중! 오늘 일기 잊지 말기</b>'; }
   else { heroN = '끝'; heroM = '<b>즐거운 여행이었어요</b>'; }
   heroM += md(tr.start) + '(' + wd(tr.start) + ') 출발 · ' + nights + '박 ' + (nights + 1) + '일';
-  const route = (tr.route || []).map(r => '<span>' + esc(r) + '</span>').join('→');
+  const R = (tr.route || []).map(r => typeof r === 'string' ? { t:r } : r);
+  const air = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" aria-label="비행기"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>';
+  const route = R.map((r, i) => (i ? (R[i-1].code && r.code ? '<i class="leg">' + air + '</i>' : '<i class="leg">→</i>') : '') +
+    '<span' + (r.code ? ' class="ap"' : '') + '>' + esc(r.t) + (r.code ? ' <b>' + esc(r.code) + '</b>' : '') + '</span>').join('');
+  const hasCode = R.some(r => r.code);
   const first = (tr.days || {})[tr.start] || {};
   const meta = entry('meta') || {};
   const fav = meta.fav && tr.days[meta.fav] ? meta.fav : null;
@@ -482,7 +507,7 @@ function renderHome() {
     (S.readOnly ? '<div class="muted" style="margin-top:6px">' + (esc(meta.pre) || '아직 안 썼어요') + '</div>' :
      '<textarea class="ta" id="preTa" style="margin-top:8px" placeholder="발리에서 제일 해 보고 싶은 건?">' + esc(meta.pre || '') + '</textarea><div class="row" style="margin-top:8px"><button class="btn ghost" id="preSave">저장</button><span class="save" id="preSt"></span></div>') + '</div>' : '';
   $('app').innerHTML = '<div class="stack">' +
-    '<div class="thero"><div class="n">' + heroN + '</div><div class="m">' + heroM + '</div>' + (route ? '<div class="route">' + route + '</div>' : '') + '</div>' +
+    '<div class="thero"><div class="n">' + heroN + '</div><div class="m">' + heroM + '</div>' + (route ? '<div class="route">' + route + '</div>' + (hasCode ? '<div class="rnote">✈ 비행기 · → 차 · <b>ICN·SGN·DPS</b> 같은 알파벳 3글자는 <b>공항 코드</b>예요. 탑승권과 짐표에 크게 적혀 있어요 (자세히는 비행기·공항 탭)</div>' : '') : '') + '</div>' +
     pre +
     '<div class="grid2">' +
       '<div class="card"><div class="lbl">첫날</div><div class="big">' + esc(first.title || '') + '</div><div class="muted">' + esc(first.desc || '') + '</div></div>' +
@@ -626,7 +651,7 @@ function renderAir() {
     '<div class="grid2">' +
       '<div class="card"><div class="lbl">출발할 때 (공항 순서)</div><div class="steps">' + AIR_STEPS.dep.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div></div>' +
       '<div class="card"><div class="lbl">도착할 때</div><div class="steps">' + AIR_STEPS.arr.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div></div>' +
-      '<div class="card"><div class="lbl">공항 이름표 (알파벳 3글자)</div>' + used.map(k => '<div class="wrow"><b>' + k + '</b><span>' + AIRPORT[k].ko + ' ' + O(AIRPORT[k].local) + '</span><span class="m" style="margin-left:0;flex-basis:100%">' + AIRPORT[k].why + '</span></div>').join('') + '</div>' +
+      '<div class="card"><div class="lbl">공항 코드 (알파벳 3글자 이름표)</div><div class="muted" style="font-size:14px;margin:4px 0 6px">전 세계 공항마다 겹치지 않는 3글자 이름이 있어요. 국제항공운송협회(IATA)가 정해요. 탑승권·짐표·공항 안내판에 크게 적혀 있어서, 말이 달라도 이 글자로 어디 가는지 알 수 있어요.</div>' + used.map(k => '<div class="wrow"><b>' + k + '</b><span>' + AIRPORT[k].ko + ' ' + O(AIRPORT[k].local) + '</span><span class="m" style="margin-left:0;flex-basis:100%">' + AIRPORT[k].why + '</span></div>').join('') + '</div>' +
       '<div class="card"><div class="lbl">공항에서 보는 영어</div>' + AIR_WORDS.map(w => '<div class="wrow"><b>' + w[1] + '</b><span class="m">' + w[0] + '</span></div>').join('') + '</div>' +
       '<div class="card" style="grid-column:1/-1"><div class="lbl">비행기 안 팁</div>' + AIR_TIPS.map(t => I(IC.info, t)).join('') + '</div>' +
     '</div></div>';
@@ -655,10 +680,28 @@ function geoChart(pts) {
   return '<svg class="gchart" viewBox="0 0 340 342" role="img" aria-label="위도 경도 격자 그림">' + g +
     '<text x="' + ((L + R) / 2) + '" y="' + (B + 30) + '" text-anchor="middle" font-size="11" fill="var(--sub)">← 서쪽 · 경도 · 동쪽 →</text></svg>';
 }
+// 지구본 그림: 위도선(파랑 가로), 경도선(초록 세로 타원), 적도(빨강). 가운데 경선 = 동경 120°로 보고 점을 올림
+function geoGlobe(pts) {
+  const cx = 90, cy = 96, r = 72, lon0 = 120;
+  const P = (la, lo) => { const f = la * Math.PI / 180, l = (lo - lon0) * Math.PI / 180; return [cx + r * Math.cos(f) * Math.sin(l), cy - r * Math.sin(f)]; };
+  let g = '<defs><clipPath id="gclip"><circle cx="' + cx + '" cy="' + cy + '" r="' + r + '"/></clipPath></defs>' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#EEF6FD" stroke="#9CB8D3" stroke-width="2"/><g clip-path="url(#gclip)" fill="none">';
+  for (const la of [30, 60, -30, -60]) { const y = cy - r * Math.sin(la * Math.PI / 180), w = r * Math.cos(la * Math.PI / 180);
+    g += '<line x1="' + (cx - w) + '" y1="' + y + '" x2="' + (cx + w) + '" y2="' + y + '" stroke="#1E90FF" stroke-width="1.8"/>'; }
+  for (const d of [30, 60]) g += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (r * Math.sin(d * Math.PI / 180)).toFixed(1) + '" ry="' + r + '" stroke="#2E9E6A" stroke-width="1.8"/>';
+  g += '<line x1="' + cx + '" y1="' + (cy - r) + '" x2="' + cx + '" y2="' + (cy + r) + '" stroke="#2E9E6A" stroke-width="1.8"/></g>' +
+    '<line x1="' + (cx - r) + '" y1="' + cy + '" x2="' + (cx + r) + '" y2="' + cy + '" stroke="#E8453C" stroke-width="3.5"/>';
+  for (const p of pts) { const [x, y] = P(p.lat, p.lon); g += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" fill="' + p.color + '" stroke="#fff" stroke-width="2"/>'; }
+  g += '<text x="' + cx + '" y="14" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">북극</text><text x="' + cx + '" y="' + (cy + r + 18) + '" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">남극</text>' +
+    '<text x="' + (cx + r + 6) + '" y="' + (cy + 4) + '" font-size="12" font-weight="700" fill="#E8453C">적도</text>' +
+    '<text x="' + (cx + r - 2) + '" y="' + (cy - r * .5 - 4) + '" font-size="11.5" font-weight="700" fill="#1E90FF">위도선</text>' +
+    '<text x="' + (cx + 10) + '" y="' + (cy - r - 4 + 0) + '" font-size="11.5" font-weight="700" fill="#2E9E6A" dx="14">경도선</text>';
+  return '<svg class="gglobe" viewBox="0 0 200 196" role="img" aria-label="지구본 위도 경도 그림">' + g + '</svg>';
+}
 function geoPanel(c) {
   const g = c.geo;
   const pts = [{ name:HOME.name + ' (우리 집)', lat:HOME.lat, lon:HOME.lon, color:'#1E90FF' }, { name:g.name, lat:g.lat, lon:g.lon, color:'#E8453C' }];
-  return '<div class="card"><div class="lbl">지구 위 주소 · 위도와 경도</div><div class="geo">' + geoChart(pts) + '<div>' +
+  return '<div class="card"><div class="lbl">지구 위 주소 · 위도와 경도</div><div class="geo"><div class="geofigs"><figure>' + geoGlobe(pts) + '<figcaption>지구본으로 보면</figcaption></figure><figure>' + geoChart(pts) + '<figcaption>펼쳐서 보면 (격자)</figcaption></figure></div><div>' +
     '<div class="big" style="font-size:21px">위도·경도는 지구 위 주소를 나타내요</div>' +
     '<div class="gdef">' +
       '<div><span class="k" style="background:#FDECEA;color:#E8453C">적도 赤道</span><span><b style="color:#E8453C">빨간 선</b>. "붉은 길"이라는 뜻으로, 지구 한가운데를 가로로 두른 선이에요. 위도 0°</span></div>' +
@@ -754,10 +797,18 @@ function bindFx(f) {
   };
   r.oninput = upd; upd();
 }
+function shuffleQuiz(qs) {
+  return qs.map(([q, opts, ans, why]) => {
+    const idx = opts.map((_, j) => j);
+    for (let k = idx.length - 1; k > 0; k--) { const r = Math.floor(Math.random() * (k + 1)); [idx[k], idx[r]] = [idx[r], idx[k]]; }
+    return [q, idx.map(j => opts[j]), idx.indexOf(ans), why];
+  });
+}
 function runQuiz(box, qs, i, score) {
+  if (i === 0 && !qs.shuffled) { qs = shuffleQuiz(qs); qs.shuffled = true; }
   if (i >= qs.length) {
     box.innerHTML = '<div class="q" style="margin-top:6px">다 풀었어요!</div><div class="stars">' + '★'.repeat(score) + '☆'.repeat(qs.length - score) + '</div><div class="muted small">' + qs.length + '문제 중 ' + score + '개 맞힘</div><button class="btn ghost" style="margin-top:8px">다시 풀기</button>';
-    box.querySelector('button').onclick = () => runQuiz(box, qs, 0, 0); return;
+    box.querySelector('button').onclick = () => runQuiz(box, qs.map(x => x), 0, 0); return;
   }
   const [q, opts, ans, why] = qs[i];
   box.innerHTML = '<div class="q" style="margin-top:6px">' + q + '</div><div>' + opts.map((o, j) => '<button class="pill opt" data-j="' + j + '">' + o + '</button>').join('') + '</div><div class="small" style="margin-top:8px;min-height:1.4em" id="qfb"></div><div class="muted small">' + (i + 1) + ' / ' + qs.length + '</div>';
@@ -823,23 +874,34 @@ function renderDiary() {
 
 // ───────── 여행 목록 + 가져오기(부모) ─────────
 async function renderList(msg) {
-  $('title').textContent = '여행'; $('tabs').hidden = true; $('dday').hidden = true;
+  $('title').textContent = '우리 가족 여행'; $('tabs').hidden = true; $('dday').hidden = true;
   let items = [];
   try { items = Object.entries((await db.ref('userTrips/' + S.tuid).once('value')).val() || {}); } catch (e) {}
-  items.sort((a, b) => (b[1].start || '').localeCompare(a[1].start || ''));
+  // 순서: 여행 중 → 다가오는 여행(가까운 순) → 지난 여행(최근 순)
+  const today = localDate(9);
+  const st = t => t.end < today ? 2 : t.start <= today ? 0 : 1;
+  items.sort((a, b) => st(a[1]) - st(b[1]) || (st(a[1]) === 2 ? (b[1].start || '').localeCompare(a[1].start || '') : (a[1].start || '').localeCompare(b[1].start || '')));
+  const badge = t => { const k = st(t); if (k === 0) return '<span class="tag now" style="font-size:13px;padding:4px 10px">여행 중</span>';
+    if (k === 1) return '<span class="tag" style="font-size:13px;padding:4px 10px;background:#F08A3C;color:#fff">D-' + diffDays(today, t.start) + '</span>';
+    return '<span class="tag" style="font-size:13px;padding:4px 10px;background:var(--bg);color:var(--sub)">지난 여행</span>'; };
+  const group = k => ['지금 여행 중', '다가오는 여행', '지난 여행'][k];
   const isParent = S.role === 'admin' || S.role === 'parent';
+  const canAdd = isParent && !S.readOnly;
   $('app').innerHTML = (msg ? '<p class="err">' + esc(msg) + '</p>' : '') +
-    '<div class="list">' + (items.length ? items.map(([id, t]) => '<a class="tcard" href="trip.html?id=' + encodeURIComponent(id) + '"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--acc)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span><span class="t">' + esc(t.title) + '</span><br><span class="muted small">' + (t.start ? md(t.start) + ' ~ ' + md(t.end) : '') + '</span></span></a>').join('')
+    (canAdd ? '<div class="row" style="max-width:820px;margin-bottom:14px"><span class="muted" style="flex:1">여행을 골라 들어가요</span><button class="btn" id="addTrip" style="font-size:17px;padding:10px 16px">+ 여행 추가 · 수정</button></div><div id="impWrap" hidden style="margin-bottom:18px">' + importPanel() + '</div>' : '') +
+    (isParent && S.readOnly ? '<p class="muted small">여행 추가는 "내 계정으로" 돌아가면 할 수 있어요.</p>' : '') +
+    '<div class="list">' + (items.length ? items.map(([id, t], i) => (i === 0 || st(items[i-1][1]) !== st(t) ? '<div class="lbl" style="margin-top:' + (i ? 14 : 0) + 'px">' + group(st(t)) + '</div>' : '') +
+      '<a class="tcard" href="trip.html?id=' + encodeURIComponent(id) + '"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--acc)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span style="flex:1"><span class="t">' + esc(t.title) + '</span><br><span class="muted small">' + (t.start ? t.start.slice(0, 4) + '년 ' + md(t.start) + ' ~ ' + md(t.end) + ' · ' + diffDays(t.start, t.end) + '박 ' + (diffDays(t.start, t.end) + 1) + '일' : '') + '</span></span>' + badge(t) + '</a>').join('')
       : '<div class="muted">아직 여행이 없어요</div>') + '</div>' +
-    (isParent && !S.readOnly ? '<div class="row" style="margin-top:18px"><button class="btn ghost" id="addTrip">+ 여행 등록 · 수정</button></div><div id="impWrap" hidden>' + importPanel() + '</div>' : '');
-  if (isParent && !S.readOnly) {
+    '';
+  if (canAdd) {
     bindImport();
     $('addTrip').onclick = () => { const w = $('impWrap'); w.hidden = !w.hidden; if (!w.hidden) { $('impTa').focus(); w.scrollIntoView({ block:'start', behavior:'smooth' }); } };
     if (location.hash === '#add') $('addTrip').click();
   }
 }
 function importPanel() {
-  return '<div class="card" style="margin-top:14px;max-width:820px"><div class="lbl">여행 등록 · 수정 (부모)</div>' +
+  return '<div class="card" style="max-width:820px"><div class="lbl">여행 추가 · 수정 (부모)</div>' +
     '<div class="muted small" style="margin:6px 0 10px">아이용 여행 JSON을 붙여 넣고 검사 → 등록. <b>새 id면 새 여행</b>, <b>같은 id면 그 여행의 일정만 바뀌고 일기는 그대로</b>예요. 예약번호·긴 숫자·금액·이메일·결제 관련 내용이 있으면 거부돼요.</div>' +
     '<textarea class="ta tall" id="impTa" style="font-family:ui-monospace,monospace;font-size:13px;min-height:220px" placeholder="{ &quot;id&quot;: &quot;2027-01-jeju&quot;, ... }"></textarea>' +
     '<div class="row" style="margin-top:10px"><button class="btn ghost" id="impCheck">검사</button><button class="btn" id="impGo" disabled>등록</button></div><div id="impMsg" style="margin-top:10px"></div></div>';
@@ -869,7 +931,13 @@ function validateTrip(o) {
   if (!isDate(t.start) || !isDate(t.end) || t.start > t.end) err.push('start/end: YYYY-MM-DD, start ≤ end');
   if (!Array.isArray(t.members) || !t.members.length || t.members.some(m => typeof m !== 'string')) err.push('members: 아이 아이디 목록 (예: ["아이아이디"])');
   t.countries = (Array.isArray(t.countries) ? t.countries : []).filter(c => { if (!COUNTRY[c]) { warn.push('countries: ' + c + ' — 라이브러리에 없는 나라라 버림'); return false; } return true; });
-  t.route = (Array.isArray(t.route) ? t.route : []).filter(r => typeof r === 'string').map((r, i) => (chk(r, 'route[' + i + ']'), r));
+  t.route = (Array.isArray(t.route) ? t.route : []).map((r, i) => {
+    const x = typeof r === 'string' ? { t:r } : { t:r && r.t, code:r && r.code };
+    if (typeof x.t !== 'string' || !x.t) { err.push('route[' + i + ']: 글자 또는 {"t":"이름","code":"ICN"}'); return { t:'' }; }
+    chk(x.t, 'route[' + i + ']');
+    if (x.code == null) delete x.code; else if (!/^[A-Z]{3}$/.test(x.code)) err.push('route[' + i + '].code: 공항 코드 3글자');
+    return x;
+  });
   if (t.home) { t.home = pick(t.home, ['favDate'], 'home'); }
   if (t.diaryOpen != null && typeof t.diaryOpen !== 'boolean') err.push('diaryOpen: true/false');
   const isHM = v => typeof v === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
