@@ -103,7 +103,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,3
 .map .eq{stroke:#E8453C;stroke-width:1.5;stroke-dasharray:6 5}.map .eqt{fill:#E8453C;font-size:13px}
 .map .dot{fill:#1B2733;stroke:#fff;stroke-width:2}.map .dot.home{fill:#1E90FF}.map .dot.new{fill:#2E9E6A}.map .dot.go{fill:#E8453C}
 .map .lb{fill:#1B2733;font-size:14px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:3px}
-.map .isl{fill:#8A5A52;font-size:14px;font-weight:700}.map .isl.s{font-size:12px;font-weight:400}.map .ctry{fill:#8C8570;font-size:14px}.map .ctry.cb{font-size:17px;font-weight:700;fill:#6F6852}.map .ctry.id{fill:#C0392B;font-size:19px;letter-spacing:2px}.map .ctry.s2{font-size:12px}
+.map .isl{fill:#8A5A52;font-size:14px;font-weight:700}.map .isl.s{font-size:12px;font-weight:400}.map .ctry{fill:#8C8570;font-size:14px}.map .border{fill:none;stroke:#8A5A52;stroke-width:1.6;stroke-dasharray:5 4}.map .isl.bn{font-style:italic;font-size:15px;fill:#5A6B7C}.map .ctry.cb{font-size:17px;font-weight:700;fill:#6F6852}.map .ctry.id{fill:#C0392B;font-size:19px;letter-spacing:2px}.map .ctry.s2{font-size:12px}
 .fx { display:grid; grid-template-columns:1.1fr 1fr; gap:16px; margin-top:10px; }
 .fxrow { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:15px; font-variant-numeric:tabular-nums; }
 .fxrow small { color:var(--sub); }
@@ -172,6 +172,8 @@ code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5p
 .feat span { font-size:13px; background:var(--bg); border-radius:99px; padding:4px 10px; }
 a.mapbtn { display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 14px; border-radius:99px; border:1.5px solid var(--acc); color:var(--acc); text-decoration:none; font-size:14px; font-weight:700; }
 a.mapbtn svg { width:16px; height:16px; stroke:currentColor; }
+.gmap { position:relative; border-radius:14px; overflow:hidden; margin-top:8px; aspect-ratio:3/2; max-width:100%; background:var(--bg); }
+.gmap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 .bmap { width:100%; max-width:640px; height:auto; display:block; margin:8px auto 0; border-radius:14px; }
 .bmap .sea{fill:#DCEEFB}.bmap .land{fill:#F4F1E4;stroke:#C9C2A6}.bmap .lb{font-size:13px;font-weight:700;fill:#1B2733;paint-order:stroke;stroke:#fff;stroke-width:3px}.bmap .ct{font-size:12px;fill:#8C8570}
 .guide { background:var(--bg); border-radius:14px; padding:12px 14px; margin-top:10px; font-size:14.5px; line-height:1.6; }
@@ -271,10 +273,10 @@ const FLAG = {
 const MAP = `<svg class="map" viewBox="0 0 539 561" role="img" aria-label="동남아시아와 인도네시아 섬 위치도">
 <rect width="539" height="561" class="sea"/>
 <line x1="0" y1="440" x2="539" y2="440" class="eq"/><text x="533" y="434" text-anchor="end" class="eqt">적도</text>
-<polygon class="land" points="11,0 11,264 38.5,264 47.3,330 52.8,352 69.3,368.5 80.3,409.2 103.4,425.7 112.2,424.6 104.5,392.7 90.2,371.8 69.3,347.6 57.2,327.8 67.1,291.5 75.9,300.3 93.5,308.0 99.0,323.4 118.8,345.4 140.8,325.6 167.2,312.4 168.3,291.5 162.8,270.6 138.6,247.5 127.6,231.0 138.6,216.7 154.0,203.5 176.0,209.0 187,203.5 214.5,195.8 253,181.5 280.5,154 302.5,126.5 308,99 291.5,66 278.3,55 313.5,33 297,24.2 261.8,16.5 269.5,5.5 280.5,0 333.3,0 341,25.3 353.1,25.3 357.5,55 355.3,61.6 368.5,59.4 388.3,52.8 390.5,35.2 378.4,15.4 382.8,0"/><polygon class="land id" points="14.3,378.4 38.5,382.8 69.3,412.5 107.8,429.0 116.6,456.5 132.0,475.2 129.8,503.8 115.5,504.9 91.3,484.0 70.4,451.0 51.7,421.3 35.2,404.8"/><polygon class="land id" points="123.2,514.8 132.0,504.9 157.3,509.3 180.4,515.9 204.6,515.9 224.4,525.8 224.4,535.7 198.0,531.3 165.0,525.8 136.4,521.4"/><polygon class="land id" points="165.0,423.5 171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 262.9,429.0 273.9,430.1 258.5,438.9 250.8,456.5 245.3,482.9 226.6,482.9 209.0,474.1 194.7,473.0 178.2,471.9 165.0,445.5"/><polygon class="land id" points="279.4,500.5 280.5,478.5 272.8,468.6 283.8,440.0 294.8,425.7 339.9,422.4 322.3,435.6 297.0,434.5 289.3,449.9 302.5,460.9 313.5,491.7 300.3,484.0 290.4,471.9 290.4,500.5"/><polygon class="land" points="286.0,236.5 310.2,236.5 308.0,264.0 303.6,283.8 330.0,301.4 319.0,297.0 292.6,288.2 286.0,264.0"/><polygon class="land" points="308.0,357.5 324.5,345.4 346.5,335.5 358.6,359.7 345.4,378.4 330.0,368.5 309.1,364.1"/><polygon class="land" points="287.1,187.0 297.0,161.7 306.9,166.1 295.9,199.1"/><polygon class="land" points="391.6,74.8 405.9,99.0 416.9,77.0 407.0,66.0 429,61.6 454.3,60.5 459.8,71.5 471.9,62.7 503.8,55.0 515.9,34.1 517.0,0 503.8,0 503.8,16.5 476.3,33.0 462.0,46.2 429.0,49.5 407.0,61.6"/><polygon class="land id" points="407,451 440,448.8 484,456.5 517,468.6 517,539 484,531.3 481.8,495 451,487.3 423.5,484 418,470.8"/><polygon class="land id" points="242,531.3 253,529.1 275,532.4 313.5,530.2 341,532.4 341,541.2 308,536.8 275,537.9 242,537.9"/><polygon class="bali" points="225.0,529.1 233.2,528.5 238.7,532.4 233.2,537.4 226.6,532.4"/>
-<text x="220" y="426.8" text-anchor="middle" class="isl">보르네오섬</text><text x="220" y="440.0" text-anchor="middle" class="isl s">(칼리만탄)</text><text x="77" y="448.8" text-anchor="middle" class="isl">수마트라</text><text x="176" y="545.6" text-anchor="middle" class="isl">자와섬</text><text x="315.7" y="451.0" text-anchor="middle" class="isl">술라웨시</text>
+<polygon class="land" points="11,0 11,264 38.5,264 47.3,330 52.8,352 69.3,368.5 80.3,409.2 103.4,425.7 112.2,424.6 104.5,392.7 90.2,371.8 69.3,347.6 57.2,327.8 67.1,291.5 75.9,300.3 93.5,308.0 99.0,323.4 118.8,345.4 140.8,325.6 167.2,312.4 168.3,291.5 162.8,270.6 138.6,247.5 127.6,231.0 138.6,216.7 154.0,203.5 176.0,209.0 187,203.5 214.5,195.8 253,181.5 280.5,154 302.5,126.5 308,99 291.5,66 278.3,55 313.5,33 297,24.2 261.8,16.5 269.5,5.5 280.5,0 333.3,0 341,25.3 353.1,25.3 357.5,55 355.3,61.6 368.5,59.4 388.3,52.8 390.5,35.2 378.4,15.4 382.8,0"/><polygon class="land id" points="14.3,378.4 38.5,382.8 69.3,412.5 107.8,429.0 116.6,456.5 132.0,475.2 129.8,503.8 115.5,504.9 91.3,484.0 70.4,451.0 51.7,421.3 35.2,404.8"/><polygon class="land id" points="123.2,514.8 132.0,504.9 157.3,509.3 180.4,515.9 204.6,515.9 224.4,525.8 224.4,535.7 198.0,531.3 165.0,525.8 136.4,521.4"/><polygon class="land id" points="165.0,423.5 171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 262.9,429.0 273.9,430.1 258.5,438.9 250.8,456.5 245.3,482.9 226.6,482.9 209.0,474.1 194.7,473.0 178.2,471.9 165.0,445.5"/><polygon class="land id" points="279.4,500.5 280.5,478.5 272.8,468.6 283.8,440.0 294.8,425.7 339.9,422.4 322.3,435.6 297.0,434.5 289.3,449.9 302.5,460.9 313.5,491.7 300.3,484.0 290.4,471.9 290.4,500.5"/><polygon class="land" points="286.0,236.5 310.2,236.5 308.0,264.0 303.6,283.8 330.0,301.4 319.0,297.0 292.6,288.2 286.0,264.0"/><polygon class="land" points="308.0,357.5 324.5,345.4 346.5,335.5 358.6,359.7 345.4,378.4 330.0,368.5 309.1,364.1"/><polygon class="land" points="287.1,187.0 297.0,161.7 306.9,166.1 295.9,199.1"/><polygon class="land" points="391.6,74.8 405.9,99.0 416.9,77.0 407.0,66.0 429,61.6 454.3,60.5 459.8,71.5 471.9,62.7 503.8,55.0 515.9,34.1 517.0,0 503.8,0 503.8,16.5 476.3,33.0 462.0,46.2 429.0,49.5 407.0,61.6"/><polygon class="land id" points="407,451 440,448.8 484,456.5 517,468.6 517,539 484,531.3 481.8,495 451,487.3 423.5,484 418,470.8"/><polygon class="land id" points="242,531.3 253,529.1 275,532.4 313.5,530.2 341,532.4 341,541.2 308,536.8 275,537.9 242,537.9"/><polygon class="bali" points="225.0,529.1 233.2,528.5 238.7,532.4 233.2,537.4 226.6,532.4"/><polygon class="land" points="171.6,416.9 187.0,422.4 209.0,404.8 235.4,386.1 253.0,363.0 277.2,382.8 264.0,392.7 259.6,393.8 247.5,392.7 237.6,396.0 231.0,412.5 226.6,423.5 215.6,426.8 203.5,424.6 195.8,429.0 181.5,426.8 171.6,418.0"/><polyline class="border" points="259.6,393.8 247.5,392.7 237.6,396.0 231.0,412.5 226.6,423.5 215.6,426.8 203.5,424.6 195.8,429.0 181.5,426.8 171.6,418.0"/><text x="206.8" y="446.6" text-anchor="middle" class="isl">칼리만탄</text><text x="206.8" y="458.7" text-anchor="middle" class="isl s">(인도네시아 땅)</text><text x="258.5" y="375.1" text-anchor="middle" class="ctry s2">말레이시아</text><circle cx="229.9" cy="387.8" r="3" fill="#8C8570"/><text x="223.9" y="399.8" text-anchor="end" class="ctry s2">브루나이</text><text x="187.0" y="363.0" text-anchor="middle" class="isl bn">보르네오섬</text>
+<text x="77" y="448.8" text-anchor="middle" class="isl">수마트라</text><text x="176" y="545.6" text-anchor="middle" class="isl">자와섬</text><text x="315.7" y="451.0" text-anchor="middle" class="isl">술라웨시</text>
 <text x="152.9" y="283.8" text-anchor="middle" class="ctry cb">베트남</text><text x="380.6" y="37.4" text-anchor="middle" class="ctry cb">한국</text>
-<text x="201.3" y="495.0" text-anchor="middle" class="ctry cb id">인도네시아</text><text x="86.9" y="392.7" text-anchor="middle" class="ctry">말레이시아</text><text x="226.6" y="402.6" text-anchor="middle" class="ctry s2">말레이시아</text><text x="314.6" y="268.4" text-anchor="middle" class="ctry">필리핀</text><text x="72.6" y="266.2" text-anchor="middle" class="ctry">태국</text><text x="187" y="110" text-anchor="middle" class="ctry cb">중국</text><text x="481.8" y="40.7" text-anchor="middle" class="ctry">일본</text><circle cx="365.0" cy="30.4" r="5" class="dot home"/><text x="373.0" y="34.4" text-anchor="start" class="lb home">용인 (우리 집)</text>
+<text x="201.3" y="495.0" text-anchor="middle" class="ctry cb id">인도네시아</text><text x="86.9" y="392.7" text-anchor="middle" class="ctry">말레이시아</text><text x="314.6" y="268.4" text-anchor="middle" class="ctry">필리핀</text><text x="72.6" y="266.2" text-anchor="middle" class="ctry">태국</text><text x="187" y="110" text-anchor="middle" class="ctry cb">중국</text><text x="481.8" y="40.7" text-anchor="middle" class="ctry">일본</text><circle cx="365.0" cy="30.4" r="5" class="dot home"/><text x="373.0" y="34.4" text-anchor="start" class="lb home">용인 (우리 집)</text>
 <circle cx="139.7" cy="321.2" r="5" class="dot "/><text x="131.7" y="325.2" text-anchor="end" class="lb ">호치민</text>
 <circle cx="130.3" cy="208.7" r="5" class="dot "/><text x="122.30000000000001" y="212.7" text-anchor="end" class="lb ">하노이</text>
 <circle cx="141.3" cy="508.2" r="5" class="dot "/><text x="139.3" y="498.2" text-anchor="end" class="lb ">자카르타</text>
@@ -358,27 +360,27 @@ const COUNTRY = {
           ['베트남어 "느억(Nước)"은 무슨 뜻?',['물','불','밥'],0,'식당에서 물이 필요하면 "느억!"']] }
 };
 const SPOT = {
-  ubud:{c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요',
+  ubud:{map:'https://www.google.com/maps/search/?api=1&query=Ubud+Bali',c:'id',ko:'우붓',local:'Ubud',kind:'',desc:'계단식 논과 원숭이 숲이 있는 숲속 예술 마을. 이름은 발리 말 "약(ubad)"에서 왔다고 전해져요',
     tips:['우붓 사람들은 그림·조각·춤 같은 예술을 아주 좋아해요. 길가 가게마다 손으로 만든 작품이 있어요','아침엔 22~24도로 선선하고 낮엔 30도 가까이 올라가요 — 얇은 겉옷 하나 챙기기','계단식 논은 산비탈을 계단처럼 깎아 물을 가둔 논이에요. 물이 위에서 아래로 차례차례 흘러요']},
-  monkeyforest:{c:'id',ko:'원숭이 숲',local:'Monkey Forest',kind:'',lat:-8.519,lon:115.259,desc:'원숭이 수백 마리가 사는 숲. 숲 안에 오래된 힌두 사원이 있어요',
+  monkeyforest:{map:'https://www.google.com/maps/search/?api=1&query=Sacred+Monkey+Forest+Sanctuary+Ubud',c:'id',ko:'원숭이 숲',local:'Monkey Forest',kind:'',lat:-8.519,lon:115.259,desc:'원숭이 수백 마리가 사는 숲. 숲 안에 오래된 힌두 사원이 있어요',
     tips:['원숭이는 반짝이는 물건을 좋아해요. 선글라스·모자는 가방에!','원숭이 눈을 오래 똑바로 쳐다보면 싸우자는 뜻으로 알아요 — 살짝 눈 피하기','먹을 것을 손에 들고 다니지 않기. 가방 지퍼도 꼭 잠그기','원숭이가 올라타면 놀라서 뛰지 말고 가만히 — 직원이 도와줘요']},
-  yogabarn:{c:'id',ko:'요가반',local:'The Yoga Barn',kind:'',desc:'요가와 드럼 수업이 열리는 우붓의 큰 요가 센터',
+  yogabarn:{map:'https://www.google.com/maps/search/?api=1&query=The+Yoga+Barn+Ubud',c:'id',ko:'요가반',local:'The Yoga Barn',kind:'',desc:'요가와 드럼 수업이 열리는 우붓의 큰 요가 센터',
     tips:['드럼서클은 모두 둥글게 앉아 젬베(djembe)라는 북을 함께 쳐요','젬베는 아프리카 서쪽에서 온 북이에요. 가운데를 치면 낮은 소리, 가장자리를 치면 높은 소리!','선생님 박자를 먼저 듣고 따라 치기 — 다 같이 맞으면 소리가 훨씬 커져요']},
-  ayung:{c:'id',ko:'아융강',local:'Sungai Ayung',kind:'',desc:'발리에서 가장 긴 강. 정글 사이로 흘러요',
+  ayung:{map:'https://www.google.com/maps/search/?api=1&query=Sawah+Rafting+Bali',c:'id',ko:'아융강',local:'Sungai Ayung',kind:'',desc:'발리에서 가장 긴 강. 정글 사이로 흘러요',
     tips:['구명조끼 끈은 꽉! 헬멧도 턱끈까지 채우기','가이드 구호를 따라 노 젓기 — 모두 같이 저어야 보트가 똑바로 가요','래프팅(rafting)의 raft는 영어로 "뗏목"이라는 뜻이에요','물에 빠지면 발을 앞으로 뻗고 누운 자세로 둥둥 — 가이드가 건져 줘요']},
-  reptile:{c:'id',ko:'파충류 공원',local:'Bali Reptile Park',kind:'',desc:'뱀·도마뱀·악어를 가까이서 볼 수 있어요',
+  reptile:{map:'https://www.google.com/maps/search/?api=1&query=Bali+Reptile+Park+Batubulan',c:'id',ko:'파충류 공원',local:'Bali Reptile Park',kind:'',desc:'뱀·도마뱀·악어를 가까이서 볼 수 있어요',
     tips:['인도네시아에는 세계에서 가장 큰 도마뱀 코모도왕도마뱀이 살아요 (길이 3m까지!)','뱀은 눈꺼풀이 없어서 눈을 감지 못해요','파충류는 스스로 몸을 데우지 못해서 햇볕을 쬐며 체온을 올려요']},
-  kuta:{c:'id',ko:'꾸따',local:'Kuta',kind:'sea',desc:'서핑 배우기 좋은 바다 마을, 노을이 예뻐요',
+  kuta:{map:'https://www.google.com/maps/search/?api=1&query=Kuta+Beach+Bali',c:'id',ko:'꾸따',local:'Kuta',kind:'sea',desc:'서핑 배우기 좋은 바다 마을, 노을이 예뻐요',
     tips:['꾸따 해변은 서쪽 바다를 보고 있어서 저녁에 해가 바다로 지는 게 보여요','해변 깃발 확인! 빨간 깃발이 있으면 물에 들어가지 않기','서핑할 땐 선크림 듬뿍, 물 자주 마시기']},
-  turtle:{c:'id',ko:'바다거북 보호센터',local:'Bali Sea Turtle Society',kind:'sea',desc:'아기 거북을 바다로 보내 주는 곳 (하는 날이 정해져 있지 않아요)',
+  turtle:{map:'https://www.google.com/maps/search/?api=1&query=Bali+Sea+Turtle+Society+Kuta',c:'id',ko:'바다거북 보호센터',local:'Bali Sea Turtle Society',kind:'sea',desc:'아기 거북을 바다로 보내 주는 곳 (하는 날이 정해져 있지 않아요)',
     tips:['바다거북은 태어난 해변을 기억해서, 어른이 되면 알을 낳으러 다시 돌아와요','아기 거북은 손으로 만지지 않기 — 사람 손의 열과 세균이 해로워요'],
     guide:{ title:'아기 거북 바다로 보내기 (방류)',
       when:'알이 부화한 날에만 열려요. 매일 하는 게 아니라서 <b>운이 좋고 날짜가 맞아야</b> 볼 수 있어요. 그날 아침 보호센터 인스타그램(@baliseaturtlesociety) 공지를 보고 알 수 있어요. 보통 해가 약해지는 늦은 오후에 해요',
       how:['꾸따 해변의 보호센터 부스에 가서 이름을 적어요 (정해진 값 대신 기부를 받아요)','직원이 아기 거북을 작은 통에 담아 한 마리씩 나눠 줘요','해변에 줄을 서서 기다렸다가, 신호가 나면 다 같이 모래 위에 살며시 내려놓아요','아기 거북이 스스로 바다까지 기어가는 걸 지켜봐요'],
       care:['손으로 만지거나 들어 올리지 않기','플래시 사진 금지 — 아기 거북은 빛을 보고 바다 쪽을 찾아가요','거북이 가는 길을 막거나 따라 들어가지 않기','내려놓은 뒤엔 뒤로 물러서서 응원만 하기'] }},
-  waterbom:{c:'id',ko:'워터봄',local:'Waterbom Bali',kind:'sea',lat:-8.728,lon:115.169,desc:'미끄럼틀이 가득한 워터파크',
+  waterbom:{map:'https://www.google.com/maps/search/?api=1&query=Waterbom+Bali',c:'id',ko:'워터봄',local:'Waterbom Bali',kind:'sea',lat:-8.728,lon:115.169,desc:'미끄럼틀이 가득한 워터파크',
     tips:['미끄럼틀마다 키 제한이 있어요. 입구의 키 재는 표시를 확인!','물속에 오래 있어도 땀이 나요 — 물 자주 마시고 선크림 다시 바르기']},
-  hcm:{c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요',
+  hcm:{map:'https://www.google.com/maps/search/?api=1&query=Ho+Chi+Minh+City',c:'vn',ko:'호치민',local:'Hồ Chí Minh',kind:'city',desc:'옛 이름은 사이공 '+O('Sài Gòn')+'. 베트남 지도자 호찌민의 이름을 땄어요',
     tips:['공항 이름표 SGN은 옛 이름 사이공(SaiGoN)에서 왔어요','오토바이가 정말 많아요. 길은 어른 손을 잡고 천천히 일정한 속도로 건너기']}
 };
 const ENGLISH = [['Hello! / Thank you!','안녕하세요 / 고마워요'],['Excuse me.','실례합니다 (길 비켜 달라거나 부를 때)'],['Where is the toilet?','화장실이 어디예요?'],['Water, please.','물 주세요'],['How much is it?','얼마예요?'],['Can you help me?','도와주실 수 있어요?'],['I am from Korea.','저는 한국에서 왔어요'],['I am 9 years old.','나는 9살이에요 — 영어로는 만 나이로 말해요 (한국식으로는 10살)'],['My name is ___.','내 이름은 ___예요 (내 이름 넣어 말하기)']];
@@ -542,7 +544,7 @@ function renderDays() {
   const fl = (tr.flights || []).filter(f => f.date === S.sel);
   const detail = '<div class="card"><div class="lbl">' + md(S.sel) + ' ' + wd(S.sel) + '요일' + (x.place ? ' · ' + esc(x.place) : '') + '</div>' +
     '<div class="big">' + esc(x.title) + '</div>' + (x.desc ? '<div class="muted" style="margin-top:6px">' + esc(x.desc) + '</div>' : '') +
-    spots.map(s => '<span class="chip">' + SPOT[s].ko + ' ' + SPOT[s].local + '</span>').join('') + plan + '</div>' +
+    '<div>' + spots.map(s => mapBtn(SPOT[s].map, SPOT[s].ko + ' ' + SPOT[s].local)).join(' ') + '</div>' + plan + '</div>' +
     fl.map(flightCard).join('') +
     (tips.length ? '<div class="card"><div class="lbl">알아 두면 좋은 것</div>' + tips.map(t => I(IC.info, t)).join('') + '</div>' : '');
   $('app').innerHTML = '<div class="two"><div class="left"><div class="days">' + list + '</div></div><div class="grow stack">' + detail + diaryEditor(S.sel) + '</div></div>';
@@ -606,6 +608,8 @@ function confirmLeave() {
   if ($('dSave')) $('dSave').click();
 }
 
+const PIN_I = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const mapBtn = (url, t) => url ? '<a class="mapbtn" href="' + esc(url) + '" target="_blank" rel="noopener">' + PIN_I + (t || '구글 지도') + '</a>' : '';
 // ───────── 비행기 ─────────
 const pad = n => String(n).padStart(2, '0');
 function flightCalc(f) {
@@ -747,7 +751,7 @@ function renderPlaces() {
   $('app').innerHTML = ctabs + '<div class="stack">' +
     '<div class="hero" style="background:' + c.color + '">' + FLAG[key] + '<div><div class="t">' + c.ko + ' ' + O(c.local) + '</div><div class="s">' + c.line + '</div></div></div>' +
     '<div class="card"><div class="lbl">나라 한눈에 · 어디 있을까?</div><div class="mapwrap"><div>' + MAP +
-      '<div class="muted small" style="margin-top:4px">대략 그린 위치도예요 (실제 모양과 조금 달라요)</div></div>' +
+      '<div class="muted small" style="margin-top:4px">대략 그린 위치도예요 (실제 모양과 조금 달라요). <b>보르네오섬</b>은 인도네시아(분홍, 칼리만탄)·말레이시아·브루나이 세 나라가 나눠 가져요 — 점선이 나라 경계예요</div></div>' +
       '<div><div class="kv">' + c.facts.map(f => '<div><small>' + f[0] + '</small>' + f[1] + '</div>').join('') + '</div>' +
       '<div class="fact" style="margin-top:12px">' + FLAG[key].replace('width="60" height="40"', 'width="30" height="20"') + '<div>' + c.flagTxt + '</div></div></div></div></div>' +
     geoPanel(c) +
@@ -761,7 +765,7 @@ function renderPlaces() {
     '</div>' +
     '<div class="card"><div class="lbl">이름에 숨은 뜻</div><div class="phr">' + c.names.map(n => '<div class="fact" style="display:block;margin-top:6px"><b>' + n[0] + '</b> ' + O(n[1]) + '<div class="muted" style="font-size:14px">' + n[2] + '</div></div>').join('') + '</div></div>' +
     '<div class="card"><div class="lbl">' + c.ko + ' 문화 이야기</div><div class="phr">' + c.culture.map(x => '<div class="fact" style="display:block;margin-top:6px"><b>' + x[0] + '</b><div class="muted" style="font-size:14.5px">' + x[1] + '</div></div>').join('') + '</div></div>' +
-    '<div class="card"><div class="lbl">우리가 가는 곳</div><div class="phr">' + (mySpots.length ? mySpots.map(s => '<div class="city" style="align-items:flex-start"><div class="cimg ' + SPOT[s].kind + '"></div><div><div class="dtt">' + SPOT[s].ko + ' ' + O(SPOT[s].local) + '</div><div class="pl">' + SPOT[s].desc + '</div>' + (SPOT[s].guide ? guide(SPOT[s].guide) : '') + '</div></div>').join('') : '<div class="muted">일정에 장소가 아직 없어요</div>') + '</div></div>' +
+    '<div class="card"><div class="lbl">우리가 가는 곳</div><div class="phr">' + (mySpots.length ? mySpots.map(s => '<div class="city" style="align-items:flex-start"><div class="cimg ' + SPOT[s].kind + '"></div><div><div class="dtt">' + SPOT[s].ko + ' ' + O(SPOT[s].local) + '</div><div class="pl">' + SPOT[s].desc + '</div>' + mapBtn(SPOT[s].map) + (SPOT[s].guide ? guide(SPOT[s].guide) : '') + '</div></div>').join('') : '<div class="muted">일정에 장소가 아직 없어요</div>') + '</div></div>' +
     '<div class="grid3">' +
       '<div class="card"><div class="lbl">돈 · 시간 · 날씨</div>' + I(IC.coin, c.money + (fx ? '. 1만 ' + esc(fx.unit || '') + ' ≈ ' + fx.now + '원 (' + esc(fx.date) + ' 기준)' : '')) + I(IC.clock, c.time) + I(IC.sun, c.weather) + '</div>' +
       '<div class="card"><div class="lbl">꼭 지켜요</div>' + c.rules.map(r => I(IC.shield, r)).join('') + '</div>' +
@@ -837,27 +841,11 @@ function baliMap(pins) {
   return '<svg class="bmap" viewBox="0 0 630 420" role="img" aria-label="발리섬 숙소 위치도"><rect width="630" height="420" class="sea"/>' + land +
     '<text x="330" y="95" class="ct" text-anchor="middle">발리섬 Pulau Bali</text>' + pins.map(pin).join('') + '</svg>';
 }
-// 호치민 공항 주변 약도 (대략): 활주로 2개, 사이공강, 1군 시내
-function hcmMap(pins) {
-  const lo0 = 106.61, lo1 = 106.77, la0 = 10.85, la1 = 10.74, W = 630, H = 430;
-  const X = lo => ((lo - lo0) / (lo1 - lo0) * W).toFixed(1), Y = la => ((la0 - la) / (la0 - la1) * H).toFixed(1);
-  const line = (a, b, c) => '<line x1="' + X(a[0]) + '" y1="' + Y(a[1]) + '" x2="' + X(b[0]) + '" y2="' + Y(b[1]) + '" ' + c + '/>';
-  const river = [[106.77,10.845],[106.752,10.815],[106.738,10.800],[106.728,10.792],[106.718,10.780],[106.712,10.768],[106.718,10.757],[106.735,10.748],[106.755,10.742]];
-  let g = '<rect width="' + W + '" height="' + H + '" fill="#F4F1E4"/>' +
-    '<polyline points="' + river.map(p => X(p[0]) + ',' + Y(p[1])).join(' ') + '" fill="none" stroke="#9CCBEF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<text x="' + X(106.742) + '" y="' + Y(10.806) + '" class="ct" transform="rotate(52 ' + X(106.742) + ' ' + Y(10.806) + ')">사이공강 Sông Sài Gòn</text>' +
-    '<rect x="' + X(106.640) + '" y="' + Y(10.834) + '" width="' + (X(106.680) - X(106.640)) + '" height="' + (Y(10.806) - Y(10.834)) + '" rx="14" fill="#E3E8EE"/>' +
-    line([106.644,10.813],[106.676,10.823],'stroke="#8C99A6" stroke-width="7" stroke-linecap="round"') +
-    line([106.645,10.819],[106.677,10.829],'stroke="#8C99A6" stroke-width="7" stroke-linecap="round"') +
-    '<text x="' + X(106.660) + '" y="' + Y(10.838) + '" text-anchor="middle" class="ct">떤선녓 공항 · 활주로</text>' +
-    '<circle cx="' + X(106.698) + '" cy="' + Y(10.773) + '" r="26" fill="#F08A3C" fill-opacity=".18"/>' +
-    '<text x="' + X(106.698) + '" y="' + Y(10.773) + '" text-anchor="middle" class="lb">호치민 시내 (1군)</text>' +
-    '<text x="' + X(106.698) + '" y="' + (+Y(10.773) + 17) + '" text-anchor="middle" class="ct">벤탄 시장 · 공항에서 차로 30~40분</text>' +
-    '<text x="' + X(106.635) + '" y="' + Y(10.790) + '" class="ct">떤빈 군 Tân Bình</text>';
-  const pin = p => '<circle cx="' + X(p.lon) + '" cy="' + Y(p.lat) + '" r="' + (p.n ? 11 : 7) + '" fill="' + (p.color || '#E8453C') + '" stroke="#fff" stroke-width="2"/>' +
-    (p.n ? '<text x="' + X(p.lon) + '" y="' + (+Y(p.lat) + 4.5) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">' + p.n + '</text>' : '') +
-    '<text x="' + (+X(p.lon) + (p.dx || 15)) + '" y="' + (+Y(p.lat) + (p.dy || 5)) + '" text-anchor="' + (p.anchor || 'start') + '" class="lb">' + esc(p.label) + '</text>';
-  return '<svg class="bmap" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="호치민 공항 주변 숙소 위치도">' + g + pins.map(pin).join('') + '</svg>';
+// 구글 지도 검색 링크 → 같은 검색어의 임베드 지도 주소
+function embedOf(url) {
+  let q = '';
+  try { q = new URL(url).searchParams.get('query') || ''; } catch (e) {}
+  return 'https://maps.google.com/maps?q=' + encodeURIComponent(q) + '&z=15&output=embed';
 }
 function renderStays() {
   const st = S.trip.stays || [];
@@ -870,11 +858,11 @@ function renderStays() {
   const dps = AIRPORT.DPS; pins.push({ lat:dps.lat, lon:dps.lon, color:'#1E90FF', label:'DPS 공항', dx:-12, anchor:'end' });
   const sgn = AIRPORT.SGN; hpins.push({ lat:sgn.lat, lon:sgn.lon, color:'#1E90FF', label:'SGN 국제선 터미널', dx:-12, anchor:'end', dy:-12 });
   const n = pins.length - 1;
-  const pinI = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+  const hcmStay = st.find(s => inHcm(s) && s.map);
   const mapNote = '<div class="muted small" style="margin-top:6px;text-align:center">번호는 아래 숙소 카드 번호예요. 대략 그린 그림이라 정확한 위치는 구글 지도 버튼으로 확인해요</div>';
   $('app').innerHTML = '<div class="stack">' +
     '<div class="grid2">' +
-      (hpins.length > 1 ? '<div class="card"><div class="lbl">베트남 호치민 숙소 위치 · 대략</div>' + hcmMap(hpins) + mapNote + '</div>' : '') +
+      (hcmStay ? '<div class="card"><div class="lbl">베트남 호치민 숙소 위치</div><div class="gmap"><iframe src="' + esc(embedOf(hcmStay.map)) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="호치민 숙소 지도"></iframe></div><div class="muted small" style="margin-top:6px;text-align:center">진짜 지도예요. 손가락으로 움직이고 크게 볼 수 있어요. 떤선녓 공항 바로 옆이에요</div></div>' : '') +
       (n ? '<div class="card"><div class="lbl">발리 숙소 위치 · 대략</div>' + baliMap(pins) + mapNote + '</div>' : '') +
     '</div>' +
     '<div class="grid2">' + st.map((s, i) => {
@@ -885,7 +873,7 @@ function renderStays() {
         ((s.checkin || s.checkout) ? I(IC.clock, (s.checkin ? '체크인 ' + esc(s.checkin) : '') + (s.checkin && s.checkout ? ' · ' : '') + (s.checkout ? '체크아웃 ' + esc(s.checkout) : '')) : '') +
         (s.desc ? '<div class="muted" style="margin-top:6px">' + esc(s.desc) + '</div>' : '') +
         ((s.features || []).length ? '<div class="feat">' + s.features.map(f => '<span>' + esc(f) + '</span>').join('') + '</div>' : '') +
-        (s.map ? '<a class="mapbtn" href="' + esc(s.map) + '" target="_blank" rel="noopener">' + pinI + '구글 지도에서 보기</a>' : '') + '</div>';
+        mapBtn(s.map, '구글 지도에서 보기') + '</div>';
     }).join('') + '</div></div>';
 }
 // ───────── ⑤ 일기 모아보기 ─────────
