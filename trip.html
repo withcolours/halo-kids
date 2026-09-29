@@ -59,7 +59,7 @@ h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:clamp(24px,3.4vw,3
 .fact svg { width:18px; height:18px; stroke:var(--acc); flex-shrink:0; margin-top:3px; }
 .moods { display:flex; gap:10px; }
 .mood { flex:1; border:1.5px solid var(--line); border-radius:14px; padding:10px 0; text-align:center; font-size:14px; color:var(--sub); min-height:48px; background:var(--card); cursor:pointer; font-family:inherit; }
-.mood svg { width:26px; height:26px; display:block; margin:0 auto 4px; }
+.mood svg { width:34px; height:34px; display:block; margin:0 auto 4px; }
 .mood.on { border-color:var(--acc); color:var(--acc); background:var(--soft); }
 .q { font-weight:700; font-size:16px; }
 .ta, .inp { width:100%; border:1.5px solid var(--line); border-radius:14px; padding:12px; font:inherit; font-size:16px; resize:vertical; color:var(--ink); background:var(--card); }
@@ -258,9 +258,9 @@ const IC = {
   pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'
 };
 const MOODS = [
-  ['best','최고','<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>'],
-  ['ok','그냥','<circle cx="12" cy="12" r="10"/><path d="M8 15h8M9 9h.01M15 9h.01"/>'],
-  ['tired','피곤','<circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2M9 9h.01M15 9h.01"/>']
+  ['best','최고','<circle cx="12" cy="12" r="10"/><path d="M7.3 10.2q1.7-2.2 3.4 0M13.3 10.2q1.7-2.2 3.4 0"/><path d="M7.5 13.8q4.5 4.8 9 0"/>'],
+  ['ok','그냥','<circle cx="12" cy="12" r="10"/><circle cx="9" cy="10" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.4" fill="currentColor" stroke="none"/><path d="M8.5 15.5h7"/>'],
+  ['tired','피곤','<circle cx="12" cy="12" r="10"/><path d="M7.3 10.5h3.4M13.3 10.5h3.4"/><path d="M9 16q3-1.8 6 0"/>']
 ];
 
 // ───────── 여행지 라이브러리 (공개 가능한 일반 정보만 — 우리 가족 정보는 Firebase) ─────────
@@ -385,7 +385,7 @@ const ENGLISH = [['Hello! / Thank you!','안녕하세요 / 고마워요'],['Excu
 // 공항·항공사 (공개 일반 정보)
 const AIRPORT = {
   ICN:{ ko:'인천국제공항', local:'Incheon International Airport', city:'인천', tz:9, why:'ICN = <b>I</b>n<b>C</b>heo<b>N</b>' },
-  SGN:{ ko:'떤선녓 국제공항', local:'Tân Sơn Nhất International Airport', city:'호치민', tz:7, why:'SGN = 옛 이름 <b>S</b>ai<b>G</b>o<b>N</b>(사이공)' },
+  SGN:{ ko:'떤선녓 국제공항', local:'Tân Sơn Nhất International Airport', city:'호치민', tz:7, why:'SGN = 옛 이름 <b>S</b>ai<b>G</b>o<b>N</b>(사이공)', lat:10.8155, lon:106.6600 },
   DPS:{ ko:'응우라라이 국제공항', local:'I Gusti Ngurah Rai International Airport', city:'발리', tz:8, why:'DPS = 발리의 중심 도시 <b>D</b>en<b>P</b>a<b>S</b>ar(덴파사르)', lat:-8.748, lon:115.167 }
 };
 const AIRLINE = { VN:'베트남항공 Vietnam Airlines', KE:'대한항공 Korean Air', OZ:'아시아나항공 Asiana Airlines', GA:'가루다 인도네시아 Garuda Indonesia' };
@@ -555,7 +555,8 @@ function renderDays() {
 }
 function diaryEditor(d) {
   const e = entry('days/' + d) || {}, ph = phase();
-  const lang = (COUNTRY[(SPOT[((S.trip.days[d] || {}).spots || [])[0]] || {}).c] || COUNTRY[(S.trip.countries || [])[0]] || { lang:'현지' }).lang;
+  const C0 = COUNTRY[(SPOT[((S.trip.days[d] || {}).spots || [])[0]] || {}).c] || COUNTRY[(S.trip.countries || [])[0]] || { lang:'현지', words:[] };
+  const lang = C0.lang, ex = (C0.words || [])[1];
   if (!canWrite(d)) {
     if (S.readOnly) return '<div class="card"><div class="q">' + md(d) + '의 일기</div>' + (entry('days/' + d) ? entryView(e) : '<div class="lock" style="margin-top:10px">아직 안 썼어요</div>') + '</div>';
     const why = ph.p === 'before' ? '여행이 시작되면 일기를 쓸 수 있어요. 지금은 홈에서 "기대되는 것"을 써 봐!' : '이 날이 오면 쓸 수 있어요';
@@ -563,11 +564,11 @@ function diaryEditor(d) {
   }
   const words = (e.words || []).map((w, i) => '<button class="pill" data-wi="' + i + '" title="지우기">' + esc(w) + ' ×</button>').join('');
   return '<div class="card stack" style="gap:10px"><div class="q">' + (d === ph.today ? '오늘의 일기' : md(d) + '의 일기') + '</div>' +
-    '<div class="moods">' + MOODS.map(([k, n, p]) => '<button class="mood' + (e.mood === k ? ' on' : '') + '" data-m="' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + p + '</svg>' + n + '</button>').join('') + '</div>' +
+    '<div class="moods">' + MOODS.map(([k, n, p]) => '<button class="mood' + (e.mood === k ? ' on' : '') + '" data-m="' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>' + n + '</button>').join('') + '</div>' +
     '<div class="q">제일 재밌던 것</div><textarea class="ta" id="dFun">' + esc(e.fun || '') + '</textarea>' +
     '<div class="q">오늘 뭐 했어?</div><textarea class="ta tall" id="dText">' + esc(e.text || '') + '</textarea>' +
     '<div class="q">오늘 배운 ' + lang + ' 말</div><div id="dWords">' + words + '</div>' +
-    '<div class="row"><input class="inp" id="dWordIn" style="flex:1;min-width:180px" placeholder="예: 뜨리마 까시 = 고마워" maxlength="40"><button class="btn ghost" id="dWordAdd">추가</button></div>' +
+    '<div class="row"><input class="inp" id="dWordIn" style="flex:1;min-width:180px" placeholder="' + (ex ? '예: ' + ex[0] + ' = ' + ex[2] : '예: 새로 배운 말 = 뜻') + '" maxlength="40"><button class="btn ghost" id="dWordAdd">추가</button></div>' +
     '<div class="row"><button class="btn" id="dSave" style="flex:1">저장하기</button><span class="save" id="dSt">' + (getDraft('days/' + d) ? '기기에 저장됨 · 전송 대기' : (e.updatedAt ? '저장됨 · ' + hhmm(e.updatedAt) : '')) + '</span></div></div>';
 }
 function entryView(e) {
@@ -836,15 +837,46 @@ function baliMap(pins) {
   return '<svg class="bmap" viewBox="0 0 630 420" role="img" aria-label="발리섬 숙소 위치도"><rect width="630" height="420" class="sea"/>' + land +
     '<text x="330" y="95" class="ct" text-anchor="middle">발리섬 Pulau Bali</text>' + pins.map(pin).join('') + '</svg>';
 }
+// 호치민 공항 주변 약도 (대략): 활주로 2개, 사이공강, 1군 시내
+function hcmMap(pins) {
+  const lo0 = 106.61, lo1 = 106.77, la0 = 10.85, la1 = 10.74, W = 630, H = 430;
+  const X = lo => ((lo - lo0) / (lo1 - lo0) * W).toFixed(1), Y = la => ((la0 - la) / (la0 - la1) * H).toFixed(1);
+  const line = (a, b, c) => '<line x1="' + X(a[0]) + '" y1="' + Y(a[1]) + '" x2="' + X(b[0]) + '" y2="' + Y(b[1]) + '" ' + c + '/>';
+  const river = [[106.77,10.845],[106.752,10.815],[106.738,10.800],[106.728,10.792],[106.718,10.780],[106.712,10.768],[106.718,10.757],[106.735,10.748],[106.755,10.742]];
+  let g = '<rect width="' + W + '" height="' + H + '" fill="#F4F1E4"/>' +
+    '<polyline points="' + river.map(p => X(p[0]) + ',' + Y(p[1])).join(' ') + '" fill="none" stroke="#9CCBEF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<text x="' + X(106.742) + '" y="' + Y(10.806) + '" class="ct" transform="rotate(52 ' + X(106.742) + ' ' + Y(10.806) + ')">사이공강 Sông Sài Gòn</text>' +
+    '<rect x="' + X(106.640) + '" y="' + Y(10.834) + '" width="' + (X(106.680) - X(106.640)) + '" height="' + (Y(10.806) - Y(10.834)) + '" rx="14" fill="#E3E8EE"/>' +
+    line([106.644,10.813],[106.676,10.823],'stroke="#8C99A6" stroke-width="7" stroke-linecap="round"') +
+    line([106.645,10.819],[106.677,10.829],'stroke="#8C99A6" stroke-width="7" stroke-linecap="round"') +
+    '<text x="' + X(106.660) + '" y="' + Y(10.838) + '" text-anchor="middle" class="ct">떤선녓 공항 · 활주로</text>' +
+    '<circle cx="' + X(106.698) + '" cy="' + Y(10.773) + '" r="26" fill="#F08A3C" fill-opacity=".18"/>' +
+    '<text x="' + X(106.698) + '" y="' + Y(10.773) + '" text-anchor="middle" class="lb">호치민 시내 (1군)</text>' +
+    '<text x="' + X(106.698) + '" y="' + (+Y(10.773) + 17) + '" text-anchor="middle" class="ct">벤탄 시장 · 공항에서 차로 30~40분</text>' +
+    '<text x="' + X(106.635) + '" y="' + Y(10.790) + '" class="ct">떤빈 군 Tân Bình</text>';
+  const pin = p => '<circle cx="' + X(p.lon) + '" cy="' + Y(p.lat) + '" r="' + (p.n ? 11 : 7) + '" fill="' + (p.color || '#E8453C') + '" stroke="#fff" stroke-width="2"/>' +
+    (p.n ? '<text x="' + X(p.lon) + '" y="' + (+Y(p.lat) + 4.5) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">' + p.n + '</text>' : '') +
+    '<text x="' + (+X(p.lon) + (p.dx || 15)) + '" y="' + (+Y(p.lat) + (p.dy || 5)) + '" text-anchor="' + (p.anchor || 'start') + '" class="lb">' + esc(p.label) + '</text>';
+  return '<svg class="bmap" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="호치민 공항 주변 숙소 위치도">' + g + pins.map(pin).join('') + '</svg>';
+}
 function renderStays() {
   const st = S.trip.stays || [];
   if (!st.length) { $('app').innerHTML = '<div class="skel">숙소 정보가 아직 없어요</div>'; return; }
   const inBali = (s) => typeof s.lat === 'number' && s.lat < -8 && s.lat > -8.9 && s.lon > 114.4 && s.lon < 115.8;
-  let n = 0; const num = st.map(s => inBali(s) ? ++n : 0);
-  const pins = st.map((s, i) => num[i] ? { lat:s.lat, lon:s.lon, n:num[i], label:s.name } : null).filter(Boolean);
+  const inHcm = (s) => typeof s.lat === 'number' && s.lat > 10.74 && s.lat < 10.85 && s.lon > 106.61 && s.lon < 106.77;
+  const num = st.map((s, i) => (inBali(s) || inHcm(s)) ? i + 1 : 0);
+  const pinsOf = f => st.map((s, i) => f(s) ? { lat:s.lat, lon:s.lon, n:num[i], label:s.name } : null).filter(Boolean);
+  const pins = pinsOf(inBali), hpins = pinsOf(inHcm);
   const dps = AIRPORT.DPS; pins.push({ lat:dps.lat, lon:dps.lon, color:'#1E90FF', label:'DPS 공항', dx:-12, anchor:'end' });
+  const sgn = AIRPORT.SGN; hpins.push({ lat:sgn.lat, lon:sgn.lon, color:'#1E90FF', label:'SGN 국제선 터미널', dx:-12, anchor:'end', dy:-12 });
+  const n = pins.length - 1;
   const pinI = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-  $('app').innerHTML = '<div class="stack">' + (n ? '<div class="card"><div class="lbl">발리 숙소 위치 · 대략</div>' + baliMap(pins) + '<div class="muted small" style="margin-top:6px;text-align:center">번호는 아래 숙소 카드 번호예요. 정확한 위치는 구글 지도 버튼으로 확인해요</div></div>' : '') +
+  const mapNote = '<div class="muted small" style="margin-top:6px;text-align:center">번호는 아래 숙소 카드 번호예요. 대략 그린 그림이라 정확한 위치는 구글 지도 버튼으로 확인해요</div>';
+  $('app').innerHTML = '<div class="stack">' +
+    '<div class="grid2">' +
+      (hpins.length > 1 ? '<div class="card"><div class="lbl">베트남 호치민 숙소 위치 · 대략</div>' + hcmMap(hpins) + mapNote + '</div>' : '') +
+      (n ? '<div class="card"><div class="lbl">발리 숙소 위치 · 대략</div>' + baliMap(pins) + mapNote + '</div>' : '') +
+    '</div>' +
     '<div class="grid2">' + st.map((s, i) => {
       const nn = s.from && s.to ? diffDays(s.from, s.to) : null;
       return '<div class="card"><div class="lbl">' + (s.from ? md(s.from) + (s.to ? ' ~ ' + md(s.to) : '') : '') + (nn ? ' · ' + nn + '박' : '') + '</div>' +
