@@ -631,7 +631,7 @@ function flightCard(f) {
   if (c.diff === 0) note = '두 공항 시간이 같아요. 시계로 ' + hm(c.clock) + ' 지나요.';
   else note = '실제로 하늘을 나는 시간은 <b>' + hm(c.mins) + '</b>. 그런데 시계로는 ' + hm(c.clock) + (c.clock > c.mins ? ' 지난 것처럼 보여요' : '만 지난 것처럼 보여요') +
     ' — ' + B.city + josa(B.city, '이', '가') + ' ' + A.city + '보다 <b>' + Math.abs(c.diff) + '시간 ' + (c.diff > 0 ? '빠르기' : '늦기') + '</b> 때문이에요' + (c.diff > 0 ? ' (시계를 ' + c.diff + '시간 앞으로!)' : ' (시계를 ' + (-c.diff) + '시간 뒤로!)');
-  return '<div class="flight"><div class="top"><span class="chip" style="margin:0">' + md(f.date) + ' ' + wd(f.date) + '</span><span class="no">' + esc(f.no) + '</span><span class="al">' + esc(al) + '</span></div>' +
+  return '<div class="flight"><div class="top"><span class="chip" style="margin:0">' + md(f.date) + ' ' + wd(f.date) + '</span><span class="no">' + esc(f.no) + '</span><span class="al">' + esc(al) + '</span>' + (f.meal ? '<span class="chip" style="margin:0 0 0 auto">🍱 ' + esc(f.meal) + '</span>' : '') + '</div>' +
     '<div class="fleg"><div><div class="ap">' + esc(f.from) + '</div><div class="tm">' + esc(f.dep) + '</div><div class="nm">' + esc(A.ko) + (f.fromT ? ' ' + esc(f.fromT) : '') + '<br>' + esc(A.local) + '</div></div>' +
     '<div class="mid">' + plane + hm(c.mins) + '</div>' +
     '<div class="r"><div class="ap">' + esc(f.to) + '</div><div class="tm">' + esc(f.arr) + (c.plus ? ' <small style="font-size:13px;color:var(--red)">+' + c.plus + '일</small>' : '') + '</div><div class="nm">' + esc(B.ko) + (f.toT ? ' ' + esc(f.toT) : '') + '<br>' + esc(B.local) + '</div></div></div>' +
@@ -955,7 +955,7 @@ const ALLOW = {
   top:['id','title','start','end','members','countries','route','home','days','stays','fx','flights','diaryOpen'],
   day:['title','short','place','desc','chips','tip','tips','plan','tz','spots'],
   stay:['name','local','area','address','from','to','checkin','checkout','desc','features','map','lat','lon'],
-  flight:['date','no','from','fromT','to','toT','dep','arr'],
+  flight:['date','no','from','fromT','to','toT','dep','arr','meal'],
   fx:['unit','date','now','hist','item','price','min','max']
 };
 const BAD = [
@@ -994,6 +994,7 @@ function validateTrip(o) {
     for (const k of ['from','to']) if (x[k] && !AIRPORT[x[k]]) warn.push(P + '.' + k + ': ' + x[k] + ' — 공항 정보가 없어 한국 시간으로 계산');
     for (const k of ['fromT','toT']) if (x[k] != null && !/^T?\d{1,2}$|^[A-Z]$/.test(x[k])) err.push(P + '.' + k + ': 터미널 (예: T1)');
     for (const k of ['dep','arr']) if (!isHM(x[k])) err.push(P + '.' + k + ': 시각 HH:MM');
+    if (x.meal != null && (typeof x.meal !== 'string' || x.meal.length > 12)) err.push(P + '.meal: 12자 이내 글자 (예: 아동식)');
     return x;
   });
   const days = {};
