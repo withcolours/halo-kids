@@ -172,10 +172,8 @@ code { background:var(--bg); padding:1px 5px; border-radius:5px; font-size:12.5p
 .feat span { font-size:13px; background:var(--bg); border-radius:99px; padding:4px 10px; }
 a.mapbtn { display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 14px; border-radius:99px; border:1.5px solid var(--acc); color:var(--acc); text-decoration:none; font-size:14px; font-weight:700; }
 a.mapbtn svg { width:16px; height:16px; stroke:currentColor; }
-.gmap { position:relative; border-radius:14px; overflow:hidden; margin-top:8px; aspect-ratio:3/2; max-width:100%; background:var(--bg); }
-.gmap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 .bmap { width:100%; max-width:640px; height:auto; display:block; margin:8px auto 0; border-radius:14px; }
-.bmap .sea{fill:#DCEEFB}.bmap .land{fill:#F4F1E4;stroke:#C9C2A6}.bmap .lb{font-size:13px;font-weight:700;fill:#1B2733;paint-order:stroke;stroke:#fff;stroke-width:3px}.bmap .ct{font-size:12px;fill:#8C8570}
+.bmap .tw{font-size:13px;font-weight:700;fill:#fff}.bmap .tn{font-size:12px;font-weight:700;fill:#fff;text-anchor:middle}.bmap .lb.red{fill:#E8453C}.bmap .sea{fill:#DCEEFB}.bmap .land{fill:#F4F1E4;stroke:#C9C2A6}.bmap .lb{font-size:13px;font-weight:700;fill:#1B2733;paint-order:stroke;stroke:#fff;stroke-width:3px}.bmap .ct{font-size:12px;fill:#8C8570}
 .guide { background:var(--bg); border-radius:14px; padding:12px 14px; margin-top:10px; font-size:14.5px; line-height:1.6; }
 .guide h4 { margin:8px 0 2px; font-size:13.5px; }
 .guide ul { margin:4px 0 0; padding-left:18px; }
@@ -841,11 +839,38 @@ function baliMap(pins) {
   return '<svg class="bmap" viewBox="0 0 630 420" role="img" aria-label="발리섬 숙소 위치도"><rect width="630" height="420" class="sea"/>' + land +
     '<text x="330" y="95" class="ct" text-anchor="middle">발리섬 Pulau Bali</text>' + pins.map(pin).join('') + '</svg>';
 }
-// 구글 지도 검색 링크 → 같은 검색어의 임베드 지도 주소
-function embedOf(url) {
-  let q = '';
-  try { q = new URL(url).searchParams.get('query') || ''; } catch (e) {}
-  return 'https://maps.google.com/maps?q=' + encodeURIComponent(q) + '&z=15&output=embed';
+// 호치민 공항 주변 그림 지도 (발리 지도와 같은 스타일, 실제 배치를 보고 단순화)
+function hcmMap(n, name) {
+  const t = (x, y, txt, cls, a) => '<text x="' + x + '" y="' + y + '" text-anchor="' + (a || 'middle') + '" class="' + cls + '">' + txt + '</text>';
+  let g = '<rect width="630" height="420" fill="#F4F1E4"/>' +
+    // 자딘 공원
+    '<rect x="478" y="36" width="132" height="92" rx="14" fill="#CFE8C9"/>' + t(544, 78, '자딘 공원', 'lb') + t(544, 96, 'Công viên Gia Định', 'ct') +
+    // 공항 부지 + 활주로 2개 + 유도로
+    '<path d="M22 40 H440 Q456 40 456 56 V300 Q456 316 440 316 H22 Z" fill="#E3E8EE"/>' +
+    '<line x1="40" y1="104" x2="430" y2="68" stroke="#9AA6B2" stroke-width="12" stroke-linecap="round"/>' +
+    '<line x1="40" y1="150" x2="430" y2="114" stroke="#9AA6B2" stroke-width="12" stroke-linecap="round"/>' +
+    '<line x1="40" y1="104" x2="430" y2="68" stroke="#fff" stroke-width="1.5" stroke-dasharray="10 10"/>' +
+    '<line x1="40" y1="150" x2="430" y2="114" stroke="#fff" stroke-width="1.5" stroke-dasharray="10 10"/>' +
+    t(235, 60, '활주로 2개', 'ct') + t(170, 196, '떤선녓 국제공항', 'lb') + t(170, 214, 'Tân Sơn Nhất International Airport', 'ct') +
+    // 터미널
+    '<rect x="300" y="170" width="92" height="36" rx="8" fill="#1E90FF"/>' + t(346, 193, '국제선 T2', 'tw') +
+    '<rect x="300" y="226" width="92" height="30" rx="8" fill="#8FB6DC"/>' + t(346, 246, '국내선 T1', 'tw') +
+    '<rect x="112" y="252" width="92" height="30" rx="8" fill="#8FB6DC"/>' + t(158, 272, '국내선 T3', 'tw') +
+    // 도로
+    '<line x1="418" y1="160" x2="418" y2="410" stroke="#fff" stroke-width="12"/><line x1="418" y1="160" x2="418" y2="410" stroke="#E2D7B8" stroke-width="1"/>' +
+    '<text x="404" y="330" transform="rotate(-90 404 330)" text-anchor="middle" class="ct">Trường Sơn 길</text>' +
+    '<line x1="418" y1="232" x2="630" y2="232" stroke="#fff" stroke-width="11"/>' + t(550, 222, 'Bạch Đằng 길', 'ct', 'end') +
+    '<line x1="566" y1="140" x2="566" y2="410" stroke="#fff" stroke-width="9"/>' + '<text x="552" y="300" transform="rotate(-90 552 300)" text-anchor="middle" class="ct">Hồng Hà 길</text>' +
+    // 걸어가는 길 (숙소 → 국제선 터미널)
+    '<path d="M458 222 L426 222 L426 190 L396 188" fill="none" stroke="#E8453C" stroke-width="3.5" stroke-dasharray="7 6" stroke-linecap="round"/>' +
+    t(470, 178, '걸어서 공항으로', 'lb red', 'start') +
+    // 숙소 핀
+    '<circle cx="468" cy="222" r="12" fill="#E8453C" stroke="#fff" stroke-width="2.5"/>' + t(468, 226.5, String(n || ''), 'tn') +
+    t(492, 262, esc(name || '숙소'), 'lb') + t(492, 279, '01 Bạch Đằng B', 'ct') +
+    // 시내 방향 + 북쪽 표시
+    '<path d="M470 350 L600 350 L600 340 L622 356 L600 372 L600 362 L470 362 Z" fill="#F08A3C" fill-opacity=".85"/>' + t(546, 338, '시내(1군)·벤탄 시장', 'lb') + t(546, 392, '남동쪽으로 차로 30~40분', 'ct') +
+    '<g transform="translate(40 360)"><circle r="18" fill="#fff" stroke="#C9C2A6"/><path d="M0 -13 L6 5 L0 1 L-6 5 Z" fill="#E8453C"/>' + t(0, 16, 'N', 'ct') + '</g>';
+  return '<svg class="bmap" viewBox="0 0 630 420" role="img" aria-label="호치민 떤선녓 공항 주변 숙소 그림 지도">' + g + '</svg>';
 }
 function renderStays() {
   const st = S.trip.stays || [];
@@ -858,11 +883,11 @@ function renderStays() {
   const dps = AIRPORT.DPS; pins.push({ lat:dps.lat, lon:dps.lon, color:'#1E90FF', label:'DPS 공항', dx:-12, anchor:'end' });
   const sgn = AIRPORT.SGN; hpins.push({ lat:sgn.lat, lon:sgn.lon, color:'#1E90FF', label:'SGN 국제선 터미널', dx:-12, anchor:'end', dy:-12 });
   const n = pins.length - 1;
-  const hcmStay = st.find(s => inHcm(s) && s.map);
+  const hcmStay = st.find(s => inHcm(s));
   const mapNote = '<div class="muted small" style="margin-top:6px;text-align:center">번호는 아래 숙소 카드 번호예요. 대략 그린 그림이라 정확한 위치는 구글 지도 버튼으로 확인해요</div>';
   $('app').innerHTML = '<div class="stack">' +
     '<div class="grid2">' +
-      (hcmStay ? '<div class="card"><div class="lbl">베트남 호치민 숙소 위치</div><div class="gmap"><iframe src="' + esc(embedOf(hcmStay.map)) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="호치민 숙소 지도"></iframe></div><div class="muted small" style="margin-top:6px;text-align:center">진짜 지도예요. 손가락으로 움직이고 크게 볼 수 있어요. 떤선녓 공항 바로 옆이에요</div></div>' : '') +
+      (hcmStay ? '<div class="card"><div class="lbl">베트남 호치민 숙소 위치 · 대략</div>' + hcmMap(num[st.indexOf(hcmStay)], hcmStay.name) + mapNote + '</div>' : '') +
       (n ? '<div class="card"><div class="lbl">발리 숙소 위치 · 대략</div>' + baliMap(pins) + mapNote + '</div>' : '') +
     '</div>' +
     '<div class="grid2">' + st.map((s, i) => {
