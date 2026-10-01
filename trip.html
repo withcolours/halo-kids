@@ -405,6 +405,23 @@ const AIR_STEPS = {
       ['다음 비행기 게이트 확인','화면에서 다음 편명을 찾아 게이트를 확인해요. 바뀔 수도 있으니 가끔 다시 보기']]
 };
 const AIR_WORDS = [['탑승권','Boarding pass'],['탑승구','Gate'],['출발','Departures'],['도착','Arrivals'],['환승','Transfer'],['수하물(짐)','Baggage'],['여권','Passport'],['지연','Delayed'],['탑승 중','Boarding']];
+// 입국 서류·비자 기본 지식 (공개 일반 정보 — 가족 예약 정보는 넣지 않음)
+const ENTRY_BASICS = [
+  ['여권 (passport)','나라 밖에서 쓰는 신분증이에요. "나는 대한민국 사람이에요"를 증명해 줘요. 여행 내내 잃어버리지 않게 부모님이 챙겨요'],
+  ['비자 (visa)','그 나라에 <b>들어와도 좋다는 허락</b>이에요. 나라마다 규칙이 달라서, 어떤 나라는 한국 여권이면 비자 없이(무비자) 들어가고, 어떤 나라는 돈을 내고 비자를 받아야 해요'],
+  ['입국 신고서 (도착카드)','"누가, 언제, 어떤 비행기로, 왜, 어디서 자는지"를 적어 내는 서류예요. 옛날엔 비행기 안에서 종이에 썼는데, 요즘은 <b>출발 전에 인터넷으로 미리</b> 써요'],
+  ['QR코드','신고서를 다 쓰면 네모난 QR코드가 나와요. 입국 심사 때 <b>여권과 함께</b> 보여 주면 빨리 통과해요'],
+  ['왜 필요할까?','나라를 지키기 위해서예요. 누가 들어왔는지 기록하고, 병이 퍼지지 않게 살피고, 들어오면 안 되는 물건을 막아요']
+];
+const ENTRY_FORM = ['이름 — 여권에 적힌 영어 철자 그대로 (Surname = 성, Given name = 이름)','여권 번호와 여권 만료일','국적 — Republic of Korea (대한민국)','타고 오는 비행기 편명과 날짜','여행 목적 — 관광은 Tourism','머무는 숙소 이름과 주소','건강 질문 — 열·기침 같은 증상이 있는지','최근 21일 동안 머물렀거나 거쳐 온 나라'];
+const ENTRY = {
+  vn: { visa:'한국 여권은 <b>45일까지 비자 없이(무비자)</b> 관광할 수 있어요 — 비자 값 0원',
+        form:'<b>사전 입국 정보(PAI)</b>를 인터넷으로 미리 신고해요. 무료이고, 도착 3일 전부터 쓸 수 있어요. 가족을 한 번에 신고하면 QR코드 하나로 나와요',
+        note:'공항 밖으로 나가지 않고 비행기만 갈아타면(환승) 신고하지 않아도 돼요' },
+  id: { visa:'<b>도착 비자 (e-VOA, 전자 도착비자)</b>를 받아야 해요. 인터넷으로 미리 신청하고, 어른·아이 <b>한 사람마다</b> IDR 500,000 (약 3만 8천 원). 30일 동안 머물 수 있어요',
+        form:'<b>올 인도네시아 도착카드 (All Indonesia Arrival Card)</b> — 입국 심사·세관(가져오는 물건)·건강 질문이 하나로 합쳐진 신고서예요. 도착 3일 전부터 써요',
+        note:'<b>발리 관광세</b>는 발리에서만 따로 내는 세금이에요. 한 사람 IDR 150,000 (약 1만 1천 원) — 발리의 자연과 문화를 지키는 데 써요' }
+};
 const AIR_TIPS = ['비행기가 뜨고 내릴 때 귀가 먹먹하면 침을 삼키거나 하품하기','안전벨트 표시등이 켜져 있으면 자리에 앉아 있어요','비행기 안은 건조해요. 물을 자주 마시기','<b>아동식(키즈밀)</b>을 미리 신청했다면 어른 식사보다 먼저 나와요. 내 식판이 맞는지 확인해 봐요 🍱','비행기 시간은 모두 <b>그 공항이 있는 나라 시간</b>이에요. 그래서 시차만큼 시계가 달라 보여요'];
 
 // ───────── 상태 ─────────
@@ -637,6 +654,16 @@ function flightCard(f) {
     '<div class="r"><div class="ap">' + esc(f.to) + '</div><div class="tm">' + esc(f.arr) + (c.plus ? ' <small style="font-size:13px;color:var(--red)">+' + c.plus + '일</small>' : '') + '</div><div class="nm">' + esc(B.ko) + (f.toT ? ' ' + esc(f.toT) : '') + '<br>' + esc(B.local) + '</div></div></div>' +
     '<div class="fnote">시각은 모두 <b>그 공항의 현지 시간</b>이에요. ' + note + '</div></div>';
 }
+function entryCard() {
+  const cs = (S.trip.countries || []).filter(c => ENTRY[c] && COUNTRY[c]);
+  return '<div class="card" style="grid-column:1/-1"><div class="lbl">나라에 들어갈 때 필요한 것 — 입국 서류와 비자</div>' +
+    '<div class="steps">' + ENTRY_BASICS.map(x => '<div><span><b>' + x[0] + '</b> — ' + x[1] + '</span></div>').join('') + '</div>' +
+    '<div class="lbl" style="margin-top:14px">입국 신고서에 적는 것</div>' + ENTRY_FORM.map(t => I(IC.info, t)).join('') +
+    '<div class="muted small" style="margin-top:4px">여권 번호 같은 정보는 아주 소중해서 부모님이 직접 써요. 다른 사람에게 알려 주면 안 돼요</div>' +
+    cs.map(c => '<div class="lbl" style="margin-top:14px">' + esc(COUNTRY[c].ko) + ' (' + esc(COUNTRY[c].local) + ')</div>' +
+      I(IC.info, '<b>비자</b> — ' + ENTRY[c].visa) + I(IC.info, '<b>신고서</b> — ' + ENTRY[c].form) + I(IC.info, ENTRY[c].note)).join('') +
+    '</div>';
+}
 function renderAir() {
   const fl = (S.trip.flights || []).slice().sort((a, b) => flightCalc(a).dep - flightCalc(b).dep);
   const waits = [];
@@ -657,6 +684,7 @@ function renderAir() {
       '<div class="card"><div class="lbl">공항 코드 (알파벳 3글자 이름표)</div><div class="muted" style="font-size:14px;margin:4px 0 6px">전 세계 공항마다 겹치지 않는 3글자 이름이 있어요. 국제항공운송협회(IATA)가 정해요. 탑승권·짐표·공항 안내판에 크게 적혀 있어서, 말이 달라도 이 글자로 어디 가는지 알 수 있어요.</div>' + used.map(k => '<div class="wrow"><b>' + k + '</b><span>' + AIRPORT[k].ko + ' ' + O(AIRPORT[k].local) + '</span><span class="m" style="margin-left:0;flex-basis:100%">' + AIRPORT[k].why + '</span></div>').join('') + '</div>' +
       '<div class="card"><div class="lbl">공항에서 보는 영어</div>' + AIR_WORDS.map(w => '<div class="wrow"><b>' + w[1] + '</b><span class="m">' + w[0] + '</span></div>').join('') + '</div>' +
       '<div class="card" style="grid-column:1/-1"><div class="lbl">비행기 안 팁</div>' + AIR_TIPS.map(t => I(IC.info, t)).join('') + '</div>' +
+      entryCard() +
     '</div></div>';
 }
 
