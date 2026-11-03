@@ -92,6 +92,26 @@
         ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
         ".write": "auth != null && auth.uid === $uid"
       }
+    },
+    "userDocs": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        ".write": "auth != null && auth.uid !== $uid && (root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        "$did": {
+          ".validate": "!newData.exists() || (newData.child('title').isString() && newData.child('title').val().length <= 60 && newData.child('kind').val().matches(/^(school|academy|care|etc)$/) && newData.child('start').val().matches(/^\\d{4}-\\d{2}-\\d{2}$/) && newData.child('end').isString() && newData.child('pages').isNumber() && newData.child('thumb').isString() && newData.child('thumb').val().length < 80000)"
+        }
+      }
+    },
+    "docPages": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        ".write": "auth != null && auth.uid !== $uid && (root.child('users').child(auth.uid).child('role').val() === 'admin' || root.child('parents').child(auth.uid).child($uid).exists())",
+        "$did": {
+          "$page": {
+            ".validate": "newData.isString() && newData.val().beginsWith('data:image/jpeg;base64,') && newData.val().length < 2500000"
+          }
+        }
+      }
     }
   }
 }

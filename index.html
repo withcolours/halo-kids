@@ -109,6 +109,12 @@ a.card:active { transform:scale(.98); }
     <span><span class="t">여행</span><br><span class="d" id="tripCardD">일정 보고 일기 쓰기</span></span>
     <span class="tag" id="tripCardTag" style="background:#F08A3C">여행</span>
   </a>
+
+  <a class="card" href="docs.html">
+    <div class="icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+    <span><span class="t">자료함</span><br><span class="d" id="docsCardD">학교·학원·돌봄 계획표 보기</span></span>
+    <span class="tag" id="docsCardTag" style="background:#6B7C8F">자료</span>
+  </a>
 </div>
 
 <script>
@@ -190,6 +196,7 @@ firebase.auth().onAuthStateChanged(async (fbUser) => {
   document.getElementById('ddUsername').textContent = username;
 
   loadTripCard(uid);
+  loadDocsCard(uid);
   const me = (await db.ref(`users/${uid}`).once('value')).val();
   if (me) {
     const name = me.nickname || username;
@@ -254,6 +261,29 @@ async function loadTripCard(uid) {
     }
     card.style.display = '';
   } catch (e) { /* 규칙 미게시 등 — 카드 숨김 유지 */ }
+}
+
+// 자료함 카드: 지금 볼 자료 이름과 새 자료(7일 안에 올라와 아직 안 연 것) 개수 — 열어 본 기록은 docs.html이 localStorage에 남김
+async function loadDocsCard(uid) {
+  try {
+    let target = uid;
+    try { const vc = JSON.parse(localStorage.getItem('viewChild') || 'null'); if (vc && vc.uid) target = vc.uid; } catch (e) {}
+    if (target === uid) {
+      const kids = Object.keys((await db.ref(`parents/${uid}`).once('value')).val() || {});
+      if (kids.length) target = kids[0];
+    }
+    const docs = (await db.ref(`userDocs/${target}`).once('value')).val() || {};
+    const pad = n => String(n).padStart(2, '0'), d = new Date();
+    const today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    let seen = {}; try { seen = JSON.parse(localStorage.getItem('docsSeen:' + target) || '{}'); } catch (e) {}
+    const cur = Object.entries(docs).filter(([, x]) => x.start <= today && (!x.end || x.end >= today));
+    const fresh = Object.entries(docs).filter(([id, x]) => !seen[id] && (!x.end || x.end >= today) && (x.createdAt || 0) > Date.now() - 7 * 864e5);
+    if (cur.length) document.getElementById('docsCardD').textContent = cur.map(([, x]) => x.title).slice(0, 3).join(' · ');
+    if (fresh.length) {
+      const tag = document.getElementById('docsCardTag');
+      tag.textContent = '새 자료 ' + fresh.length; tag.style.background = '#C99A16';
+    }
+  } catch (e) { /* 규칙 미게시 등 — 기본 문구 유지 */ }
 }
 
 // 로그아웃 (활동 로그 남기고 종료)

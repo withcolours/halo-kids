@@ -31,7 +31,7 @@
 - 카드가 분야별 탭에 cloneNode 복제됨 → 읽음 토글은 같은 data-book-id 전체 동기화. 필터 함수는 `window.__apply`로 노출
 
 ## 페이지 구성
-login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **week**(모바일 주간 계획 — 행×요일점, 점탭 체크, 바텀시트 추가·수정; 폰에서 planner-print 접속 시 자동 이 화면, ?paper=1 예외) / **today**(오늘 화면: 지금 마커·체크·%·불꽃·⭐) / **shop**(보상 상점: 파생 별 잔고·교환 신청·부모/관리자 승인) / **tasks**(과제 D-day) / **parent**(부모 홈: 아이 카드·승인·전환) / **planner-print**(주간 플래너 체크뷰 — Firebase 계정별 저장: `userPlanWeeks`/`userPlanChecks`/`userPlanLibrary`, 주별 스냅샷, 시트 위 라이브 체크(페인트 스트로크), 주 이동+빈 주 3택, localStorage는 오프라인 캐시·레거시 `halokids_weekly_grid_v1`은 최초 로그인 시 1회 이관) / planner(구모델 초안 — 그리드 모델로 재작업 예정) / **trip**(여행 섹션 — `?id=` 없으면 여행 목록+부모용 가져오기. 탭: 홈·일정(+일기)·여행지·숙소·일기 모아보기. 대문 맨 아래 카드는 여행이 있을 때만 보임)
+login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / at-series(앗시리즈 150권) / discussking(토론왕 93) / math-basic·math-adv·science-basic·social-basic(뒤집기류) / videos(통합 181편) / ott·ott-list(구버전) / profile / settings(테마·비번변경·로그아웃 + 인쇄용 플래너 바로가기 카드) / admin(role=admin 전용) / **week**(모바일 주간 계획 — 행×요일점, 점탭 체크, 바텀시트 추가·수정; 폰에서 planner-print 접속 시 자동 이 화면, ?paper=1 예외) / **today**(오늘 화면: 지금 마커·체크·%·불꽃·⭐) / **shop**(보상 상점: 파생 별 잔고·교환 신청·부모/관리자 승인) / **tasks**(과제 D-day) / **parent**(부모 홈: 아이 카드·승인·전환) / **planner-print**(주간 플래너 체크뷰 — Firebase 계정별 저장: `userPlanWeeks`/`userPlanChecks`/`userPlanLibrary`, 주별 스냅샷, 시트 위 라이브 체크(페인트 스트로크), 주 이동+빈 주 3택, localStorage는 오프라인 캐시·레거시 `halokids_weekly_grid_v1`은 최초 로그인 시 1회 이관) / planner(구모델 초안 — 그리드 모델로 재작업 예정) / **trip**(여행 섹션 — `?id=` 없으면 여행 목록+부모용 가져오기. 탭: 홈·일정(+일기)·여행지·숙소·일기 모아보기. 대문 맨 아래 카드는 여행이 있을 때만 보임) / **docs**(자료함 — 학교·학원·돌봄·기타 계획표 이미지. 아이는 보기만, 부모·관리자는 `?child=`로 올리기·지우기. 종류 고르면 기간 자동(학교=이번 주, 금~일은 다음 주 / 학원·돌봄=이번 달, 25일 이후는 다음 달 / 기타=계속), 기간 지나면 '지난 것'. PDF는 pdf.js로 쪽마다 JPEG, 사진은 캔버스로 다시 그려 EXIF 제거. 대문 맨 아래 카드에 지금 자료·새 자료 수)
 
 ## DB 구조
 - `users/{uid}`: username, nickname, birthYear, role(child|admin), createdAt, lastLogin
@@ -41,6 +41,7 @@ login / index(대문: 책·영상 카드 + 아바타 드롭다운) / category / 
 - 라이브 노드(규칙 v4 게시됨): userTasks, rewards, redemptions, usernames(아이디→uid), parents/{부모uid}/{아이uid}. 별 잔고는 저장 없이 파생 계산(computeGame — today/shop/week에 동일 사본)
 - Phase B 잔여 노드: userBooks, readingLog
 - 여행(규칙 추가됨 — **콘솔 게시 필요**): `trips/{tripId}`(아이용 요약만: 날짜별 title·place·desc·tip·tz·spots, stays, route, countries, fx, memberUids — 부모/admin만 쓰기, 멤버만 읽기), `userTrips/{uid}/{tripId}`(목록 인덱스), `tripDiary/{uid}/{tripId}/days/{날짜}`·`/meta`(pre·fav) — **본인만 쓰기**, 부모 읽기. 다시 가져오기는 trips만 덮어써 일기 보존
+- 자료함(규칙 추가됨 — **콘솔 게시 필요**): `userDocs/{아이uid}/{id}`(title·kind·place·start·end(''=계속)·pages·thumb(작은 JPEG)·by·createdAt), `docPages/{아이uid}/{id}/{쪽}`(JPEG data URL, 2.5MB 미만). 읽기=본인·부모·admin, 쓰기=연결된 부모·admin만(아이 본인 불가). **파일은 리포에 넣지 말 것**(공개 사이트) — 원본은 LifeLog `교육/참고 자료/`
 - 여행지 일반 정보(나라·장소·말·퀴즈·위치도)는 trip.html 안 `COUNTRY`/`SPOT` 상수 (공개 가능한 백과 정보만). 가족 정보(날짜·숙소·환전 환율)는 반드시 Firebase로 — 리포에 넣지 말 것
 - 여행 JSON 원본은 LifeLog `여행/…/halokids-trip.json`(git 제외). 가져오기 검사가 긴 숫자·금액·이메일·편명·예약/결제 단어를 거부
 - **역할 정책**: 가입 시 child 고정·본인 변경 불가, admin만 관리 화면에서 아이↔부모 변경(admin 부여는 콘솔). **아이 보기 전환**: localStorage `viewChild` — 오늘·주간·상점·과제에 적용, 대문 주황 표시
