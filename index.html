@@ -92,6 +92,12 @@ a.card:active { transform:scale(.98); }
     <span class="tag" style="background:#2E9E5B">플래너</span>
   </a>
 
+  <a class="card" href="docs.html">
+    <div class="icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+    <span><span class="t">자료함</span><br><span class="d" id="docsCardD">학교·학원·돌봄 계획표 보기</span></span>
+    <span class="tag" id="docsCardTag" style="background:#6B7C8F">자료</span>
+  </a>
+
   <a class="card" href="category.html?type=books">
     <div class="icon"><svg data-feather="book" width="36" height="36"></svg></div>
     <span><span class="t">책</span><br><span class="d">앗! 시리즈 등 전집 고르기</span></span>
@@ -110,11 +116,6 @@ a.card:active { transform:scale(.98); }
     <span class="tag" id="tripCardTag" style="background:#F08A3C">여행</span>
   </a>
 
-  <a class="card" href="docs.html">
-    <div class="icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
-    <span><span class="t">자료함</span><br><span class="d" id="docsCardD">학교·학원·돌봄 계획표 보기</span></span>
-    <span class="tag" id="docsCardTag" style="background:#6B7C8F">자료</span>
-  </a>
 </div>
 
 <script>
@@ -263,7 +264,7 @@ async function loadTripCard(uid) {
   } catch (e) { /* 규칙 미게시 등 — 카드 숨김 유지 */ }
 }
 
-// 자료함 카드: 지금 볼 자료 이름과 새 자료(7일 안에 올라와 아직 안 연 것) 개수 — 열어 본 기록은 docs.html이 localStorage에 남김
+// 자료함 카드(오늘 바로 아래 — 사용자 지정 2026-11-04): 지금 볼 자료 이름과 새 자료(7일 안에 올라와 아직 안 연 것) 개수 — 열어 본 기록은 docs.html이 localStorage에 남김
 async function loadDocsCard(uid) {
   try {
     let target = uid;

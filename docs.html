@@ -72,9 +72,17 @@ main { width:100%; max-width:1100px; }
 .chips { display:flex; gap:8px; flex-wrap:wrap; }
 .chip { min-height:42px; padding:0 15px; border-radius:99px; border:2px solid var(--line); background:var(--card); color:var(--ink); font-size:14.5px; font-weight:700; font-family:inherit; cursor:pointer; }
 .chip.on { background:var(--accd); border-color:var(--accd); color:#fff; }
-.pics { display:flex; gap:10px; flex-wrap:wrap; }
-.pics img { width:72px; height:96px; object-fit:cover; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,.15); background:#fff; }
-.addpic { width:72px; height:96px; border-radius:6px; border:2px dashed var(--line); background:var(--bg); color:var(--accd); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:28px; }
+.pics { display:flex; flex-direction:column; gap:8px; }
+.prow { display:flex; align-items:center; gap:10px; background:var(--bg); border:1.5px solid var(--line); border-radius:14px; padding:7px 9px; }
+.prow img { width:44px; height:58px; object-fit:cover; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.15); background:#fff; }
+.prow b { flex:1; font-size:15px; }
+.pbtn { width:44px; height:44px; flex:0 0 44px; border-radius:12px; border:1.5px solid var(--line); background:var(--card); color:var(--accd); font-size:16px; font-weight:700; cursor:pointer; font-family:inherit; }
+.pbtn:disabled { opacity:.35; cursor:default; }
+.pbtn.x { color:#C2453B; border-color:#F2C4BF; }
+.addpic { min-height:48px; border-radius:14px; border:2px dashed var(--line); background:var(--bg); color:var(--accd); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; font-weight:700; }
+.delall { min-height:52px; padding:0 16px; border-radius:16px; border:1.5px solid #F2C4BF; background:transparent; color:#C2453B; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer; }
+.gorow { display:flex; gap:10px; }
+.gorow .go { flex:1; }
 .hint { font-size:12px; color:var(--sub); margin-top:6px; }
 .range { display:flex; align-items:center; gap:8px; background:var(--bg); border-radius:12px; padding:10px 12px; margin-top:10px; font-size:14.5px; font-weight:500; flex-wrap:wrap; }
 .range input { min-height:36px; border:1.5px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; padding:0 6px; }
@@ -113,15 +121,17 @@ main { width:100%; max-width:1100px; }
     <button class="vbtn" id="vPrev" aria-label="이전 쪽"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <span class="cnt" id="vCnt"></span>
     <button class="vbtn" id="vNext" aria-label="다음 쪽"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-    <button class="vdel" id="vDel">지우기</button>
+    <button class="vdel" id="vEdit">고치기</button>
   </div>
 </div>
 
 <div class="sheetbg" id="sheetBg">
   <div class="sheet" role="dialog" aria-modal="true" aria-label="자료 올리기">
-    <h2>자료 올리기 <button class="hbtn" id="sClose" aria-label="닫기"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></h2>
+    <h2><span id="sTitle">자료 올리기</span> <button class="hbtn" id="sClose" aria-label="닫기"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></h2>
     <div>
-      <div class="pics" id="pics"><label class="addpic" aria-label="사진·PDF 고르기">+<input type="file" id="file" accept="image/*,application/pdf" multiple hidden></label></div>
+      <div class="lbl" id="pgLbl">쪽</div>
+      <div class="pics" id="pics"></div>
+      <label class="addpic" style="margin-top:8px">+ 사진·PDF로 쪽 더하기<input type="file" id="file" accept="image/*,application/pdf" multiple hidden></label>
       <div class="hint" id="picHint">사진(여러 장)이나 PDF를 골라요. PDF는 쪽마다 이미지로 바뀌고, 사진의 위치정보는 지워져요.</div>
     </div>
     <div>
@@ -142,7 +152,7 @@ main { width:100%; max-width:1100px; }
       <div class="lbl">제목</div>
       <input class="txt" id="titleIn" maxlength="40">
     </div>
-    <button class="go" id="goBtn" disabled>올리기</button>
+    <div class="gorow"><button class="delall" id="delAll" style="display:none">자료 통째로 지우기</button><button class="go" id="goBtn" disabled>올리기</button></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -260,7 +270,7 @@ function openViewer(id){
   vDoc=id; vPage=0; vZoom=1;
   $('vKind').textContent=(KINDS[d.kind]||'기타')+(d.place?' · '+d.place:'')+' · '+perText(d);
   $('vTitle').textContent=d.title;
-  $('vDel').style.display=canEdit?'block':'none';
+  $('vEdit').style.display=canEdit?'block':'none';
   $('viewer').classList.add('open'); applyZoom();
   markSeen(id); showPage();
 }
@@ -276,16 +286,11 @@ document.addEventListener('keydown',e=>{ if(!$('viewer').classList.contains('ope
   $('vBody').addEventListener('touchstart',e=>{ x0=(e.touches.length===1&&vZoom===1)?e.touches[0].clientX:null; },{passive:true});
   $('vBody').addEventListener('touchend',e=>{ if(x0===null)return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>60)(dx<0?$('vNext'):$('vPrev')).click(); x0=null; });
 })();
-$('vDel').onclick=async()=>{
-  const d=docs[vDoc]; if(!d||!confirm('"'+d.title+'"을(를) 지울까요? 되돌릴 수 없어요.')) return;
-  try{
-    await db.ref().update({[`userDocs/${target}/${vDoc}`]:null,[`docPages/${target}/${vDoc}`]:null});
-    delete docs[vDoc]; closeViewer(); renderTabs(); render(); toast('지웠어요.');
-  }catch(e){ toast(permMsg(e)); }
-};
+$('vEdit').onclick=()=>{ const id=vDoc; closeViewer(); openEdit(id); };
 
 /* ── 올리기 (부모·관리자) ── */
 let up={files:[], kind:'school', place:'', per:'', start:'', end:''};
+let editId=null;   // 고치는 중인 자료 (null = 새로 올리기)
 function periodDefs(){
   const t=TODAY(), d=new Date(t+'T00:00:00'), wd=d.getDay();
   const mon=mondayOf(t), nmon=addDays(mon,7);
@@ -318,21 +323,54 @@ function renderSheet(){
     : (up.end?esc(md(up.start)+' ~ '+md(up.end)):'기한 없음 (지울 때까지)');
   if(up.per==='custom'){ $('cs').onchange=e=>{ up.start=e.target.value; if(up.end<up.start)up.end=up.start; renderSheet(); }; $('ce').onchange=e=>{ up.end=e.target.value; }; }
   if(!titleTouched) $('titleIn').value=autoTitle();
+  const n=up.files.length;
+  $('pgLbl').textContent=n?'쪽 순서 ('+n+'쪽) — ▲▼로 옮기고 × 로 빼요':'쪽';
+  $('pics').innerHTML=up.files.map((f,i)=>`<div class="prow"><img src="${f}" alt=""><b>${i+1}쪽</b>
+    <button class="pbtn" data-mv="${i}:-1" aria-label="앞으로"${i===0?' disabled':''}>▲</button>
+    <button class="pbtn" data-mv="${i}:1" aria-label="뒤로"${i===n-1?' disabled':''}>▼</button>
+    <button class="pbtn x" data-rm="${i}" aria-label="이 쪽 빼기">✕</button></div>`).join('');
   $('goBtn').disabled=!up.files.length || (up.kind==='academy' && !up.place.trim());
 }
 $('sheetBg').addEventListener('click',e=>{
   if(e.target===$('sheetBg')) return closeSheet();
   const k=e.target.closest('[data-kind]'); if(k){ up.kind=k.dataset.kind; setPer(defaultPer(up.kind)); return; }
   const pl=e.target.closest('[data-place]'); if(pl){ up.place=pl.dataset.place; $('placeIn').value=up.place; renderSheet(); return; }
-  const pr=e.target.closest('[data-per]'); if(pr){ setPer(pr.dataset.per); }
+  const pr=e.target.closest('[data-per]'); if(pr){ setPer(pr.dataset.per); return; }
+  const mv=e.target.closest('[data-mv]'); if(mv){ const [i,d]=mv.dataset.mv.split(':').map(Number), j=i+d, f=up.files; [f[i],f[j]]=[f[j],f[i]]; renderSheet(); return; }
+  const rm=e.target.closest('[data-rm]'); if(rm){ up.files.splice(+rm.dataset.rm,1); renderSheet(); }
 });
 $('placeIn').oninput=e=>{ up.place=e.target.value.trim(); renderSheet(); };
 $('titleIn').oninput=()=>{ titleTouched=true; };
 function openSheet(){
-  up={files:[], kind:'school', place:'', per:'', start:'', end:''}; titleTouched=false;
-  $('placeIn').value=''; $('pics').querySelectorAll('img').forEach(i=>i.remove());
+  up={files:[], kind:'school', place:'', per:'', start:'', end:''}; titleTouched=false; editId=null;
+  $('placeIn').value=''; $('sTitle').textContent='자료 올리기'; $('goBtn').textContent='올리기'; $('delAll').style.display='none';
+  $('picHint').textContent='사진(여러 장)이나 PDF를 골라요. PDF는 쪽마다 이미지로 바뀌고, 사진의 위치정보는 지워져요.';
   setPer(defaultPer('school')); $('sheetBg').classList.add('open');
 }
+// 고치기: 지금 쪽들을 불러와 같은 시트에서 순서·빼기·더하기·제목·기간을 바꾸고 통째로 다시 저장
+async function openEdit(id){
+  const d=docs[id]; if(!d) return;
+  editId=id; titleTouched=true;
+  up={files:[], kind:d.kind, place:d.place||'', per:'custom', start:d.start, end:d.end||''};
+  const p=periodDefs(); for(const k of ['thisWeek','nextWeek','thisMonth','nextMonth']) if(p[k][1]===d.start&&p[k][2]===d.end) up.per=k;
+  if(!d.end) up.per='always';
+  $('placeIn').value=up.place; $('titleIn').value=d.title;
+  $('sTitle').textContent='자료 고치기'; $('goBtn').textContent='저장'; $('delAll').style.display='';
+  $('picHint').textContent='쪽 불러오는 중…'; renderSheet(); $('sheetBg').classList.add('open');
+  try{
+    const pg=(await db.ref(`docPages/${target}/${id}`).once('value')).val()||[];
+    up.files=Object.keys(pg).sort((a,b)=>a-b).map(k=>pg[k]).filter(Boolean);
+    $('picHint').textContent='더한 사진의 위치정보는 지워져요.';
+  }catch(e){ $('picHint').textContent=permMsg(e); }
+  renderSheet();
+}
+$('delAll').onclick=async()=>{
+  const d=docs[editId]; if(!d||!confirm('"'+d.title+'"을(를) 통째로 지울까요? 되돌릴 수 없어요.')) return;
+  try{
+    await db.ref().update({[`userDocs/${target}/${editId}`]:null,[`docPages/${target}/${editId}`]:null});
+    delete docs[editId]; closeSheet(); renderTabs(); render(); toast('지웠어요.');
+  }catch(e){ toast(permMsg(e)); }
+};
 function closeSheet(){ $('sheetBg').classList.remove('open'); }
 $('upBtn').onclick=openSheet; $('sClose').onclick=closeSheet;
 
@@ -377,10 +415,9 @@ $('file').onchange=async e=>{
         const full=canvasJpeg(src,w,h,1800,0.82);
         if(full.length>2400000){ toast('한 쪽이 너무 커서 뺐어요.'); continue; }
         up.files.push(full);
-        const im=document.createElement('img'); im.src=full; im.alt=''; $('pics').insertBefore(im,$('pics').lastElementChild);
       }
     }
-    if(up.files.length>12){ up.files=up.files.slice(0,12); toast('한 번에 12쪽까지만 올려요.'); }
+    if(up.files.length>12){ up.files=up.files.slice(0,12); toast('한 자료는 12쪽까지예요.'); }
     $('picHint').textContent=up.files.length+'쪽 준비됨 · 위치정보는 지워졌어요.';
   }catch(err){ $('picHint').textContent=String(err.message||err); }
   renderSheet();
@@ -388,18 +425,22 @@ $('file').onchange=async e=>{
 $('goBtn').onclick=async()=>{
   const title=$('titleIn').value.trim()||autoTitle();
   if(up.per==='custom' && (!up.start||!up.end)){ toast('날짜를 골라 주세요.'); return; }
-  $('goBtn').disabled=true; $('goBtn').textContent='올리는 중…';
+  const label=editId?'저장':'올리기';
+  $('goBtn').disabled=true; $('goBtn').textContent=editId?'저장하는 중…':'올리는 중…';
   try{
-    const ref=db.ref(`userDocs/${target}`).push(), id=ref.key;
+    const ref=editId?db.ref(`userDocs/${target}/${editId}`):db.ref(`userDocs/${target}`).push(), id=ref.key;
     const im=await loadImg(await (await fetch(up.files[0])).blob());
     const thumb=canvasJpeg(im,im.naturalWidth,im.naturalHeight,360,0.7);
-    for(let i=0;i<up.files.length;i++) await db.ref(`docPages/${target}/${id}/${i}`).set(up.files[i]);
-    const meta={title, kind:up.kind, place:up.kind==='academy'?up.place.trim():'', start:up.start, end:up.end||'', pages:up.files.length, thumb, by:uid, createdAt:firebase.database.ServerValue.TIMESTAMP};
+    if(editId) await db.ref(`docPages/${target}/${id}`).remove();   // 순서가 바뀌거나 쪽이 줄었으니 통째로 다시 씀
+    for(let i=0;i<up.files.length;i++){ await db.ref(`docPages/${target}/${id}/${i}`).set(up.files[i]); delete pageCache[id+'/'+i]; }
+    const old=editId?docs[editId]:{};
+    const meta={...old, title, kind:up.kind, place:up.kind==='academy'?up.place.trim():'', start:up.start, end:up.end||'', pages:up.files.length, thumb, by:old.by||uid,
+                createdAt:editId?old.createdAt:firebase.database.ServerValue.TIMESTAMP};
     await ref.set(meta);
-    docs[id]={...meta, createdAt:Date.now()};
-    closeSheet(); renderTabs(); render(); toast('올렸어요.');
+    docs[id]={...meta, createdAt:editId?old.createdAt:Date.now()};
+    closeSheet(); renderTabs(); render(); toast(editId?'저장했어요.':'올렸어요.');
   }catch(e){ toast(permMsg(e)); }
-  $('goBtn').textContent='올리기'; renderSheet();
+  $('goBtn').textContent=label; renderSheet();
 };
 
 /* ── 시작 ── */
