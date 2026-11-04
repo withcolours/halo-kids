@@ -6,7 +6,7 @@
 ## 배포·인프라
 - 서비스: https://withcolours.github.io/halo-kids/ (GitHub Pages, 공개)
 - 리포: github.com/withcolours/halo-kids · 로컬 `~/Library/Mobile Documents/com~apple~CloudDocs/dev/halo-kids/`
-- **배포할 때 대문 맨 아래 `appVer`(버전 날짜)와 바뀐 페이지 링크의 `?v=`를 같이 올릴 것** — 폰·홈 화면 앱이 옛 페이지를 최대 10분(max-age=600) 붙들고 있어, 버전 글씨로 새 화면인지 확인
+- **배포 = 버전 올리기**: push할 때마다 `CHANGELOG.md` 맨 위에 `vX.Y.Z — 날짜` 항목, 대문 맨 아래 `appVer`(Halo Kids vX.Y.Z)·대문/부모 홈의 자료함 링크 `?v=`를 같은 번호로, `git tag vX.Y.Z` 후 `git push origin main --tags`. 새 기능=가운데 숫자, 고침=끝 숫자. 폰·홈 화면 앱이 옛 페이지를 최대 10분(max-age=600) 들고 있어 대문 번호로 새 화면인지 확인
 - push → 1~2분 내 자동 재배포. CDN 캐시 몇 분 지연 가능 (배포 확인: `curl`로 변경 문자열 grep)
 - **push는 사용자 확인 후** (공개 사이트이므로)
 - 백엔드: Firebase 프로젝트 `halo-kids` — Realtime DB + Auth(이메일/비번, `{계정명}@halo-kids.local` 형식)
