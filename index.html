@@ -277,7 +277,7 @@ async function loadDocsCard(uid) {
     const pad = n => String(n).padStart(2, '0'), d = new Date();
     const today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
     let seen = {}; try { seen = JSON.parse(localStorage.getItem('docsSeen:' + target) || '{}'); } catch (e) {}
-    const cur = Object.entries(docs).filter(([, x]) => x.start <= today && (!x.end || x.end >= today));
+    const cur = Object.entries(docs).filter(([, x]) => x.start <= today && (!x.end || x.end >= today)).sort((a, b) => (a[1].order ?? 1e9) - (b[1].order ?? 1e9));
     const fresh = Object.entries(docs).filter(([id, x]) => !seen[id] && (!x.end || x.end >= today) && (x.createdAt || 0) > Date.now() - 7 * 864e5);
     if (cur.length) document.getElementById('docsCardD').textContent = cur.map(([, x]) => x.title).slice(0, 3).join(' · ');
     if (fresh.length) {

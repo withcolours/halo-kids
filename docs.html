@@ -46,6 +46,14 @@ main { width:100%; max-width:1100px; }
 .old i { width:8px; height:8px; border-radius:50%; display:inline-block; }
 .old span { color:var(--sub); font-size:12.5px; }
 .empty { background:var(--card); border:1.5px dashed var(--line); border-radius:18px; padding:30px 18px; text-align:center; color:var(--sub); font-size:14px; }
+.ordbtn { display:none; align-items:center; min-height:44px; padding:0 16px; border:2px solid var(--accd); border-radius:99px; background:transparent; color:var(--accd); font-family:'Jua',sans-serif; font-size:16px; cursor:pointer; }
+.ordbtn.on { background:var(--accd); color:#fff; }
+.dcard.ord { cursor:default; border:2px dashed var(--line); }
+.ordrow { display:flex; align-items:center; gap:8px; }
+.ordrow button { flex:1; min-height:44px; border-radius:12px; border:1.5px solid var(--line); background:var(--bg); color:var(--accd); font-size:17px; font-weight:700; cursor:pointer; font-family:inherit; }
+.ordrow button:disabled { opacity:.35; cursor:default; }
+.ordrow span { min-width:32px; text-align:center; font-family:'Jua',sans-serif; font-size:19px; color:var(--accd); }
+.ordhint { font-size:13px; color:var(--sub); margin:-4px 0 12px; }
 .upbtn { display:none; align-items:center; gap:8px; min-height:44px; padding:0 18px; border:0; border-radius:99px; background:var(--accd); color:#fff; font-family:'Jua',sans-serif; font-size:17px; cursor:pointer; }
 .kidsel { min-height:44px; border-radius:12px; border:1.5px solid var(--line); background:var(--card); color:var(--ink); font-family:inherit; font-size:14px; padding:0 10px; }
 /* 크게 보기 */
@@ -100,6 +108,7 @@ main { width:100%; max-width:1100px; }
   <button class="hbtn" onclick="history.back()" aria-label="뒤로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
   <h1>내 자료함</h1>
   <select class="kidsel" id="kidSel" style="display:none" aria-label="아이 선택"></select>
+  <button class="ordbtn" id="ordBtn">순서 바꾸기</button>
   <button class="upbtn" id="upBtn"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>올리기</button>
   <a href="index.html" class="hbtn" title="처음으로" aria-label="처음으로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
 </div>
@@ -196,27 +205,33 @@ function perText(d){
 function stateOf(d){ const t=TODAY(); if(d.end && d.end<t) return 'past'; if(d.start>t) return 'soon'; return 'now'; }
 
 let me=null, uid=null, target=null, canEdit=false, docs={}, tab='all';
+let ordering=null;   // 순서 바꾸는 중이면 id 배열 (완료 때 order 칸으로 저장)
+// 카드 순서: 부모가 정한 order가 먼저, 없으면 종류 → 시작일
+const KORD={school:0,academy:1,care:2,etc:3};
+function byOrder(a,b){ const oa=a.order??1e9, ob=b.order??1e9; return oa-ob || (KORD[a.kind]-KORD[b.kind]) || (a.start>b.start?1:a.start<b.start?-1:0); }
 const seenKey = () => 'docsSeen:'+target;
 function seen(){ try{ return JSON.parse(localStorage.getItem(seenKey())||'{}'); }catch(e){ return {}; } }
 function markSeen(id){ const s=seen(); s[id]=1; try{ localStorage.setItem(seenKey(), JSON.stringify(s)); }catch(e){} }
 
 function render(){
   const list=Object.entries(docs).map(([id,d])=>({id,...d})).filter(d=>tab==='all'||d.kind===tab);
-  const cur=list.filter(d=>stateOf(d)!=='past').sort((a,b)=>(a.kind>b.kind?1:a.kind<b.kind?-1:0)||(a.start>b.start?1:-1));
+  let cur=list.filter(d=>stateOf(d)!=='past').sort(byOrder);
+  if(ordering) cur=ordering.map(id=>({id,...docs[id]}));
   const past=list.filter(d=>stateOf(d)==='past').sort((a,b)=>b.end.localeCompare(a.end));
   const sn=seen(), wk=Date.now()-7*864e5;
-  let h='<div class="sect">지금 볼 것</div>';
+  let h='<div class="sect">지금 볼 것</div>'+(ordering?'<div class="ordhint">◀ ▶ 로 자리를 옮기고 "완료"를 눌러요. 아이 화면도 이 순서로 보여요.</div>':'');
   if(!cur.length) h+='<div class="empty">'+(canEdit?'"올리기"로 계획표를 올려 주세요.':'지금 볼 자료가 없어요.')+'</div>';
-  else h+='<div class="grid">'+cur.map(d=>{
+  else h+='<div class="grid">'+cur.map((d,i)=>{
     const st=stateOf(d), isNew=!sn[d.id] && (d.createdAt||0)>wk;
-    return `<button class="dcard" data-open="${d.id}">
+    const ctl=ordering?`<div class="ordrow"><button data-ord="${i}:-1" aria-label="앞으로"${i===0?' disabled':''}>◀</button><span>${i+1}</span><button data-ord="${i}:1" aria-label="뒤로"${i===cur.length-1?' disabled':''}>▶</button></div>`:'';
+    return `<${ordering?'div class="dcard ord"':'button class="dcard" data-open="'+d.id+'"'}>
       <div class="thumb">${d.thumb?`<img src="${d.thumb}" alt="">`:''}
         ${st==='soon'?`<span class="badge soon">${esc(md(d.start))}부터</span>`:isNew?'<span class="badge">새로 올라옴</span>':''}
         <span class="pg">${d.pages||1}쪽</span></div>
       <div><div class="kind" style="color:var(--k-${d.kind})">${KINDS[d.kind]||'기타'}${d.place?' · '+esc(d.place):''}</div>
-      <div class="dt">${esc(d.title)}</div><div class="per">${esc(perText(d))}</div></div></button>`;
+      <div class="dt">${esc(d.title)}</div><div class="per">${esc(perText(d))}</div></div>${ctl}</${ordering?'div':'button'}>`;
   }).join('')+'</div>';
-  if(past.length){
+  if(past.length && !ordering){
     const openOld=sessionStorage.getItem('docsOld')==='1';
     h+=`<button class="oldbtn" id="oldBtn">지난 것 <small>${past.length}개</small> ${openOld?'▴':'▾'}</button>`;
     if(openOld) h+='<div class="olds">'+past.map(d=>`<button class="old" data-open="${d.id}"><i style="background:var(--k-${d.kind})"></i>${esc(d.title)} <span>${esc(perText(d))}</span></button>`).join('')+'</div>';
@@ -230,6 +245,7 @@ function renderTabs(){
   $('tabs').innerHTML=[['all','전체'],...ks.map(k=>[k,KINDS[k]])].map(([k,l])=>`<button class="tab${tab===k?' on':''}" data-tab="${k}">${l}</button>`).join('');
 }
 document.addEventListener('click',e=>{
+  const od=e.target.closest('[data-ord]'); if(od){ const [i,d]=od.dataset.ord.split(':').map(Number), j=i+d, o=ordering; [o[i],o[j]]=[o[j],o[i]]; render(); return; }
   const t=e.target.closest('[data-tab]'); if(t){ tab=t.dataset.tab; renderTabs(); render(); return; }
   const o=e.target.closest('[data-open]'); if(o) openViewer(o.dataset.open);
 });
@@ -241,6 +257,23 @@ async function load(){
     renderTabs(); render();
   }catch(e){ $('content').innerHTML='<div class="empty">'+esc(permMsg(e))+'</div>'; }
 }
+
+/* ── 카드 순서 (부모·관리자) ── */
+$('ordBtn').onclick=async()=>{
+  if(!ordering){
+    tab='all'; renderTabs();
+    ordering=Object.entries(docs).map(([id,d])=>({id,...d})).filter(d=>stateOf(d)!=='past').sort(byOrder).map(d=>d.id);
+    if(ordering.length<2){ ordering=null; toast('지금 볼 자료가 2개 이상일 때 바꿀 수 있어요.'); return; }
+    $('ordBtn').textContent='완료'; $('ordBtn').classList.add('on'); $('upBtn').style.display='none'; render(); return;
+  }
+  const up={}; ordering.forEach((id,i)=>{ up[`userDocs/${target}/${id}/order`]=i; });
+  try{
+    await db.ref().update(up);
+    ordering.forEach((id,i)=>{ docs[id].order=i; });
+    toast('순서를 저장했어요.');
+  }catch(e){ toast(permMsg(e)); }
+  ordering=null; $('ordBtn').textContent='순서 바꾸기'; $('ordBtn').classList.remove('on'); $('upBtn').style.display='flex'; render();
+};
 
 /* ── 크게 보기 ── */
 let vDoc=null, vPage=0, vZoom=1;
@@ -434,8 +467,16 @@ $('goBtn').onclick=async()=>{
     if(editId) await db.ref(`docPages/${target}/${id}`).remove();   // 순서가 바뀌거나 쪽이 줄었으니 통째로 다시 씀
     for(let i=0;i<up.files.length;i++){ await db.ref(`docPages/${target}/${id}/${i}`).set(up.files[i]); delete pageCache[id+'/'+i]; }
     const old=editId?docs[editId]:{};
+    let order=old.order;
+    if(!editId){
+      const place=up.kind==='academy'?up.place.trim():'';
+      const prev=Object.values(docs).filter(d=>d.kind===up.kind&&(d.place||'')===place&&d.order!=null).sort((a,b)=>b.start.localeCompare(a.start))[0];
+      const all=Object.values(docs).map(d=>d.order).filter(x=>x!=null);
+      order=prev?prev.order:(all.length?Math.max(...all)+1:undefined);
+    }
     const meta={...old, title, kind:up.kind, place:up.kind==='academy'?up.place.trim():'', start:up.start, end:up.end||'', pages:up.files.length, thumb, by:old.by||uid,
                 createdAt:editId?old.createdAt:firebase.database.ServerValue.TIMESTAMP};
+    if(order!=null) meta.order=order; else delete meta.order;
     await ref.set(meta);
     docs[id]={...meta, createdAt:editId?old.createdAt:Date.now()};
     closeSheet(); renderTabs(); render(); toast(editId?'저장했어요.':'올렸어요.');
@@ -461,7 +502,7 @@ else auth.onAuthStateChanged(async user=>{
         $('kidSel').innerHTML=names.map(([k,n])=>`<option value="${k}"${k===target?' selected':''}>${esc(n)}</option>`).join('');
         $('kidSel').style.display=''; $('kidSel').onchange=e=>{ target=e.target.value; load(); };
       }
-      if(canEdit){ $('upBtn').style.display='flex'; document.querySelector('h1').textContent='자료함'; }
+      if(canEdit){ $('upBtn').style.display='flex'; $('ordBtn').style.display='flex'; document.querySelector('h1').textContent='자료함'; }
     }
     await load();
   }catch(e){ $('content').innerHTML='<div class="empty">'+esc(permMsg(e))+'</div>'; }
