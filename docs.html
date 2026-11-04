@@ -21,7 +21,7 @@ body { background:var(--bg); color:var(--ink); font-family:'Noto Sans KR',sans-s
 .header { width:100%; max-width:1100px; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
 .hbtn { width:44px; height:44px; border:1.5px solid var(--line); background:var(--card); border-radius:99px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink); flex:0 0 44px; text-decoration:none; }
 .hbtn:active { transform:scale(.95); }
-h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:28px; margin:0; flex:1; }
+h1 { font-family:'Jua',sans-serif; font-weight:400; font-size:28px; margin:0; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .svgi { width:20px; height:20px; }
 main { width:100%; max-width:1100px; }
 .tabs { display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 16px; }
@@ -54,6 +54,17 @@ main { width:100%; max-width:1100px; }
 .ordrow button:disabled { opacity:.35; cursor:default; }
 .ordrow span { min-width:32px; text-align:center; font-family:'Jua',sans-serif; font-size:19px; color:var(--accd); }
 .ordhint { font-size:13px; color:var(--sub); margin:-4px 0 12px; }
+/* 부모 버튼: 넓은 화면은 두 개, 폰(600px 이하)은 '관리 ▾' 하나로. 순서 바꾸는 중엔 '완료'만 */
+.mgrwrap { position:relative; display:none; flex:0 0 auto; }
+.mgr { display:flex; align-items:center; gap:6px; min-height:44px; padding:0 15px; border:0; border-radius:99px; background:var(--accd); color:#fff; font-family:'Jua',sans-serif; font-size:17px; cursor:pointer; }
+.mgrmenu { position:absolute; top:52px; right:0; width:210px; background:var(--card); border:1.5px solid var(--line); border-radius:16px; box-shadow:0 8px 24px rgba(16,42,67,.14); overflow:hidden; z-index:30; display:none; }
+.mgrmenu.open { display:block; }
+.mgrmenu button { width:100%; min-height:50px; display:flex; align-items:center; gap:10px; padding:0 16px; border:0; background:none; font-family:inherit; font-size:15px; font-weight:700; color:var(--ink); text-align:left; cursor:pointer; }
+.mgrmenu button + button { border-top:1px solid var(--line); }
+.canedit .ordbtn, .canedit .upbtn { display:flex; }
+@media (max-width:600px) { .canedit .ordbtn, .canedit .upbtn { display:none; } .canedit .mgrwrap { display:block; } }
+body.ordering .upbtn, body.ordering .mgrwrap { display:none !important; }
+body.ordering .ordbtn { display:flex !important; }
 .upbtn { display:none; align-items:center; gap:8px; min-height:44px; padding:0 18px; border:0; border-radius:99px; background:var(--accd); color:#fff; font-family:'Jua',sans-serif; font-size:17px; cursor:pointer; }
 .kidsel { min-height:44px; border-radius:12px; border:1.5px solid var(--line); background:var(--card); color:var(--ink); font-family:inherit; font-size:14px; padding:0 10px; }
 /* 크게 보기 */
@@ -108,6 +119,11 @@ main { width:100%; max-width:1100px; }
   <button class="hbtn" onclick="history.back()" aria-label="뒤로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
   <h1>내 자료함</h1>
   <select class="kidsel" id="kidSel" style="display:none" aria-label="아이 선택"></select>
+  <div class="mgrwrap"><button class="mgr" id="mgrBtn" aria-haspopup="menu" aria-expanded="false">관리 <svg class="svgi" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="mgrmenu" id="mgrMenu" role="menu">
+      <button role="menuitem" id="mUp"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="var(--accd)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>자료 올리기</button>
+      <button role="menuitem" id="mOrd"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="var(--accd)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 4 3 8 7 12"/><line x1="3" y1="8" x2="15" y2="8"/><polyline points="17 12 21 16 17 20"/><line x1="21" y1="16" x2="9" y2="16"/></svg>카드 순서 바꾸기</button>
+    </div></div>
   <button class="ordbtn" id="ordBtn">순서 바꾸기</button>
   <button class="upbtn" id="upBtn"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>올리기</button>
   <a href="index.html" class="hbtn" title="처음으로" aria-label="처음으로"><svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
@@ -264,7 +280,7 @@ $('ordBtn').onclick=async()=>{
     tab='all'; renderTabs();
     ordering=Object.entries(docs).map(([id,d])=>({id,...d})).filter(d=>stateOf(d)!=='past').sort(byOrder).map(d=>d.id);
     if(ordering.length<2){ ordering=null; toast('지금 볼 자료가 2개 이상일 때 바꿀 수 있어요.'); return; }
-    $('ordBtn').textContent='완료'; $('ordBtn').classList.add('on'); $('upBtn').style.display='none'; render(); return;
+    $('ordBtn').textContent='완료'; $('ordBtn').classList.add('on'); document.body.classList.add('ordering'); render(); return;
   }
   const up={}; ordering.forEach((id,i)=>{ up[`userDocs/${target}/${id}/order`]=i; });
   try{
@@ -272,7 +288,7 @@ $('ordBtn').onclick=async()=>{
     ordering.forEach((id,i)=>{ docs[id].order=i; });
     toast('순서를 저장했어요.');
   }catch(e){ toast(permMsg(e)); }
-  ordering=null; $('ordBtn').textContent='순서 바꾸기'; $('ordBtn').classList.remove('on'); $('upBtn').style.display='flex'; render();
+  ordering=null; $('ordBtn').textContent='순서 바꾸기'; $('ordBtn').classList.remove('on'); document.body.classList.remove('ordering'); render();
 };
 
 /* ── 크게 보기 ── */
@@ -406,6 +422,11 @@ $('delAll').onclick=async()=>{
 };
 function closeSheet(){ $('sheetBg').classList.remove('open'); }
 $('upBtn').onclick=openSheet; $('sClose').onclick=closeSheet;
+function mgrOpen(on){ $('mgrMenu').classList.toggle('open',on); $('mgrBtn').setAttribute('aria-expanded',on?'true':'false'); }
+$('mgrBtn').onclick=e=>{ e.stopPropagation(); mgrOpen(!$('mgrMenu').classList.contains('open')); };
+document.addEventListener('click',e=>{ if(!e.target.closest('.mgrwrap')) mgrOpen(false); });
+$('mUp').onclick=()=>{ mgrOpen(false); openSheet(); };
+$('mOrd').onclick=()=>{ mgrOpen(false); $('ordBtn').click(); };
 
 // 이미지 → JPEG (긴 변 maxPx). 캔버스로 다시 그려서 EXIF(위치정보 등)는 남지 않음
 function canvasJpeg(src, w, h, maxPx, q){
@@ -502,7 +523,7 @@ else auth.onAuthStateChanged(async user=>{
         $('kidSel').innerHTML=names.map(([k,n])=>`<option value="${k}"${k===target?' selected':''}>${esc(n)}</option>`).join('');
         $('kidSel').style.display=''; $('kidSel').onchange=e=>{ target=e.target.value; load(); };
       }
-      if(canEdit){ $('upBtn').style.display='flex'; $('ordBtn').style.display='flex'; document.querySelector('h1').textContent='자료함'; }
+      if(canEdit){ document.body.classList.add('canedit'); document.querySelector('h1').textContent='자료함'; }
     }
     await load();
   }catch(e){ $('content').innerHTML='<div class="empty">'+esc(permMsg(e))+'</div>'; }
